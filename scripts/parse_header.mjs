@@ -22,3 +22,4 @@ navs.forEach((n, idx) => {
 const buttons = [...html.matchAll(/<a[^>]*class=["'][^"']*elementor-button[^"']*["'][^>]*>([\s\S]*?)<\/a>/gi)];
 console.log('\n--- BUTTONS IN HEADER ---');
 buttons.forEach(b => console.log('Button:', b[1].replace(/<[^>]+>/g, '').trim()));
+

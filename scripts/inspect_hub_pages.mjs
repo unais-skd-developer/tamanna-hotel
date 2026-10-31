@@ -29,3 +29,4 @@ extractSections('wedding-party-venues');
 extractSections('offers');
 extractSections('gallery');
 extractSections('blogs');
+

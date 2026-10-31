@@ -51,3 +51,4 @@ for (const file of files) {
 
 fs.writeFileSync('scripts/pages_detailed_data.json', JSON.stringify(pageDetails, null, 2));
 console.log('Saved pages_detailed_data.json with all detailed page content!');
+

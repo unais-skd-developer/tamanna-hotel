@@ -13,3 +13,4 @@ export default function ShreeInnPage() {
   const hotel = HOTELS_MAP["shree-inn-by-tamanna-hotel-hinjawadi-pune"];
   return <HotelDetailView hotel={hotel} />;
 }
+

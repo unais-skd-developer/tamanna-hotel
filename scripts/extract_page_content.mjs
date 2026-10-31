@@ -58,3 +58,4 @@ for (const p of pages) {
 
 fs.writeFileSync('scripts/parsed_all_pages.json', JSON.stringify(results, null, 2));
 console.log('Saved parsed_all_pages.json');
+

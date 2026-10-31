@@ -13,3 +13,4 @@ export default function ExecutiveTamannaPage() {
   const hotel = HOTELS_MAP["executive-tamanna-hotel-hinjawadi-pune"];
   return <HotelDetailView hotel={hotel} />;
 }
+

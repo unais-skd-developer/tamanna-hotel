@@ -25,3 +25,4 @@ if (footerMatch) {
 const cssUrls = [...html.matchAll(/href=["'](https?:\/\/[^"']+\.css[^"']*)["']/gi)].map(m => m[1]);
 console.log('\n--- CSS URLs ---', cssUrls.length);
 cssUrls.forEach(u => console.log(u));
+

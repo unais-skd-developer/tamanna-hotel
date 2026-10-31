@@ -10,3 +10,4 @@ containers.forEach(c => {
   const hiddenMatch = classes.match(/elementor-hidden-[a-z]+/g);
   console.log(`Container ${id}: classes="${classes}" hidden="${hiddenMatch ? hiddenMatch.join(' ') : 'none'}"`);
 });
+

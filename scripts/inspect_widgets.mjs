@@ -18,3 +18,4 @@ while ((match = re.exec(html)) !== null) {
     console.log(`     Text: "${cleanContent}"`);
   }
 }
+

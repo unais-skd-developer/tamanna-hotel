@@ -10,3 +10,4 @@ if (headerIdx !== -1) {
   console.log('--- CONTENT AFTER </header> (first 3000 chars) ---');
   console.log(html.slice(headerIdx, headerIdx + 3000));
 }
+

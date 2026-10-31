@@ -33,3 +33,4 @@ fs.writeFileSync('scripts/extracted_images.json', JSON.stringify(imgList, null, 
 // Print first 20
 console.log('Sample images:');
 imgList.slice(0, 20).forEach(u => console.log(u));
+

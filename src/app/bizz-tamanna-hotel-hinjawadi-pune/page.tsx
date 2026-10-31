@@ -13,3 +13,4 @@ export default function BizzTamannaPage() {
   const hotel = HOTELS_MAP["bizz-tamanna-hotel-hinjawadi-pune"];
   return <HotelDetailView hotel={hotel} />;
 }
+

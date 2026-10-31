@@ -7,3 +7,4 @@ if (headerMatch) {
   fs.writeFileSync('scripts/header.html', headerMatch[0]);
   console.log('Saved header.html, length:', headerMatch[0].length);
 }
+

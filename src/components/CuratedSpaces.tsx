@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ChevronLeft, ChevronRight, MapPin, Wifi, Utensils, Star, ArrowUpRight } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 
 export interface HotelProperty {
   id: string;
@@ -60,7 +60,7 @@ export const HOTELS_DATA: HotelProperty[] = [
     slug: "executive-tamanna-hotel-hinjawadi-pune",
     name: "Executive Tamanna",
     tagline: "Effortless Comfort for Extended Corporate Stays",
-    image: "/images/gallery_executive.jpg",
+    image: "/images/extracted/curated_executive.png",
     location: "Hinjawadi Phase 2, IT Corridor, Pune",
     rating: 4.6,
     description: "Spacious apartment-style suites equipped with modern kitchenettes, high-speed leased-line internet, and attentive concierge services.",
@@ -70,9 +70,9 @@ export const HOTELS_DATA: HotelProperty[] = [
   {
     id: "shree-inn",
     slug: "shree-inn-by-tamanna-hotel-hinjawadi-pune",
-    name: "Shree Inn by Tamanna",
+    name: "Shree Inn By Tamanna",
     tagline: "Warm, Boutique Hospitality with Personalized Care",
-    image: "/images/gallery_shree.jpg",
+    image: "/images/extracted/curated_shree.png",
     location: "Hinjawadi Main Road, Hinjawadi, Pune",
     rating: 4.7,
     description: "Intimate and charming boutique accommodation celebrating authentic Indian warmth, comfortable guest rooms, and wholesome culinary offerings.",
@@ -82,14 +82,26 @@ export const HOTELS_DATA: HotelProperty[] = [
   {
     id: "imperial-tamanna",
     slug: "best-hotels-chikhali-pune",
-    name: "Imperial Tamanna",
+    name: "Imperial Tamanna Hotel",
     tagline: "Urban Elegance, Convenience & Leisure Combined",
-    image: "/images/gallery_imperial.jpg",
+    image: "/images/extracted/curated_imperial.png",
     location: "Spine Road, Chikhali, Chinchwad, Pune",
     rating: 4.8,
     description: "Sleek and polished accommodations providing travelers with prompt connectivity to Pune-Mumbai Expressway and prime industrial nodes.",
     amenities: ["Valet Parking", "Smart LED TVs", "Cocktail Lounge", "Conference Hall", "Doctor on Call"],
     startingPrice: "₹ 3,299",
+  },
+  {
+    id: "daily-baker",
+    slug: "top-cake-shop-hinjawadi-pune",
+    name: "Daily Baker",
+    tagline: "Freshly Baked Confections, Pastries & Custom Cakes",
+    image: "/images/extracted/curated_dailybaker.png",
+    location: "Hinjawadi Phase 1 & Phase 2, Pune",
+    rating: 4.9,
+    description: "Artisanal bakery and cake shop offering fresh bakes, pastries, designer cakes, and confections daily.",
+    amenities: ["Fresh Daily Baking", "Egg & Eggless Options", "Online Delivery", "Custom Theme Cakes"],
+    startingPrice: "₹ 199",
   },
 ];
 
@@ -98,100 +110,143 @@ interface CuratedSpacesProps {
 }
 
 export default function CuratedSpaces({ onSelectHotel }: CuratedSpacesProps) {
-  const [activeIndex, setActiveIndex] = useState(1); // Default to Premier Tamanna
-  const [isAutoPlaying, setIsAutoPlaying] = useState(false);
+  // Start on Bizz Tamanna (index 2) as in the user's first screenshot
+  const [activeIndex, setActiveIndex] = useState(2);
+  const touchStartX = useRef<number | null>(null);
 
   const total = HOTELS_DATA.length;
 
-  const handlePrev = () => {
+  const handlePrev = useCallback(() => {
     setActiveIndex((prev) => (prev === 0 ? total - 1 : prev - 1));
-  };
+  }, [total]);
 
-  const handleNext = () => {
+  const handleNext = useCallback(() => {
     setActiveIndex((prev) => (prev === total - 1 ? 0 : prev + 1));
+  }, [total]);
+
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "ArrowLeft") handlePrev();
+      if (e.key === "ArrowRight") handleNext();
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [handlePrev, handleNext]);
+
+  // Touch handlers
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
   };
 
-  // Auto-play interval
-  useEffect(() => {
-    if (!isAutoPlaying) return;
-    const interval = setInterval(handleNext, 5000);
-    return () => clearInterval(interval);
-  }, [isAutoPlaying, activeIndex]);
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null) return;
+    const diff = touchStartX.current - e.changedTouches[0].clientX;
+    if (diff > 50) handleNext();
+    else if (diff < -50) handlePrev();
+    touchStartX.current = null;
+  };
 
-  // Compute indices for 3D carousel
+  // Compute 3 visible slides: Prev, Active, Next
   const prevIndex = activeIndex === 0 ? total - 1 : activeIndex - 1;
   const nextIndex = activeIndex === total - 1 ? 0 : activeIndex + 1;
+
+  const prevHotel = HOTELS_DATA[prevIndex];
+  const activeHotel = HOTELS_DATA[activeIndex];
+  const nextHotel = HOTELS_DATA[nextIndex];
 
   return (
     <section
       id="curated-spaces"
-      className="relative w-full py-20 md:py-28 bg-[#07193f] text-white overflow-hidden"
+      className="relative w-full py-20 md:py-28 bg-[#001232] text-white overflow-hidden select-none"
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Concentric Ripple Background Pattern matching the user's screenshots */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden">
+        <svg
+          className="w-[1800px] h-[1800px] shrink-0 opacity-20"
+          viewBox="0 0 1000 1000"
+        >
+          {[70, 140, 210, 280, 350, 420, 490, 560, 630, 700, 770, 840, 910, 980].map((r) => (
+            <circle
+              key={r}
+              cx="500"
+              cy="500"
+              r={r}
+              fill="none"
+              stroke="#2563eb"
+              strokeWidth="1.2"
+            />
+          ))}
+        </svg>
+      </div>
+
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
         
-        {/* Header matching exact layout */}
-        <div className="text-center max-w-4xl mx-auto mb-14 md:mb-20">
+        {/* Section Header */}
+        <div className="text-center max-w-4xl mx-auto mb-12 sm:mb-16">
           <h2
-            className="font-bebas text-3xl sm:text-4xl md:text-5xl lg:text-[54px] uppercase tracking-wide leading-tight mb-4"
+            className="font-bebas text-3xl sm:text-4xl md:text-5xl lg:text-[52px] uppercase tracking-wide leading-tight mb-4"
             style={{ fontFamily: '"Bebas Neue", Sans-serif' }}
           >
             Curated Hotel Spaces{" "}
             <span className="text-[#38bdf8] font-normal">for Unforgettable Getaways</span>
           </h2>
           
-          <p className="text-slate-300 font-poppins text-sm sm:text-base md:text-[15.5px] leading-relaxed max-w-3xl mx-auto font-normal">
-            Our portfolio includes Grand Tamanna, Premier Tamanna, Bizz Tamanna, Executive Tamanna, Shree Inn by Tamanna and Imperial Tamanna Hotel each thoughtfully designed with refined rooms, state-of-the-art banquets, rooftop experiences, and exceptional dining.
+          <p className="text-slate-300 font-poppins text-xs sm:text-sm md:text-[15px] leading-relaxed max-w-3xl mx-auto font-normal">
+            Our portfolio includes Grand Tamanna, Premier Tamanna, Bizz Tamanna, Executive Tamanna, Shree Inn by Tamanna and Imperial Tamanna Hotel each thoughtfully designed to suit different travel needs. Whether you&apos;re visiting for a corporate assignment, a family celebration, or a weekend getaway, Tamanna Hotels ensures every stay is memorable.
           </p>
         </div>
 
-        {/* 3D Panel Carousel Container */}
-        <div className="relative w-full py-4 perspective-1000">
-          <div className="relative w-full h-[400px] sm:h-[460px] md:h-[530px] flex items-center justify-center transform-style-3d">
+        {/* 3D Coverflow Container */}
+        <div
+          className="relative w-full py-2"
+          style={{ perspective: "1300px" }}
+        >
+          <div
+            className="relative w-full h-[360px] sm:h-[420px] md:h-[470px] flex items-center justify-center"
+            style={{ transformStyle: "preserve-3d" }}
+          >
 
-            {/* LEFT CARD (tilted 3D inwards, dimmed) */}
+            {/* LEFT CARD (tilted 3D inwards, recessed into background) */}
             <div
               onClick={handlePrev}
               style={{
-                transform: "translateX(-48%) scale(0.85) rotateY(24deg)",
+                transform: "translateX(-52%) scale(0.86) rotateY(26deg)",
                 transformOrigin: "right center",
               }}
-              className="absolute left-[8%] sm:left-[12%] md:left-[16%] w-[75%] sm:w-[55%] md:w-[46%] h-[340px] sm:h-[400px] md:h-[460px] rounded-2xl overflow-hidden shadow-2xl cursor-pointer transition-all duration-500 ease-out z-10 select-none group"
+              className="absolute left-[6%] sm:left-[10%] md:left-[14%] w-[80%] sm:w-[58%] md:w-[42%] lg:w-[35%] h-[340px] sm:h-[400px] md:h-[450px] overflow-hidden shadow-2xl cursor-pointer transition-all duration-500 ease-out z-10 group"
             >
-              <div className="relative w-full h-full bg-slate-800">
+              <div className="relative w-full h-full bg-slate-900">
                 <Image
-                  src={HOTELS_DATA[prevIndex].image}
-                  alt={HOTELS_DATA[prevIndex].name}
+                  src={prevHotel.image}
+                  alt={prevHotel.name}
                   fill
                   className="object-cover"
                   sizes="40vw"
                 />
-                <div className="absolute inset-0 bg-black/60 group-hover:bg-black/45 transition-colors" />
 
-                {/* Left Arrow Button */}
-                <div className="absolute top-1/2 left-4 sm:left-6 -translate-y-1/2 z-20">
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handlePrev();
-                    }}
-                    className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-black/50 hover:bg-black/80 text-white flex items-center justify-center backdrop-blur-md border border-white/40 transition-transform active:scale-95 cursor-pointer shadow-lg"
-                    aria-label="Previous Hotel"
-                  >
-                    <ChevronLeft className="w-6 h-6" />
-                  </button>
+                {/* Subtle dark tint */}
+                <div className="absolute inset-0 bg-black/30 group-hover:bg-black/15 transition-colors" />
+                <div className="absolute inset-x-0 bottom-0 h-44 bg-gradient-to-t from-black/85 via-black/40 to-transparent" />
+
+                {/* Bare White Left Arrow on the inner side */}
+                <div className="absolute top-1/2 right-6 sm:right-8 -translate-y-1/2 z-20 pointer-events-none">
+                  <ArrowLeft className="w-8 h-8 sm:w-10 sm:h-10 text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] transition-transform group-hover:-translate-x-1" strokeWidth={2.5} />
                 </div>
 
-                {/* Content Overlay */}
+                {/* Card Title & View More Button */}
                 <div className="absolute bottom-6 sm:bottom-8 inset-x-0 flex flex-col items-center text-center px-4 z-20">
-                  <h3 className="text-2xl sm:text-3xl font-bold font-condensed tracking-wide text-white drop-shadow-md mb-3">
-                    {HOTELS_DATA[prevIndex].name}
+                  <h3 className="text-xl sm:text-2xl md:text-3xl font-bold font-poppins text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] mb-3">
+                    {prevHotel.name}
                   </h3>
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
-                      onSelectHotel(HOTELS_DATA[prevIndex]);
+                      onSelectHotel(prevHotel);
                     }}
-                    className="bg-white hover:bg-sky-50 text-slate-900 font-semibold text-xs sm:text-sm px-6 py-2 rounded-full shadow-lg transition-transform hover:scale-105 cursor-pointer"
+                    className="bg-[#E2E8F0] hover:bg-white text-[#1e293b] hover:text-[#0C64AB] font-semibold text-xs sm:text-sm px-6 py-2 rounded-full shadow-lg transition-all hover:scale-105 cursor-pointer font-poppins"
                   >
                     View More
                   </button>
@@ -199,107 +254,88 @@ export default function CuratedSpaces({ onSelectHotel }: CuratedSpacesProps) {
               </div>
             </div>
 
-            {/* ACTIVE CENTER CARD */}
+            {/* ACTIVE CENTER CARD (flat, front-facing, full clarity) */}
             <div
               style={{
-                transform: "translateX(0) scale(1) rotateY(0deg) translateZ(50px)",
+                transform: "translateX(0) scale(1) rotateY(0deg) translateZ(40px)",
               }}
-              className="relative w-[85%] sm:w-[62%] md:w-[50%] h-[360px] sm:h-[430px] md:h-[490px] rounded-2xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.7)] transition-all duration-500 ease-out z-30 select-none border-2 border-white/20 group"
+              className="relative w-[85%] sm:w-[60%] md:w-[45%] lg:w-[38%] h-[360px] sm:h-[420px] md:h-[470px] overflow-hidden shadow-[0_25px_60px_rgba(0,0,0,0.85)] transition-all duration-500 ease-out z-30 group"
             >
               <div className="relative w-full h-full bg-slate-900">
                 <Image
-                  src={HOTELS_DATA[activeIndex].image}
-                  alt={HOTELS_DATA[activeIndex].name}
+                  src={activeHotel.image}
+                  alt={activeHotel.name}
                   fill
                   priority
                   className="object-cover transition-transform duration-700 group-hover:scale-105"
-                  sizes="60vw"
+                  sizes="50vw"
                 />
 
-                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
+                {/* Gradient overlay at bottom for high text legibility */}
+                <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-black/85 via-black/35 to-transparent" />
 
-                {/* Top Badge */}
-                <div className="absolute top-4 left-4 sm:top-5 sm:left-5 z-20">
-                  <span className="bg-[#005d9e]/90 backdrop-blur-md text-white text-xs font-semibold px-3.5 py-1 rounded-full uppercase tracking-wider shadow">
-                    Featured Property
-                  </span>
-                </div>
-
-                {/* Price Tag */}
-                <div className="absolute top-4 right-4 sm:top-5 sm:right-5 z-20">
-                  <div className="bg-black/60 backdrop-blur-md text-white text-xs px-3 py-1 rounded-full border border-white/20">
-                    From <span className="font-bold text-sky-300">{HOTELS_DATA[activeIndex].startingPrice}</span> / night
-                  </div>
-                </div>
-
-                {/* Bottom Content & View More Button */}
+                {/* Card Title & View More Button */}
                 <div className="absolute bottom-6 sm:bottom-8 inset-x-0 flex flex-col items-center text-center px-6 z-20">
-                  <h3 className="text-3xl sm:text-4xl md:text-5xl font-bold font-condensed tracking-wide text-white drop-shadow-lg mb-4">
-                    {HOTELS_DATA[activeIndex].name}
+                  <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold font-poppins text-white drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)] mb-3">
+                    {activeHotel.name}
                   </h3>
 
                   <div className="flex items-center gap-3">
                     <button
-                      onClick={() => onSelectHotel(HOTELS_DATA[activeIndex])}
-                      className="bg-white hover:bg-sky-50 active:scale-95 text-slate-900 font-bold text-sm sm:text-base px-8 py-2.5 rounded-full shadow-2xl transition-all duration-200 hover:shadow-sky-400/20 hover:scale-105 cursor-pointer"
+                      onClick={() => onSelectHotel(activeHotel)}
+                      className="bg-white hover:bg-slate-100 text-[#0C64AB] font-semibold text-xs sm:text-sm px-7 py-2.5 rounded-full shadow-xl transition-all duration-200 hover:scale-105 cursor-pointer font-poppins"
                     >
                       View More
                     </button>
                     <Link
-                      href={`/${HOTELS_DATA[activeIndex].slug}`}
-                      className="bg-[#0c64ab] hover:bg-[#094c82] text-white font-bold text-sm sm:text-base px-6 py-2.5 rounded-full shadow-2xl transition-all duration-200 hover:scale-105"
+                      href={`/${activeHotel.slug}`}
+                      className="bg-[#0C64AB]/90 hover:bg-[#0C64AB] text-white font-semibold text-xs sm:text-sm px-5 py-2.5 rounded-full shadow-xl transition-all duration-200 hover:scale-105 font-poppins"
                     >
-                      Full Details →
+                      Details →
                     </Link>
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* RIGHT CARD */}
+            {/* RIGHT CARD (tilted 3D inwards, recessed into background) */}
             <div
               onClick={handleNext}
               style={{
-                transform: "translateX(48%) scale(0.85) rotateY(-24deg)",
+                transform: "translateX(52%) scale(0.86) rotateY(-26deg)",
                 transformOrigin: "left center",
               }}
-              className="absolute right-[8%] sm:right-[12%] md:right-[16%] w-[75%] sm:w-[55%] md:w-[46%] h-[340px] sm:h-[400px] md:h-[460px] rounded-2xl overflow-hidden shadow-2xl cursor-pointer transition-all duration-500 ease-out z-10 select-none group"
+              className="absolute right-[6%] sm:right-[10%] md:right-[14%] w-[80%] sm:w-[58%] md:w-[42%] lg:w-[35%] h-[340px] sm:h-[400px] md:h-[450px] overflow-hidden shadow-2xl cursor-pointer transition-all duration-500 ease-out z-10 group"
             >
-              <div className="relative w-full h-full bg-slate-800">
+              <div className="relative w-full h-full bg-slate-900">
                 <Image
-                  src={HOTELS_DATA[nextIndex].image}
-                  alt={HOTELS_DATA[nextIndex].name}
+                  src={nextHotel.image}
+                  alt={nextHotel.name}
                   fill
                   className="object-cover"
                   sizes="40vw"
                 />
-                <div className="absolute inset-0 bg-black/60 group-hover:bg-black/45 transition-colors" />
 
-                {/* Right Arrow Button */}
-                <div className="absolute top-1/2 right-4 sm:right-6 -translate-y-1/2 z-20">
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleNext();
-                    }}
-                    className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-black/50 hover:bg-black/80 text-white flex items-center justify-center backdrop-blur-md border border-white/40 transition-transform active:scale-95 cursor-pointer shadow-lg"
-                    aria-label="Next Hotel"
-                  >
-                    <ChevronRight className="w-6 h-6" />
-                  </button>
+                {/* Subtle dark tint */}
+                <div className="absolute inset-0 bg-black/30 group-hover:bg-black/15 transition-colors" />
+                <div className="absolute inset-x-0 bottom-0 h-44 bg-gradient-to-t from-black/85 via-black/40 to-transparent" />
+
+                {/* Bare White Right Arrow on the inner side */}
+                <div className="absolute top-1/2 left-6 sm:left-8 -translate-y-1/2 z-20 pointer-events-none">
+                  <ArrowRight className="w-8 h-8 sm:w-10 sm:h-10 text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] transition-transform group-hover:translate-x-1" strokeWidth={2.5} />
                 </div>
 
-                {/* Content Overlay */}
+                {/* Card Title & View More Button */}
                 <div className="absolute bottom-6 sm:bottom-8 inset-x-0 flex flex-col items-center text-center px-4 z-20">
-                  <h3 className="text-2xl sm:text-3xl font-bold font-condensed tracking-wide text-white drop-shadow-md mb-3">
-                    {HOTELS_DATA[nextIndex].name}
+                  <h3 className="text-xl sm:text-2xl md:text-3xl font-bold font-poppins text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] mb-3">
+                    {nextHotel.name}
                   </h3>
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
-                      onSelectHotel(HOTELS_DATA[nextIndex]);
+                      onSelectHotel(nextHotel);
                     }}
-                    className="bg-white hover:bg-sky-50 text-slate-900 font-semibold text-xs sm:text-sm px-6 py-2 rounded-full shadow-lg transition-transform hover:scale-105 cursor-pointer"
+                    className="bg-[#E2E8F0] hover:bg-white text-[#1e293b] hover:text-[#0C64AB] font-semibold text-xs sm:text-sm px-6 py-2 rounded-full shadow-lg transition-all hover:scale-105 cursor-pointer font-poppins"
                   >
                     View More
                   </button>
@@ -317,10 +353,10 @@ export default function CuratedSpaces({ onSelectHotel }: CuratedSpacesProps) {
                 onClick={() => setActiveIndex(idx)}
                 className={`transition-all duration-300 rounded-full cursor-pointer ${
                   activeIndex === idx
-                    ? "w-8 h-2.5 bg-[#38bdf8]"
-                    : "w-2.5 h-2.5 bg-white/30 hover:bg-white/60"
+                    ? "w-8 h-2 bg-[#38bdf8]"
+                    : "w-2 h-2 bg-white/30 hover:bg-white/60"
                 }`}
-                aria-label={`Go to hotel ${hotel.name}`}
+                aria-label={`Go to ${hotel.name}`}
               />
             ))}
           </div>

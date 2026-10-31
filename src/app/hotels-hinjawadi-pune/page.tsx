@@ -13,3 +13,4 @@ export default function GrandTamannaPage() {
   const hotel = HOTELS_MAP["hotels-hinjawadi-pune"];
   return <HotelDetailView hotel={hotel} />;
 }
+

@@ -26,3 +26,4 @@ for (const f of fontMatches) {
 }
 console.log('--- FONT FAMILIES ---');
 console.log(Object.entries(fontFreq).sort((a,b) => b[1] - a[1]).slice(0, 15));
+

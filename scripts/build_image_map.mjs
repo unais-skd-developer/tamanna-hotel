@@ -13,3 +13,4 @@ for (const img of siteImages) {
 
 fs.writeFileSync('scripts/image_map.json', JSON.stringify(urlMap, null, 2));
 console.log('Saved scripts/image_map.json');
+

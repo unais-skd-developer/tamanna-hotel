@@ -8,3 +8,4 @@ if (idx !== -1) {
   fs.writeFileSync('scripts/booking_bar.html', formHtml);
   console.log('Saved booking_bar.html');
 }
+

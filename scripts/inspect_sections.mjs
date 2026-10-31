@@ -15,3 +15,4 @@ console.log('Widget types:', [...new Set(widgets)]);
 const headings = [...html.matchAll(/<h[1-6][^>]*>([\s\S]*?)<\/h[1-6]>/gi)].map(m => m[1].replace(/<[^>]+>/g, '').trim()).filter(Boolean);
 console.log('\n--- HEADINGS ON HOMEPAGE ---');
 headings.forEach(h => console.log('•', h));
+

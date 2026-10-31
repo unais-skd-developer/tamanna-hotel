@@ -827,3 +827,4 @@ export const BLOGS_DATA = [
     content: "Imperial Tamanna is strategically positioned on Spine Road, providing seamless access to Pune-Mumbai Expressway and prime industrial plants. Featuring Urban Platter Restaurant and The Royal Banquets.",
   },
 ];
+

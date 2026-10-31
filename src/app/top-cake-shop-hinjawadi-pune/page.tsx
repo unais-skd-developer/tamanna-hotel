@@ -13,3 +13,4 @@ export default function DailyBakerPage() {
   const hotel = HOTELS_MAP["top-cake-shop-hinjawadi-pune"];
   return <HotelDetailView hotel={hotel} />;
 }
+

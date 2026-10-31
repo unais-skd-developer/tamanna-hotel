@@ -13,3 +13,4 @@ export default function ImperialTamannaPage() {
   const hotel = HOTELS_MAP["best-hotels-chikhali-pune"];
   return <HotelDetailView hotel={hotel} />;
 }
+

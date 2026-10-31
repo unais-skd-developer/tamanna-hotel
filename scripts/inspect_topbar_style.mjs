@@ -11,3 +11,4 @@ if (idx !== -1) {
 // Find style for b3603f5 or its parent container
 const styleMatches = [...html.matchAll(/(\.elementor-element-b3603f5[^{]*\{[^}]+\})/gi)].map(m => m[1]);
 console.log('Styles:', styleMatches);
+

@@ -11,3 +11,4 @@ for (const [name, data] of Object.entries(details)) {
     console.log('Intro text:', data.sampleParagraphs[0].slice(0, 200));
   }
 }
+

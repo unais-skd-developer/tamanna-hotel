@@ -413,3 +413,4 @@ export default function HotelDetailView({ hotel }: HotelDetailViewProps) {
     </div>
   );
 }
+

@@ -26,3 +26,4 @@ findSnippet('Daily Baker');
 findSnippet('video');
 findSnippet('banner');
 findSnippet('slider');
+

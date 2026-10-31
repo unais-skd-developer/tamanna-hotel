@@ -38,3 +38,4 @@ const hotelPages = ['grand-tamanna', 'premier-tamanna', 'bizz-tamanna', 'executi
 const allHotels = hotelPages.map(extractHotelDetails);
 fs.writeFileSync('scripts/hotels_extracted_data.json', JSON.stringify(allHotels, null, 2));
 console.log('Saved hotels_extracted_data.json');
+

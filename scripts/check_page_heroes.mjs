@@ -28,3 +28,4 @@ for (const f of files) {
 
   console.log(`${f}: video=${vidMatch ? vidMatch[1].replace(/\\\//g, '/') : 'none'} | title="${title}"`);
 }
+
