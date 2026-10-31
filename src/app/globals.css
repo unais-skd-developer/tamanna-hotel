@@ -1,26 +1,52 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+@theme {
+  --font-heading: "Bebas Neue", var(--font-bebas), sans-serif;
+  --font-nav: "Jost", var(--font-jost), sans-serif;
+  --font-sans: "Poppins", var(--font-poppins), sans-serif;
+  --color-brand-blue: #00609c;
+  --color-brand-accent: #1068a8;
+  --color-brand-heading: #4182b6;
+  --color-brand-dark: #07193f;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Poppins", var(--font-poppins), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.font-bebas,
+.font-condensed {
+  font-family: "Bebas Neue", var(--font-bebas), sans-serif !important;
+}
+
+.font-jost {
+  font-family: "Jost", var(--font-jost), sans-serif !important;
+}
+
+.font-poppins {
+  font-family: "Poppins", var(--font-poppins), sans-serif !important;
+}
+
+/* Custom 3D perspective for Curated Carousel */
+.perspective-1000 {
+  perspective: 1200px;
+}
+
+.transform-style-3d {
+  transform-style: preserve-3d;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+::-webkit-scrollbar-thumb {
+  background: #00609c;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #0b4f7e;
 }
