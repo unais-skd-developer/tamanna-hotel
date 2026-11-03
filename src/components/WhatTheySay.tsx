@@ -182,10 +182,10 @@ export default function WhatTheySay() {
   return (
     <section className="relative z-10 w-full py-16 sm:py-20 lg:py-24 bg-white overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* Top Part: WHAT THEY SAY ABOUT US */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center mb-16 md:mb-20">
-          
+
           {/* Left Text */}
           <div className="lg:col-span-5 space-y-4">
             <h2
@@ -205,7 +205,7 @@ export default function WhatTheySay() {
 
           {/* Right Blue Testimonial Slider: strictly clipped to avoid spilling */}
           <div
-            className="lg:col-span-7 overflow-hidden w-full relative"
+            className="lg:col-span-7 overflow-hidden w-full relative shadow-lg"
             onMouseEnter={() => setIsPaused(true)}
             onMouseLeave={() => setIsPaused(false)}
           >
@@ -223,7 +223,7 @@ export default function WhatTheySay() {
               {slides.map((item, idx) => (
                 <div
                   key={`${item.author}-${idx}`}
-                  className="min-w-full w-full shrink-0 bg-[#0C64AB] text-white rounded-2xl p-8 sm:p-12 lg:p-[55px] shadow-2xl flex flex-col justify-between min-h-[360px] sm:min-h-[385px] select-none"
+                  className="min-w-full w-full shrink-0 bg-[#0C64AB] text-white p-8 sm:p-12 lg:p-[55px] flex flex-col justify-between min-h-[360px] sm:min-h-[385px] select-none"
                 >
                   {/* Watermark Quote Icon */}
                   <div className="flex justify-center mb-4">
@@ -261,7 +261,7 @@ export default function WhatTheySay() {
         {/* Bottom Part: Google Reviews Carousel Widget */}
         <div className="bg-[#f6f6f6] border border-[#f6f6f6] rounded-[12px] p-6 sm:p-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-            
+
             {/* Google Overall Score Block */}
             <div className="lg:col-span-3 flex flex-col items-center justify-center text-center lg:border-r lg:border-slate-300 lg:pr-6">
               <span className="text-xl sm:text-2xl font-black text-slate-800 tracking-wider">
@@ -304,7 +304,7 @@ export default function WhatTheySay() {
 
             {/* Carousel of Reviews */}
             <div className="lg:col-span-9 relative">
-              
+
               {/* Prev Button */}
               <button
                 onClick={prevReview}
