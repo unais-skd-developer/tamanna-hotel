@@ -1,9 +1,17 @@
 "use client";
 
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import type { Swiper as SwiperType } from "swiper";
+import { EffectCoverflow, Navigation, Pagination, Autoplay } from "swiper/modules";
+
+// Swiper core & module styles
+import "swiper/css";
+import "swiper/css/effect-coverflow";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 
 export interface HotelProperty {
   id: string;
@@ -106,63 +114,23 @@ export const HOTELS_DATA: HotelProperty[] = [
 ];
 
 interface CuratedSpacesProps {
-  onSelectHotel: (hotel: HotelProperty) => void;
+  onSelectHotel?: (hotel: HotelProperty) => void;
 }
 
 export default function CuratedSpaces({ onSelectHotel }: CuratedSpacesProps) {
-  // Start on Bizz Tamanna (index 2) as in the user's first screenshot
-  const [activeIndex, setActiveIndex] = useState(2);
-  const touchStartX = useRef<number | null>(null);
+  const [mounted, setMounted] = useState(false);
+  const swiperRef = useRef<SwiperType | null>(null);
 
-  const total = HOTELS_DATA.length;
-
-  const handlePrev = useCallback(() => {
-    setActiveIndex((prev) => (prev === 0 ? total - 1 : prev - 1));
-  }, [total]);
-
-  const handleNext = useCallback(() => {
-    setActiveIndex((prev) => (prev === total - 1 ? 0 : prev + 1));
-  }, [total]);
-
-  // Keyboard navigation
   useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "ArrowLeft") handlePrev();
-      if (e.key === "ArrowRight") handleNext();
-    };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [handlePrev, handleNext]);
-
-  // Touch handlers
-  const handleTouchStart = (e: React.TouchEvent) => {
-    touchStartX.current = e.touches[0].clientX;
-  };
-
-  const handleTouchEnd = (e: React.TouchEvent) => {
-    if (touchStartX.current === null) return;
-    const diff = touchStartX.current - e.changedTouches[0].clientX;
-    if (diff > 50) handleNext();
-    else if (diff < -50) handlePrev();
-    touchStartX.current = null;
-  };
-
-  // Compute 3 visible slides: Prev, Active, Next
-  const prevIndex = activeIndex === 0 ? total - 1 : activeIndex - 1;
-  const nextIndex = activeIndex === total - 1 ? 0 : activeIndex + 1;
-
-  const prevHotel = HOTELS_DATA[prevIndex];
-  const activeHotel = HOTELS_DATA[activeIndex];
-  const nextHotel = HOTELS_DATA[nextIndex];
+    setMounted(true);
+  }, []);
 
   return (
     <section
       id="curated-spaces"
       className="relative w-full py-20 md:py-28 bg-[#001232] text-white overflow-hidden select-none"
-      onTouchStart={handleTouchStart}
-      onTouchEnd={handleTouchEnd}
     >
-      {/* Concentric Ripple Background Pattern matching the user's screenshots */}
+      {/* Concentric Ripple Background Pattern matching the authentic live site */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden">
         <svg
           className="w-[1800px] h-[1800px] shrink-0 opacity-20"
@@ -182,12 +150,12 @@ export default function CuratedSpaces({ onSelectHotel }: CuratedSpacesProps) {
         </svg>
       </div>
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
+      <div className="relative w-full mx-auto z-10">
         
         {/* Section Header */}
-        <div className="text-center max-w-4xl mx-auto mb-12 sm:mb-16">
+        <div className="text-center max-w-4xl mx-auto mb-10 sm:mb-14 px-4">
           <h2
-            className="font-bebas text-3xl sm:text-4xl md:text-5xl lg:text-[52px] uppercase tracking-wide leading-tight mb-4"
+            className="font-bebas text-3xl sm:text-4xl md:text-5xl lg:text-[54px] uppercase tracking-wide leading-tight mb-4"
             style={{ fontFamily: '"Bebas Neue", Sans-serif' }}
           >
             Curated Hotel Spaces{" "}
@@ -199,171 +167,167 @@ export default function CuratedSpaces({ onSelectHotel }: CuratedSpacesProps) {
           </p>
         </div>
 
-        {/* 3D Coverflow Container */}
-        <div
-          className="relative w-full py-2"
-          style={{ perspective: "1300px" }}
-        >
-          <div
-            className="relative w-full h-[360px] sm:h-[420px] md:h-[470px] flex items-center justify-center"
-            style={{ transformStyle: "preserve-3d" }}
-          >
-
-            {/* LEFT CARD (tilted 3D inwards, recessed into background) */}
-            <div
-              onClick={handlePrev}
-              style={{
-                transform: "translateX(-48%) scale(0.88) rotateY(28deg)",
-                transformOrigin: "right center",
-              }}
-              className="absolute left-[4%] sm:left-[8%] md:left-[12%] w-[82%] sm:w-[58%] md:w-[44%] lg:w-[38%] h-[340px] sm:h-[400px] md:h-[450px] overflow-hidden shadow-2xl cursor-pointer transition-all duration-500 ease-out z-10 group"
-            >
-              <div className="relative w-full h-full bg-slate-900">
-                <Image
-                  src={prevHotel.image}
-                  alt={prevHotel.name}
-                  fill
-                  className="object-cover"
-                  sizes="45vw"
-                />
-
-                {/* Subtle dark tint */}
-                <div className="absolute inset-0 bg-black/25 group-hover:bg-black/10 transition-colors" />
-                <div className="absolute inset-x-0 bottom-0 h-44 bg-gradient-to-t from-black/85 via-black/40 to-transparent" />
-
-                {/* Bare White Left Arrow on the card */}
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handlePrev();
-                  }}
-                  className="absolute top-1/2 right-6 sm:right-8 -translate-y-1/2 z-30 p-2 text-white hover:scale-110 transition-transform cursor-pointer"
-                  aria-label="Previous slide"
-                >
-                  <ArrowLeft className="w-8 h-8 sm:w-10 sm:h-10 text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]" strokeWidth={2.2} />
-                </button>
-
-                {/* Card Title & View More Button */}
-                <div className="absolute bottom-6 sm:bottom-8 inset-x-0 flex flex-col items-center text-center px-4 z-20">
-                  <h3 className="text-xl sm:text-2xl md:text-3xl font-bold font-poppins text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] mb-3 capitalize">
-                    {prevHotel.name}
-                  </h3>
-                  <span
-                    className="bg-white/95 text-[#0C64AB] font-medium text-xs sm:text-sm px-6 py-2.5 rounded-full shadow-lg font-poppins"
+        {/* 3D Swiper Coverflow Slider */}
+        <div className="relative w-full overflow-hidden py-4">
+          
+          {mounted ? (
+            <div className="relative w-full">
+              <Swiper
+                onSwiper={(swiper) => {
+                  swiperRef.current = swiper;
+                }}
+                effect="coverflow"
+                grabCursor={true}
+                centeredSlides={true}
+                slidesPerView="auto"
+                initialSlide={1} // Starts centered on Premier Tamanna
+                loop={true}
+                speed={600}
+                slideToClickedSlide={true}
+                autoplay={{
+                  delay: 4500,
+                  disableOnInteraction: false,
+                  pauseOnMouseEnter: true,
+                }}
+                coverflowEffect={{
+                  rotate: 45,
+                  stretch: 0,
+                  depth: 100,
+                  modifier: 1,
+                  slideShadows: true,
+                }}
+                pagination={{
+                  clickable: true,
+                  el: ".curated-swiper-pagination",
+                  bulletClass: "curated-bullet",
+                  bulletActiveClass: "curated-bullet-active",
+                }}
+                modules={[EffectCoverflow, Navigation, Pagination, Autoplay]}
+                className="w-full !overflow-visible py-6"
+              >
+                {HOTELS_DATA.map((hotel) => (
+                  <SwiperSlide
+                    key={hotel.id}
+                    className="!w-[280px] sm:!w-[360px] md:!w-[420px] lg:!w-[440px] !h-[350px] sm:!h-[410px] md:!h-[460px] relative rounded-none overflow-hidden shadow-2xl cursor-pointer group"
+                    onClick={() => {
+                      if (onSelectHotel) onSelectHotel(hotel);
+                    }}
                   >
-                    View More
-                  </span>
-                </div>
-              </div>
-            </div>
+                    <div className="relative w-full h-full bg-slate-900">
+                      <Image
+                        src={hotel.image}
+                        alt={hotel.name}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 640px) 280px, (max-width: 1024px) 380px, 440px"
+                      />
 
-            {/* ACTIVE CENTER CARD (flat, front-facing, full clarity) */}
-            <div
-              style={{
-                transform: "translateX(0) scale(1) rotateY(0deg) translateZ(40px)",
-              }}
-              className="relative w-[85%] sm:w-[62%] md:w-[46%] lg:w-[40%] h-[360px] sm:h-[420px] md:h-[470px] overflow-hidden shadow-[0_25px_60px_rgba(0,0,0,0.85)] transition-all duration-500 ease-out z-30 group"
-            >
-              <div className="relative w-full h-full bg-slate-900">
-                <Image
-                  src={activeHotel.image}
-                  alt={activeHotel.name}
-                  fill
-                  priority
-                  className="object-cover transition-transform duration-700 group-hover:scale-105"
-                  sizes="50vw"
-                />
+                      {/* Smooth dark gradient at bottom for maximum legibility */}
+                      <div className="absolute inset-x-0 bottom-0 h-44 bg-gradient-to-t from-black/90 via-black/40 to-transparent z-10 pointer-events-none" />
 
-                {/* Gradient overlay at bottom for high text legibility */}
-                <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-black/85 via-black/35 to-transparent" />
+                      {/* Slide Caption: Hotel Name & View More pill button */}
+                      <div className="absolute bottom-6 sm:bottom-8 inset-x-0 flex flex-col items-center text-center px-4 z-20">
+                        <h3
+                          className="text-xl sm:text-2xl md:text-[30px] lg:text-[32px] font-bold text-white capitalize mb-3 drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] tracking-tight font-poppins"
+                          style={{ fontFamily: '"Poppins", Sans-serif' }}
+                        >
+                          {hotel.name}
+                        </h3>
 
-                {/* Card Title & View More Button */}
-                <div className="absolute bottom-6 sm:bottom-8 inset-x-0 flex flex-col items-center text-center px-6 z-20">
-                  <h3 className="text-2xl sm:text-3xl md:text-[34px] font-bold font-poppins text-white drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)] mb-3 capitalize">
-                    {activeHotel.name}
-                  </h3>
+                        <Link
+                          href={`/${hotel.slug}`}
+                          onClick={(e) => e.stopPropagation()}
+                          className="inline-flex items-center justify-center bg-white hover:bg-[#0C64AB] text-[#0C64AB] hover:text-white font-medium text-xs sm:text-sm px-6 sm:px-7 py-2 sm:py-2.5 rounded-[50px] shadow-lg transition-all duration-300 font-poppins cursor-pointer"
+                          style={{ fontFamily: '"Poppins", Sans-serif' }}
+                        >
+                          View More
+                        </Link>
+                      </div>
+                    </div>
+                  </SwiperSlide>
+                ))}
+              </Swiper>
 
-                  <Link
-                    href={`/${activeHotel.slug}`}
-                    className="bg-white hover:bg-[#0C64AB] text-[#0C64AB] hover:text-white font-medium text-xs sm:text-sm px-7 py-2.5 rounded-[50px] shadow-xl transition-all duration-300 hover:scale-105 cursor-pointer font-poppins"
-                  >
-                    View More
-                  </Link>
-                </div>
-              </div>
-            </div>
-
-            {/* RIGHT CARD (tilted 3D inwards, recessed into background) */}
-            <div
-              onClick={handleNext}
-              style={{
-                transform: "translateX(48%) scale(0.88) rotateY(-28deg)",
-                transformOrigin: "left center",
-              }}
-              className="absolute right-[4%] sm:right-[8%] md:right-[12%] w-[82%] sm:w-[58%] md:w-[44%] lg:w-[38%] h-[340px] sm:h-[400px] md:h-[450px] overflow-hidden shadow-2xl cursor-pointer transition-all duration-500 ease-out z-10 group"
-            >
-              <div className="relative w-full h-full bg-slate-900">
-                <Image
-                  src={nextHotel.image}
-                  alt={nextHotel.name}
-                  fill
-                  className="object-cover"
-                  sizes="45vw"
-                />
-
-                {/* Subtle dark tint */}
-                <div className="absolute inset-0 bg-black/25 group-hover:bg-black/10 transition-colors" />
-                <div className="absolute inset-x-0 bottom-0 h-44 bg-gradient-to-t from-black/85 via-black/40 to-transparent" />
-
-                {/* Bare White Right Arrow on the card */}
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleNext();
-                  }}
-                  className="absolute top-1/2 left-6 sm:left-8 -translate-y-1/2 z-30 p-2 text-white hover:scale-110 transition-transform cursor-pointer"
-                  aria-label="Next slide"
-                >
-                  <ArrowRight className="w-8 h-8 sm:w-10 sm:h-10 text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]" strokeWidth={2.2} />
-                </button>
-
-                {/* Card Title & View More Button */}
-                <div className="absolute bottom-6 sm:bottom-8 inset-x-0 flex flex-col items-center text-center px-4 z-20">
-                  <h3 className="text-xl sm:text-2xl md:text-3xl font-bold font-poppins text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] mb-3 capitalize">
-                    {nextHotel.name}
-                  </h3>
-                  <span
-                    className="bg-white/95 text-[#0C64AB] font-medium text-xs sm:text-sm px-6 py-2.5 rounded-full shadow-lg font-poppins"
-                  >
-                    View More
-                  </span>
-                </div>
-              </div>
-            </div>
-
-          </div>
-
-          {/* Dots Pagination */}
-          <div className="flex justify-center items-center gap-2 mt-8">
-            {HOTELS_DATA.map((hotel, idx) => (
+              {/* Navigation Arrows positioned on the adjacent angled cards (Images 3, 4, 5) */}
               <button
-                key={hotel.id}
-                onClick={() => setActiveIndex(idx)}
-                className={`transition-all duration-300 rounded-full cursor-pointer ${
-                  activeIndex === idx
-                    ? "w-8 h-2 bg-[#38bdf8]"
-                    : "w-2 h-2 bg-white/30 hover:bg-white/60"
-                }`}
-                aria-label={`Go to ${hotel.name}`}
-              />
-            ))}
-          </div>
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  swiperRef.current?.slidePrev();
+                }}
+                className="absolute top-1/2 -translate-y-1/2 left-2 sm:left-[calc(50%-220px)] md:left-[calc(50%-250px)] lg:left-[calc(50%-270px)] z-30 p-2 text-white hover:scale-125 transition-transform cursor-pointer"
+                aria-label="Previous slide"
+              >
+                <svg
+                  className="w-8 h-8 sm:w-10 sm:h-10 text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)]"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2.4}
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                </svg>
+              </button>
+
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  swiperRef.current?.slideNext();
+                }}
+                className="absolute top-1/2 -translate-y-1/2 right-2 sm:right-[calc(50%-220px)] md:right-[calc(50%-250px)] lg:right-[calc(50%-270px)] z-30 p-2 text-white hover:scale-125 transition-transform cursor-pointer"
+                aria-label="Next slide"
+              >
+                <svg
+                  className="w-8 h-8 sm:w-10 sm:h-10 text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)]"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2.4}
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+              </button>
+            </div>
+          ) : (
+            // SSR Placeholder to prevent layout shift
+            <div className="relative w-full h-[400px] flex items-center justify-center">
+              <div className="w-[360px] md:w-[440px] h-[440px] bg-slate-800 animate-pulse rounded-none" />
+            </div>
+          )}
+
+          {/* Dynamic Bullets Pagination */}
+          <div className="curated-swiper-pagination flex justify-center items-center gap-2 mt-8 z-20" />
 
         </div>
 
       </div>
+
+      {/* Scoped CSS for Swiper 3D coverflow styling matching the live site */}
+      <style jsx global>{`
+        .curated-bullet {
+          display: inline-block;
+          width: 8px;
+          height: 8px;
+          border-radius: 9999px;
+          background-color: rgba(255, 255, 255, 0.35);
+          margin: 0 4px;
+          cursor: pointer;
+          transition: all 0.3s ease;
+        }
+        .curated-bullet-active {
+          width: 30px;
+          background-color: #38bdf8;
+          border-radius: 9999px;
+        }
+        .swiper-slide-shadow-left,
+        .swiper-slide-shadow-right {
+          background-image: linear-gradient(to right, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0)) !important;
+        }
+        .swiper-slide-shadow-right {
+          background-image: linear-gradient(to left, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0)) !important;
+        }
+      `}</style>
     </section>
   );
 }
