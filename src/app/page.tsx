@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import TopBar from "@/components/TopBar";
 import Navbar from "@/components/Navbar";
 import HeroVideo from "@/components/HeroVideo";
-import BookingBar from "@/components/BookingBar";
 import StyleJourney from "@/components/StyleJourney";
 import CuratedSpaces, { HotelProperty } from "@/components/CuratedSpaces";
 import OurGallery from "@/components/OurGallery";
@@ -40,10 +39,7 @@ export default function Home() {
       {/* 3. Hero Video Section */}
       <HeroVideo />
 
-      {/* 4. Book Your Ideal Stay in-page booking engine */}
-      <BookingBar />
-
-      {/* 5. Style Your Own Journey Section */}
+      {/* 4. Style Your Own Journey Section */}
       <StyleJourney />
 
       {/* 6. Curated Hotel Spaces (3D Card Carousel) */}
