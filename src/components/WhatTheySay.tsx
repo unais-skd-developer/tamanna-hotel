@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
+import Image from "next/image";
 import { Star, ChevronLeft, ChevronRight, CheckCircle2, Quote } from "lucide-react";
 
 interface Testimonial {
@@ -70,7 +71,10 @@ const TESTIMONIALS: Testimonial[] = [
 interface GoogleReview {
   id: string;
   name: string;
-  avatarColor: string;
+  avatar?: string;
+  initial?: string;
+  avatarBg?: string;
+  isLocalGuide?: boolean;
   time: string;
   rating: number;
   text: string;
@@ -80,31 +84,36 @@ const GOOGLE_REVIEWS: GoogleReview[] = [
   {
     id: "r1",
     name: "Kalyan Kulkarni",
-    avatarColor: "bg-[#4285F4]",
-    time: "1 week ago",
+    avatar: "/images/site/avatar_kalyan.jpg",
+    isLocalGuide: true,
+    time: "2 weeks ago",
     rating: 5,
     text: "Nice hotel in Hinjewadi ph2.",
   },
   {
     id: "r2",
     name: "Chinar Goyal",
-    avatarColor: "bg-[#EA4335]",
-    time: "1 week ago",
+    avatar: "/images/site/avatar_chinar.jpg",
+    isLocalGuide: true,
+    time: "2 weeks ago",
     rating: 5,
     text: "Food was good",
   },
   {
     id: "r3",
     name: "MANSI TYAGI",
-    avatarColor: "bg-[#FBBC05]",
-    time: "1 week ago",
+    initial: "M",
+    avatarBg: "bg-[#5c6bc0]",
+    isLocalGuide: false,
+    time: "2 weeks ago",
     rating: 5,
-    text: "Everything is very good…servicing staff everything is worth coming",
+    text: "Everything is very good...servicing staff everything is worth coming",
   },
   {
     id: "r4",
     name: "khanindra das",
-    avatarColor: "bg-[#4a148c]",
+    avatar: "/images/site/avatar_khanindra.jpg",
+    isLocalGuide: false,
     time: "2 weeks ago",
     rating: 5,
     text: "The service of breakfast is very encouraging and excellent. The service men are very very proactive and responsive all through. I wish all the best. Particularly, Mr Chandan , captain’s response, service and actions to the inmates are very very encouraging. My special thanks to him and wish him successful life in future .",
@@ -112,7 +121,8 @@ const GOOGLE_REVIEWS: GoogleReview[] = [
   {
     id: "r5",
     name: "Chandrashekhar ...",
-    avatarColor: "bg-[#00838f]",
+    avatar: "/images/site/avatar_chandrashekhar.jpg",
+    isLocalGuide: false,
     time: "2 weeks ago",
     rating: 5,
     text: "All services are good",
@@ -120,7 +130,9 @@ const GOOGLE_REVIEWS: GoogleReview[] = [
   {
     id: "r6",
     name: "Himani",
-    avatarColor: "bg-[#5c6bc0]",
+    initial: "H",
+    avatarBg: "bg-[#7b1fa2]",
+    isLocalGuide: false,
     time: "2 weeks ago",
     rating: 5,
     text: "A well maintained hotel on the main road easy approach. Medical stores, restaurants and market don't seem to be nearby.",
@@ -134,8 +146,6 @@ export default function WhatTheySay() {
   const [googleIndex, setGoogleIndex] = useState(0);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Auto slide testimonials with 1000ms animation every 5000ms
-  // Clone first item to seamlessly loop
   const total = TESTIMONIALS.length;
 
   useEffect(() => {
@@ -149,13 +159,12 @@ export default function WhatTheySay() {
     return () => clearInterval(interval);
   }, [isPaused, total]);
 
-  // Handle seamless loop when reaching cloned item
   useEffect(() => {
     if (currentIndex === total) {
       timeoutRef.current = setTimeout(() => {
         setIsTransitioning(false);
         setCurrentIndex(0);
-      }, 1000); // Wait for transition duration
+      }, 1000);
     }
     return () => {
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
@@ -176,16 +185,15 @@ export default function WhatTheySay() {
     GOOGLE_REVIEWS[(googleIndex + 2) % GOOGLE_REVIEWS.length],
   ];
 
-  // Extended array with cloned first element for smooth continuous loop
   const slides = [...TESTIMONIALS, TESTIMONIALS[0]];
 
   return (
     <section className="relative z-10 w-full pt-[70px] pb-16 lg:pb-24 bg-white overflow-hidden">
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
-
+        
         {/* Top Part: WHAT THEY SAY ABOUT US - 40% Left, 60% Right */}
         <div className="flex flex-col lg:flex-row items-center gap-5 lg:gap-8 mb-16 md:mb-20">
-
+          
           {/* Left Text: 40% width */}
           <div className="w-full lg:w-[40%] flex flex-col justify-center space-y-4 pr-0 lg:pr-4">
             <h2
@@ -203,7 +211,7 @@ export default function WhatTheySay() {
             </p>
           </div>
 
-          {/* Right Blue Testimonial Slider: 60% width, strictly clipped to avoid spilling */}
+          {/* Right Blue Testimonial Slider: 60% width */}
           <div
             className="w-full lg:w-[60%] overflow-hidden relative shadow-[0_15px_35px_-5px_rgba(0,0,0,0.18)]"
             onMouseEnter={() => setIsPaused(true)}
@@ -258,129 +266,158 @@ export default function WhatTheySay() {
 
         </div>
 
-        {/* Bottom Part: Google Reviews Carousel Widget */}
-        <div className="bg-[#f6f6f6] border border-[#f6f6f6] rounded-[12px] p-6 sm:p-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        {/* Bottom Part: Google Reviews Slider Widget (Exact match to uploaded image) */}
+        <div className="w-full flex flex-col lg:flex-row items-center gap-6 lg:gap-10 pt-4">
+          
+          {/* Google Overall Score Block */}
+          <div className="w-full lg:w-[220px] shrink-0 flex flex-col items-center justify-center text-center">
+            <span className="text-[22px] font-bold text-black tracking-wide font-sans mb-1">
+              EXCELLENT
+            </span>
 
-            {/* Google Overall Score Block */}
-            <div className="lg:col-span-3 flex flex-col items-center justify-center text-center lg:border-r lg:border-slate-300 lg:pr-6">
-              <span className="text-xl sm:text-2xl font-black text-slate-800 tracking-wider">
-                EXCELLENT
-              </span>
-
-              {/* 5 Stars with 4.4 rating */}
-              <div className="flex items-center gap-1 my-2">
-                {[...Array(4)].map((_, i) => (
-                  <Star key={i} className="w-5 h-5 fill-[#fbb701] text-[#fbb701]" />
-                ))}
-                <div className="relative">
-                  <Star className="w-5 h-5 fill-[#fbb701] text-[#fbb701]" />
+            {/* 4.4 Stars (4 full gold stars + partial 5th) */}
+            <div className="flex items-center gap-1 my-1.5">
+              {[...Array(4)].map((_, i) => (
+                <Star key={i} className="w-6 h-6 fill-[#fbb701] text-[#fbb701]" />
+              ))}
+              <div className="relative w-6 h-6">
+                <Star className="w-6 h-6 fill-[#e0e0e0] text-[#e0e0e0]" />
+                <div className="absolute inset-0 overflow-hidden w-[40%]">
+                  <Star className="w-6 h-6 fill-[#fbb701] text-[#fbb701]" />
                 </div>
               </div>
-
-              <div className="text-xs text-slate-600 mb-3 font-medium">
-                Based on <strong className="font-bold text-slate-800">10835 reviews</strong>
-              </div>
-
-              {/* Google SVG Logo */}
-              <div className="flex items-center justify-center gap-0.5 text-2xl font-bold mb-3 tracking-tight">
-                <span className="text-[#4285F4]">G</span>
-                <span className="text-[#EA4335]">o</span>
-                <span className="text-[#FBBC05]">o</span>
-                <span className="text-[#4285F4]">g</span>
-                <span className="text-[#34A853]">l</span>
-                <span className="text-[#EA4335]">e</span>
-              </div>
-
-              <a
-                href="https://search.google.com/local/writereview?placeid=ChIJVVVVVaS7wjsRpwNkwO571_g"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-[#1a73e8] hover:bg-[#1557b0] text-white text-xs font-semibold px-4 py-2 rounded-md shadow-sm transition-colors"
-              >
-                Review us on Google
-              </a>
             </div>
 
-            {/* Carousel of Reviews */}
-            <div className="lg:col-span-9 relative">
+            <div className="text-[13px] text-[#555] mb-3 font-normal">
+              Based on <strong className="font-bold text-black">10835 reviews</strong>
+            </div>
 
-              {/* Prev Button */}
-              <button
-                onClick={prevReview}
-                className="absolute -left-3 sm:-left-4 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white shadow-md border border-slate-200 text-slate-700 hover:bg-slate-100 flex items-center justify-center z-20 cursor-pointer"
-                aria-label="Previous Reviews"
-              >
-                <ChevronLeft className="w-4 h-4" />
-              </button>
+            {/* Official Google SVG Logo */}
+            <div className="relative w-[130px] h-[26px] mb-3 flex items-center justify-center">
+              <Image
+                src="/images/site/google-logo.svg"
+                alt="Google"
+                width={130}
+                height={26}
+                className="object-contain"
+              />
+            </div>
 
-              {/* Next Button */}
-              <button
-                onClick={nextReview}
-                className="absolute -right-3 sm:-right-4 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white shadow-md border border-slate-200 text-slate-700 hover:bg-slate-100 flex items-center justify-center z-20 cursor-pointer"
-                aria-label="Next Reviews"
-              >
-                <ChevronRight className="w-4 h-4" />
-              </button>
+            <a
+              href="https://search.google.com/local/writereview?placeid=ChIJVVVVVaS7wjsRpwNkwO571_g"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-[#1a73e8] hover:bg-[#1557b0] text-white text-[13px] font-medium px-4 py-2 rounded-[4px] shadow-sm transition-colors text-center font-sans inline-block"
+            >
+              Review us on Google
+            </a>
+          </div>
 
-              {/* Cards Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 px-3 sm:px-4">
-                {visibleGoogleReviews.map((rev) => (
-                  <div
-                    key={rev.id}
-                    className="bg-white rounded-xl p-5 shadow-sm border border-slate-200/90 flex flex-col justify-between h-[210px] sm:h-[220px]"
-                  >
-                    <div>
-                      {/* Author Header */}
-                      <div className="flex items-center justify-between mb-2">
-                        <div className="flex items-center gap-2.5">
-                          <div
-                            className={`w-8 h-8 rounded-full ${rev.avatarColor} text-white font-bold text-xs flex items-center justify-center shrink-0 uppercase`}
-                          >
-                            {rev.name.charAt(0)}
-                          </div>
-                          <div>
-                            <div className="text-xs font-bold text-slate-800 line-clamp-1">
-                              {rev.name}
+          {/* Carousel Container */}
+          <div className="w-full flex-1 relative">
+            
+            {/* Left Nav Arrow Button */}
+            <button
+              onClick={prevReview}
+              className="absolute -left-4 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white shadow-md border border-slate-200 text-slate-600 hover:text-black flex items-center justify-center z-20 cursor-pointer transition-all"
+              aria-label="Previous Reviews"
+            >
+              <ChevronLeft className="w-4 h-4" />
+            </button>
+
+            {/* Right Nav Arrow Button */}
+            <button
+              onClick={nextReview}
+              className="absolute -right-4 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white shadow-md border border-slate-200 text-slate-600 hover:text-black flex items-center justify-center z-20 cursor-pointer transition-all"
+              aria-label="Next Reviews"
+            >
+              <ChevronRight className="w-4 h-4" />
+            </button>
+
+            {/* 3 Review Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 px-2">
+              {visibleGoogleReviews.map((rev) => (
+                <div
+                  key={rev.id}
+                  className="bg-[#f6f6f6] border border-[#f6f6f6] rounded-[12px] p-5 flex flex-col justify-between min-h-[175px] transition-all"
+                >
+                  <div>
+                    {/* Header: Avatar, Name, Date, Google Icon */}
+                    <div className="flex items-start justify-between mb-2.5">
+                      <div className="flex items-center gap-3">
+                        {/* Avatar */}
+                        <div className="relative">
+                          {rev.avatar ? (
+                            <div className="w-10 h-10 rounded-full overflow-hidden relative">
+                              <Image
+                                src={rev.avatar}
+                                alt={rev.name}
+                                fill
+                                className="object-cover"
+                              />
                             </div>
-                            <div className="text-[11px] text-slate-400">
-                              {rev.time}
+                          ) : (
+                            <div
+                              className={`w-10 h-10 rounded-full ${rev.avatarBg || "bg-[#5c6bc0]"} text-white font-medium text-sm flex items-center justify-center uppercase`}
+                            >
+                              {rev.initial || rev.name.charAt(0)}
                             </div>
-                          </div>
+                          )}
+
+                          {/* Local Guide badge overlay if applicable */}
+                          {rev.isLocalGuide && (
+                            <div className="absolute -bottom-0.5 -right-0.5 w-4 h-4 rounded-full bg-white flex items-center justify-center shadow-xs">
+                              <span className="w-3.5 h-3.5 rounded-full bg-[#fbb701] text-[8px] text-white flex items-center justify-center font-bold">
+                                ★
+                              </span>
+                            </div>
+                          )}
                         </div>
 
-                        {/* Google tiny G icon */}
-                        <div className="w-4 h-4 rounded-full flex items-center justify-center text-[10px] font-bold text-[#4285F4]">
-                          G
+                        {/* Name & Time */}
+                        <div>
+                          <div className="text-[13.5px] font-bold text-[#202124] leading-tight">
+                            {rev.name}
+                          </div>
+                          <div className="text-[11.5px] text-[#70757a] mt-0.5">
+                            {rev.time}
+                          </div>
                         </div>
                       </div>
 
-                      {/* Stars + Verified Badge */}
-                      <div className="flex items-center gap-1 mb-2">
-                        <div className="flex text-[#fbb701]">
-                          {[...Array(rev.rating)].map((_, i) => (
-                            <Star key={i} className="w-3.5 h-3.5 fill-[#fbb701]" />
-                          ))}
-                        </div>
-                        <CheckCircle2 className="w-3.5 h-3.5 text-blue-500 fill-blue-500 text-white ml-0.5" />
+                      {/* Google G Icon */}
+                      <div className="w-5 h-5 relative shrink-0">
+                        <Image
+                          src="/images/site/Google_icon.svg"
+                          alt="Google"
+                          width={20}
+                          height={20}
+                          className="object-contain"
+                        />
                       </div>
-
-                      {/* Review Text */}
-                      <p className="text-xs text-slate-700 leading-relaxed line-clamp-4 font-poppins">
-                        {rev.text}
-                      </p>
                     </div>
 
-                    <div className="text-[11px] text-slate-400 font-medium font-poppins">
-                      Read more
+                    {/* Stars + Verified Icon */}
+                    <div className="flex items-center gap-1 mb-2">
+                      <div className="flex text-[#fbb701] gap-0.5">
+                        {[...Array(rev.rating)].map((_, i) => (
+                          <Star key={i} className="w-3.5 h-3.5 fill-[#fbb701]" />
+                        ))}
+                      </div>
+                      <CheckCircle2 className="w-3.5 h-3.5 text-[#1a73e8] fill-[#1a73e8] text-white ml-0.5" />
                     </div>
+
+                    {/* Review Body */}
+                    <p className="text-[13px] text-[#3c4043] leading-relaxed line-clamp-3 font-sans">
+                      {rev.text}
+                    </p>
                   </div>
-                ))}
-              </div>
-
+                </div>
+              ))}
             </div>
 
           </div>
+
         </div>
 
       </div>
