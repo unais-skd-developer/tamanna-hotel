@@ -180,14 +180,14 @@ export default function WhatTheySay() {
   const slides = [...TESTIMONIALS, TESTIMONIALS[0]];
 
   return (
-    <section className="relative z-10 w-full py-16 sm:py-20 lg:py-24 bg-white overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="relative z-10 w-full pt-[70px] pb-16 lg:pb-24 bg-white overflow-hidden">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
 
-        {/* Top Part: WHAT THEY SAY ABOUT US */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center mb-16 md:mb-20">
+        {/* Top Part: WHAT THEY SAY ABOUT US - 40% Left, 60% Right */}
+        <div className="flex flex-col lg:flex-row items-center gap-5 lg:gap-8 mb-16 md:mb-20">
 
-          {/* Left Text */}
-          <div className="lg:col-span-5 space-y-4">
+          {/* Left Text: 40% width */}
+          <div className="w-full lg:w-[40%] flex flex-col justify-center space-y-4 pr-0 lg:pr-4">
             <h2
               className="font-bebas text-[50px] sm:text-[65px] lg:text-[95px] leading-[0.95] tracking-[-2px] sm:tracking-[-3.8px] text-[#0C64AB91] uppercase"
               style={{ fontFamily: '"Bebas Neue", Sans-serif' }}
@@ -203,9 +203,9 @@ export default function WhatTheySay() {
             </p>
           </div>
 
-          {/* Right Blue Testimonial Slider: strictly clipped to avoid spilling */}
+          {/* Right Blue Testimonial Slider: 60% width, strictly clipped to avoid spilling */}
           <div
-            className="lg:col-span-7 overflow-hidden w-full relative shadow-lg"
+            className="w-full lg:w-[60%] overflow-hidden relative shadow-[0_15px_35px_-5px_rgba(0,0,0,0.18)]"
             onMouseEnter={() => setIsPaused(true)}
             onMouseLeave={() => setIsPaused(false)}
           >
@@ -223,21 +223,21 @@ export default function WhatTheySay() {
               {slides.map((item, idx) => (
                 <div
                   key={`${item.author}-${idx}`}
-                  className="min-w-full w-full shrink-0 bg-[#0C64AB] text-white p-8 sm:p-12 lg:p-[55px] flex flex-col justify-between min-h-[360px] sm:min-h-[385px] select-none"
+                  className="min-w-full w-full shrink-0 bg-[#0C64AB] text-white pt-[70px] pb-[70px] px-6 sm:px-10 lg:px-[50px] flex flex-col justify-between min-h-[480px] sm:min-h-[490px] select-none text-center"
                 >
                   {/* Watermark Quote Icon */}
-                  <div className="flex justify-center mb-4">
+                  <div className="flex justify-center mb-6">
                     <Quote className="w-12 h-12 text-[#E2DCDC] stroke-[1.5] fill-none" />
                   </div>
 
                   {/* Review Text Body */}
-                  <div className="text-center my-auto px-2">
-                    <p className="font-poppins text-white text-[15px] sm:text-[17px] lg:text-[18px] leading-[1.8] font-normal max-w-xl mx-auto whitespace-pre-line">
+                  <div className="my-auto px-2">
+                    <p className="font-poppins text-white text-[16px] sm:text-[18px] leading-[1.8] font-normal max-w-[540px] mx-auto whitespace-pre-line">
                       {item.text}
                     </p>
 
                     {/* 5 Stars */}
-                    <div className="flex items-center justify-center gap-1.5 my-4">
+                    <div className="flex items-center justify-center gap-1.5 mt-6 mb-2">
                       {[...Array(5)].map((_, i) => (
                         <Star key={i} className="w-4 h-4 fill-[#fec42d] text-[#fec42d]" />
                       ))}
@@ -246,7 +246,7 @@ export default function WhatTheySay() {
 
                   {/* Author Name */}
                   <div
-                    className="font-poppins font-bold text-sm sm:text-[16px] tracking-wider text-white uppercase text-center mt-2"
+                    className="font-poppins font-bold text-base sm:text-[16px] tracking-wider text-white uppercase text-center mt-6"
                     style={{ fontFamily: '"Poppins", Sans-serif' }}
                   >
                     {item.author}
