@@ -39,12 +39,12 @@ export default function Footer() {
           <div className="md:col-span-4 flex flex-col items-start space-y-3 pt-1">
             <div className="w-full">
               <h3
-                className="font-bebas text-[22px] sm:text-[25px] uppercase text-[#0C64AB] tracking-[0.5px] leading-tight"
+                className="font-bebas text-[32px] sm:text-[36px] md:text-[38px] lg:text-[40px] uppercase text-[#0C64AB] tracking-[0.5px] leading-tight"
                 style={{ fontFamily: '"Bebas Neue", Sans-serif' }}
               >
                 REACH OUT
               </h3>
-              <div className="w-12 h-[2px] bg-[#0C54A5] mt-1.5 mb-5" />
+              <div className="w-16 sm:w-20 h-[2px] bg-[#0C54A5] mt-1.5 mb-5" />
             </div>
 
             <div className="space-y-4 text-[14px] sm:text-[14.5px] text-black font-normal w-full">
@@ -104,12 +104,12 @@ export default function Footer() {
           <div className="md:col-span-4 flex flex-col items-start space-y-3 pt-1">
             <div className="w-full">
               <h3
-                className="font-bebas text-[22px] sm:text-[25px] uppercase text-[#0C64AB] tracking-[0.5px] leading-tight"
+                className="font-bebas text-[32px] sm:text-[36px] md:text-[38px] lg:text-[40px] uppercase text-[#0C64AB] tracking-[0.5px] leading-tight"
                 style={{ fontFamily: '"Bebas Neue", Sans-serif' }}
               >
                 QUICK LINKS
               </h3>
-              <div className="w-12 h-[2px] bg-[#0C54A5] mt-1.5 mb-5" />
+              <div className="w-14 sm:w-16 h-[2px] bg-[#0C54A5] mt-1.5 mb-5" />
             </div>
 
             <div className="grid grid-cols-2 gap-x-6 sm:gap-x-10 text-[14.5px] text-black w-full">
