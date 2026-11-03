@@ -152,17 +152,24 @@ export default function CuratedSpaces({ onSelectHotel }: CuratedSpacesProps) {
 
       <div className="relative w-full mx-auto z-10">
         
-        {/* Section Header */}
-        <div className="text-center max-w-4xl mx-auto mb-10 sm:mb-14 px-4">
+        {/* Section Header matching Image 2 exactly */}
+        <div className="text-center max-w-5xl mx-auto mb-10 sm:mb-14 px-4">
           <h2
-            className="font-bebas text-3xl sm:text-4xl md:text-5xl lg:text-[54px] uppercase tracking-wide leading-tight mb-4"
+            className="font-bebas uppercase leading-[0.92] mb-6 text-center select-none"
             style={{ fontFamily: '"Bebas Neue", Sans-serif' }}
           >
-            Curated Hotel Spaces{" "}
-            <span className="text-[#38bdf8] font-normal">for Unforgettable Getaways</span>
+            <span className="block text-[#FFFFFFD1] font-normal text-4xl sm:text-6xl md:text-7xl lg:text-[90px] xl:text-[95px] tracking-[-1.5px] sm:tracking-[-2.5px] md:tracking-[-3.8px]">
+              CURATED HOTEL SPACES
+            </span>
+            <span className="block text-[#0C64AB] font-normal text-4xl sm:text-6xl md:text-7xl lg:text-[90px] xl:text-[95px] tracking-[-1.5px] sm:tracking-[-2.5px] md:tracking-[-3.8px] mt-1 sm:mt-2">
+              FOR UNFORGETTABLE GETAWAYS
+            </span>
           </h2>
           
-          <p className="text-slate-300 font-poppins text-xs sm:text-sm md:text-[15px] leading-relaxed max-w-3xl mx-auto font-normal">
+          <p
+            className="font-poppins text-sm sm:text-[15px] md:text-[16px] leading-relaxed text-[#F5EBEB] max-w-[850px] mx-auto font-normal"
+            style={{ fontFamily: '"Poppins", Sans-serif' }}
+          >
             Our portfolio includes Grand Tamanna, Premier Tamanna, Bizz Tamanna, Executive Tamanna, Shree Inn by Tamanna and Imperial Tamanna Hotel each thoughtfully designed to suit different travel needs. Whether you&apos;re visiting for a corporate assignment, a family celebration, or a weekend getaway, Tamanna Hotels ensures every stay is memorable.
           </p>
         </div>
