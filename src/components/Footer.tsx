@@ -8,31 +8,32 @@ import { Phone, Mail, Smartphone, Globe } from "lucide-react";
 export default function Footer() {
   return (
     <footer id="footer" className="w-full bg-white text-black font-poppins pt-16 sm:pt-20">
-      <div className="max-w-[1300px] mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Boxed container matching the exact 1140px/1160px width in screenshot */}
+      <div className="max-w-[1160px] mx-auto px-4 sm:px-6">
         
-        {/* Top Section: Logo (Left) + REACH OUT (Middle) + QUICK LINKS (Right) */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 pb-12">
+        {/* Top Section: Logo (Left) + REACH OUT (Middle) + QUICK LINKS (Right) with generous spacing */}
+        <div className="flex flex-col lg:flex-row justify-between gap-10 lg:gap-16 xl:gap-20 pb-14">
           
-          {/* Column 1: Logo & Tagline (4 cols) */}
-          <div className="md:col-span-4 space-y-5">
+          {/* Column 1: Logo & Tagline (approx 28% width) */}
+          <div className="w-full lg:w-[28%] shrink-0 space-y-5">
             <Link href="/" className="inline-block">
-              <div className="relative w-48 sm:w-56 h-18 sm:h-22">
+              <div className="relative w-48 sm:w-52 h-18 sm:h-20">
                 <Image
                   src="/images/site/logo.png"
                   alt="Tamanna Hotels Logo"
-                  width={210}
-                  height={80}
+                  width={200}
+                  height={75}
                   className="object-contain object-left"
                 />
               </div>
             </Link>
-            <p className="text-[13.5px] sm:text-[14px] text-black leading-relaxed max-w-[290px] font-normal">
+            <p className="text-[13.5px] sm:text-[14px] text-black leading-relaxed max-w-[270px] font-normal">
               Tamanna Hotel Offers Premium Stays, Modern Comforts, Elegant Dining, And Personalized Service For Every Guest.
             </p>
           </div>
 
-          {/* Column 2: REACH OUT (4 cols) */}
-          <div className="md:col-span-4 space-y-3">
+          {/* Column 2: REACH OUT (approx 28% width) */}
+          <div className="w-full lg:w-[28%] shrink-0 space-y-3">
             <div>
               <h3
                 className="font-bebas text-[22px] sm:text-[24px] uppercase text-[#0C64AB] tracking-[0.5px]"
@@ -40,7 +41,7 @@ export default function Footer() {
               >
                 REACH OUT
               </h3>
-              <div className="w-12 h-[2px] bg-[#0C54A5] mt-1 mb-4" />
+              <div className="w-[110px] h-[2px] bg-[#0C54A5] mt-1 mb-5" />
             </div>
 
             <div className="space-y-4 text-[14px] sm:text-[14.5px] text-black font-normal">
@@ -96,8 +97,8 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Column 3: QUICK LINKS (4 cols) */}
-          <div className="md:col-span-4 space-y-3">
+          {/* Column 3: QUICK LINKS (approx 44% width with 2 columns) */}
+          <div className="w-full lg:w-[44%] shrink-0 space-y-3">
             <div>
               <h3
                 className="font-bebas text-[22px] sm:text-[24px] uppercase text-[#0C64AB] tracking-[0.5px]"
@@ -105,10 +106,10 @@ export default function Footer() {
               >
                 QUICK LINKS
               </h3>
-              <div className="w-12 h-[2px] bg-[#0C54A5] mt-1 mb-4" />
+              <div className="w-[110px] h-[2px] bg-[#0C54A5] mt-1 mb-5" />
             </div>
 
-            <div className="grid grid-cols-2 gap-x-6 sm:gap-x-10 text-[14.5px] text-black">
+            <div className="grid grid-cols-2 gap-x-12 sm:gap-x-16 text-[14.5px] text-black">
               {/* Left Sub-Column */}
               <div className="space-y-3.5">
                 <div>
@@ -173,8 +174,8 @@ export default function Footer() {
         </div>
 
         {/* Middle Section: Direct Booking Lines */}
-        <div className="border-t border-[#d1d5db] border-b border-[#0C64AB] py-6">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-[14px] sm:text-[14.5px] text-black">
+        <div className="border-t border-[#e2e8f0] border-b border-[#0C64AB] py-7">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12 text-[14px] sm:text-[14.5px] text-black">
             
             {/* Box 1: Hotel Rooms */}
             <div className="flex items-start gap-2.5">
@@ -214,7 +215,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom Section: Copyright in Blue & Circle Social Icons */}
-        <div className="py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="py-7 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="text-[14px] sm:text-[15px] text-[#0C64AB] font-normal">
             Copyright © 2026 Tamanna Hotels | Powered By Shree Krishna Digital Marketing
           </div>
