@@ -6,11 +6,127 @@ import Link from "next/link";
 import TopBar from "@/components/TopBar";
 import Navbar from "@/components/Navbar";
 import PageHeader from "@/components/PageHeader";
-import PreFooterContact from "@/components/PreFooterContact";
 import Footer from "@/components/Footer";
 import BookingModal from "@/components/BookingModal";
-import { RESTAURANTS_DATA } from "@/data/siteData";
-import { Utensils, Clock, Users, CheckCircle2, ArrowRight } from "lucide-react";
+import { Utensils, Users, MapPin, Building2 } from "lucide-react";
+
+interface RestaurantCardData {
+  hotelTag: string;
+  nameLight: string;
+  nameBold: string;
+  image: string;
+  description: string;
+  cuisine: string;
+  capacity: string;
+  address: string;
+  viewMoreUrl: string;
+  mapUrl?: string;
+  orderUrl?: string;
+}
+
+const RESTAURANT_CARDS: RestaurantCardData[] = [
+  {
+    hotelTag: "Grand Tamanna Hotel",
+    nameLight: "AROUND THE WORLD",
+    nameBold: "MULTI CUISINE RESTAURANT",
+    image: "/images/site/grand-restaurant2-scaled.avif",
+    description:
+      "In our elegant multi-cuisine restaurant & bar, savor culinary masterpieces from around the world.",
+    cuisine: "Cuisine Type: Multi Cuisine",
+    capacity: "Capacity 110 Persons",
+    address:
+      "PLOT NO.16, Hinjawadi Phase II, Hinjawadi Rajiv Gandhi Infotech Park, Hinjawadi, Pune, Pimpri-Chinchwad, Maharashtra 411057",
+    viewMoreUrl: "/hotels-hinjawadi-pune",
+    mapUrl: "https://maps.app.goo.gl/mRwbrjBT4jWd1MCQ6?g_st=ipc",
+    orderUrl: "https://grand.tamannahotels.com/",
+  },
+  {
+    hotelTag: "Grand Tamanna Hotel",
+    nameLight: "NIRVANA",
+    nameBold: "LOUNGE BAR",
+    image: "/images/site/Nirvana-3-scaled.jpg",
+    description:
+      "In the center of the Grand Tamanna Hotel, elegance and entertainment come together.",
+    cuisine: "Located in Grand Tamanna Hotel",
+    capacity: "Capacity 150 Persons",
+    address:
+      "PLOT NO.16, Hinjawadi Phase II, Hinjawadi Rajiv Gandhi Infotech Park, Hinjawadi, Pune, Pimpri-Chinchwad, Maharashtra 411057",
+    viewMoreUrl: "/hotels-hinjawadi-pune",
+    mapUrl: "https://maps.app.goo.gl/YvfSNQCSkzSiKDwQ6?g_st=ipc",
+  },
+  {
+    hotelTag: "Premier Tamanna Hotel",
+    nameLight: "MULTI CUISINE",
+    nameBold: "RESTAURANT",
+    image: "/images/site/Premier-restaurant2.webp",
+    description:
+      "Top location for fine dining. Perfect for birthday celebrations, these get-togethers come with a full music system.",
+    cuisine: "Multi Cuisine Restaurant & Bar",
+    capacity: "Capacity 100 Persons",
+    address:
+      "3, S.No.21 Plot No.2, Phase 1, Hinjawadi Rajiv Gandhi Infotech Park, Hinjawadi, Pune, Pimpri-Chinchwad, Maharashtra 411057",
+    viewMoreUrl: "/premier-tamanna-hotel-hinjawadi-pune",
+    orderUrl: "https://orders.tamannahotels.com/",
+  },
+  {
+    hotelTag: "Bizz Tamanna Hotel",
+    nameLight: "TALK ABOUT MULTI CUISINE",
+    nameBold: "RESTAURANT AND BAR",
+    image: "/images/site/Restaurant-1st-Floor1-1-scaled.jpg",
+    description:
+      "Authentic cuisine, friendly service, a sophisticated setting, and passionately prepared, outstanding dining experiences are what Bizz Tamanna Restaurant offers its patrons.",
+    cuisine: "Multi Cuisine Restaurant & Bar",
+    capacity: "Capacity 110 Persons",
+    address:
+      "Plot No.10 Opp. Infosys, Phase 1, Hinjawadi Rajiv Gandhi Infotech Park, Hinjawadi, Pune, Maharashtra 411057",
+    viewMoreUrl: "/bizz-tamanna-hotel-hinjawadi-pune",
+  },
+  {
+    hotelTag: "Executive Tamanna Hotel",
+    nameLight: "MULTI CUISINE",
+    nameBold: "RESTAURANT AND BAR",
+    image: "/images/site/MultiCuisine-Restaurant-3-scaled.jpg",
+    description:
+      "Celebrate in elegance at the Executive Tamanna Hotel, which is ideal for birthday parties and get-togethers.",
+    cuisine: "Multi Cuisine Restaurant & Bar",
+    capacity: "Capacity 110 Persons",
+    address:
+      "Plot No. 7, Executive Tamanna Hotel, Phase 1, Hinjawadi Rajiv Gandhi Infotech Park, Hinjawadi, Pune, Pimpri-Chinchwad, Maharashtra 411057",
+    viewMoreUrl: "/executive-tamanna-hotel-hinjawadi-pune",
+    mapUrl:
+      "https://www.google.com/maps/place/Tamanna+Multi+Cuisine+Restaurant+%26+Bar/@18.5857524,73.7324007,17z",
+    orderUrl: "https://orders.tamannahotels.com/",
+  },
+  {
+    hotelTag: "Executive Tamanna Hotel",
+    nameLight: "SOUTH INDIAN",
+    nameBold: "CUISINE CAFETERIA",
+    image: "/images/site/56.jpg",
+    description:
+      "The cafeteria at Executive Tamanna Hotel offers a cozy setting with a range of south Indian and continental snacks, perfect for quick bites or casual meetings.",
+    cuisine: "South Indian snacks & cafe",
+    capacity: "Capacity 50 Persons",
+    address:
+      "Plot No. 7, Executive Tamanna Hotel, Phase 1, Hinjawadi Rajiv Gandhi Infotech Park, Hinjawadi, Pune, Pimpri-Chinchwad, Maharashtra 411057",
+    viewMoreUrl: "/executive-tamanna-hotel-hinjawadi-pune",
+    mapUrl:
+      "https://www.google.com/maps/place/Tamanna+Cafeteria/@18.5857518,73.7324152,17z",
+  },
+  {
+    hotelTag: "Imperial Tamanna Hotel",
+    nameLight: "URBAN PLATTER",
+    nameBold: "MULTI CUISINE RESTAURANT",
+    image: "/images/site/ITH-032.webp",
+    description:
+      "Urban Platter is a stylish multi-cuisine restaurant and bar with a seating capacity of 80 guests, serving a wide range of Indian and international flavours in a warm and contemporary setting, perfect for every occasion.",
+    cuisine: "Restaurant and Bar",
+    capacity: "Capacity 80 Persons",
+    address:
+      "Diagonal Business Centre, Plot No - 1, Sector 16, Ayush Garden, Raje Shivaji Nagar, Chikhali, Pimpri-Chinchwad, Maharashtra 411019",
+    viewMoreUrl: "/best-hotels-chikhali-pune",
+    mapUrl: "https://maps.app.goo.gl/eCeapCu1RaU9EtbU6",
+  },
+];
 
 export default function RestaurantsPage() {
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
@@ -20,97 +136,132 @@ export default function RestaurantsPage() {
       <TopBar />
       <Navbar onOpenBooking={() => setIsBookingModalOpen(true)} />
 
+      {/* Page Hero Banner */}
       <PageHeader
-        title="Restaurants"
-        subtitle="Savor a world of authentic flavors, upscale lounge bars, and artisan pastries in Hinjawadi Pune."
-        breadcrumbs={[{ label: "Home", href: "/" }]}
-        bgImage="/images/gallery_dining.jpg"
+        title="RESTAURANTS"
+        bgImage="/images/site/Nirvana-2-1-scaled.jpg"
+        showBreadcrumbs={false}
+        align="bottom"
+        minHeight="h-[60vh] sm:h-[65vh] md:h-[70vh] min-h-[420px]"
+        overlayClassName="bg-black/35"
+        titleClassName="text-5xl sm:text-7xl md:text-8xl lg:text-[95px] font-bebas uppercase tracking-[1px] text-white leading-none drop-shadow-sm select-none"
       />
 
-      <section className="py-16 md:py-24 bg-slate-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <span className="text-[#0c64ab] text-xs sm:text-sm font-semibold uppercase tracking-widest block font-jost mb-2">
-              CULINARY EXCELLENCE
-            </span>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bebas uppercase tracking-wide text-slate-800">
-              Restaurants & Bars In Pune
-            </h2>
-            <p className="text-slate-600 font-poppins text-sm sm:text-base mt-3">
-              Dining is an essential part of every travel experience, and at Tamanna Hotels, we make it unforgettable. Our restaurants are designed to delight food lovers with taste, ambiance, and impeccable service.
-            </p>
-          </div>
+      {/* Restaurant Cards Section matching live Elementor layout */}
+      <section className="py-12 sm:py-16 md:py-20 bg-white">
+        <div className="max-w-[1300px] mx-auto px-4 sm:px-6 lg:px-8 space-y-12 sm:space-y-16 lg:space-y-20">
+          {RESTAURANT_CARDS.map((rest, idx) => (
+            <div
+              key={idx}
+              className="w-full flex flex-col lg:flex-row items-stretch min-h-[380px] sm:min-h-[440px] lg:min-h-[520px]"
+            >
+              {/* Left Column: Full-Height Dining Photo */}
+              <div className="w-full lg:w-1/2 relative min-h-[320px] sm:min-h-[380px] lg:min-h-[520px] overflow-hidden">
+                <Image
+                  src={rest.image}
+                  alt={`${rest.nameLight} ${rest.nameBold}`}
+                  fill
+                  priority={idx < 2}
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                />
+              </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {RESTAURANTS_DATA.map((rest, idx) => (
-              <div
-                key={idx}
-                className="bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-md hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
-              >
-                <div>
-                  <div className="relative h-56 w-full">
-                    <Image
-                      src={rest.image}
-                      alt={rest.name}
-                      fill
-                      className="object-cover"
-                    />
-                    <div className="absolute top-3 left-3 bg-black/70 backdrop-blur-sm text-white px-3 py-1 rounded-full text-xs font-semibold">
-                      {rest.hotel}
+              {/* Right Column: Outer #EDEDF7C9 Frame + Overlapping White Card */}
+              <div className="w-full lg:w-1/2 bg-[#EDEDF7C9] flex items-stretch p-3 sm:p-5 lg:py-6 lg:pr-6 lg:pl-0">
+                <div className="w-full bg-white p-6 sm:p-8 lg:p-9 lg:-ml-5 relative z-10 shadow-sm flex flex-col justify-between">
+                  <div>
+                    {/* Hotel Tag */}
+                    <div className="flex items-center gap-1.5 text-xs text-[#0C64AB] font-medium font-poppins mb-2">
+                      <Building2 className="w-3.5 h-3.5 text-[#0C64AB]" />
+                      <span>{rest.hotelTag}</span>
                     </div>
-                  </div>
 
-                  <div className="p-6">
-                    <h3 className="text-xl sm:text-2xl font-bebas uppercase tracking-wide text-[#0c64ab] mb-2">
-                      {rest.name}
-                    </h3>
-                    
-                    <p className="text-slate-600 font-poppins text-xs sm:text-sm leading-relaxed mb-4">
+                    {/* Two-tone Title */}
+                    <h2
+                      className="font-bebas text-2xl sm:text-3xl lg:text-[34px] leading-tight tracking-[1px] uppercase mb-3 select-none"
+                      style={{ fontFamily: '"Bebas Neue", Sans-serif' }}
+                    >
+                      <span style={{ color: "#0C64AB91", fontWeight: 400 }}>
+                        {rest.nameLight}{" "}
+                      </span>
+                      <span style={{ color: "#0C64AB", fontWeight: 500 }}>
+                        {rest.nameBold}
+                      </span>
+                    </h2>
+
+                    {/* Description Paragraph */}
+                    <p className="font-poppins text-xs sm:text-[13px] leading-relaxed text-slate-600 mb-5">
                       {rest.description}
                     </p>
 
-                    <div className="space-y-1.5 text-xs text-slate-500 font-jost pt-3 border-t border-slate-100">
+                    {/* Cuisine & Capacity Info Pills */}
+                    <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-xs sm:text-[13px] text-slate-700 font-poppins mb-4">
                       <div className="flex items-center gap-2">
-                        <Clock className="w-3.5 h-3.5 text-[#0c64ab]" />
-                        <span>Timings: {rest.timing}</span>
+                        <Utensils className="w-4 h-4 text-[#0C64AB] shrink-0" />
+                        <span>{rest.cuisine}</span>
                       </div>
                       <div className="flex items-center gap-2">
-                        <Users className="w-3.5 h-3.5 text-[#0c64ab]" />
-                        <span>Capacity: {rest.capacity}</span>
+                        <Users className="w-4 h-4 text-[#0C64AB] shrink-0" />
+                        <span>{rest.capacity}</span>
                       </div>
                     </div>
 
-                    <div className="pt-4 mt-4 border-t border-slate-100">
-                      <div className="grid grid-cols-1 gap-1 text-xs text-slate-700">
-                        {rest.highlights.map((h, hIdx) => (
-                          <div key={hIdx} className="flex items-center gap-1.5">
-                            <CheckCircle2 className="w-3 h-3 text-emerald-600 shrink-0" />
-                            <span className="truncate">{h}</span>
-                          </div>
-                        ))}
+                    {/* Address with MapPin */}
+                    <div className="flex items-start gap-2 text-slate-600 font-poppins text-xs sm:text-[12.5px] leading-snug">
+                      <MapPin className="w-4 h-4 text-[#0C64AB] shrink-0 mt-0.5" />
+                      <span>{rest.address}</span>
+                    </div>
+                  </div>
+
+                  <div>
+                    {/* Divider */}
+                    <div className="border-t border-[#E0DDDD] my-4 sm:my-5" />
+
+                    {/* Action Buttons Row */}
+                    <div className="flex items-center justify-between gap-3 pt-1">
+                      <div className="flex items-center gap-6">
+                        <Link
+                          href={rest.viewMoreUrl}
+                          className="font-bebas text-[18px] text-[#0C64AB] hover:text-[#084572] underline tracking-[0.8px] uppercase font-medium"
+                          style={{ fontFamily: '"Bebas Neue", Sans-serif' }}
+                        >
+                          VIEW MORE
+                        </Link>
+
+                        {rest.mapUrl && (
+                          <a
+                            href={rest.mapUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="font-bebas text-[18px] text-[#0C64AB] hover:text-[#084572] underline tracking-[0.8px] uppercase font-medium"
+                            style={{ fontFamily: '"Bebas Neue", Sans-serif' }}
+                          >
+                            VIEW MAP
+                          </a>
+                        )}
                       </div>
+
+                      {rest.orderUrl && (
+                        <a
+                          href={rest.orderUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="border-2 border-[#0C64AB] text-[#0C64AB] hover:bg-[#0C64AB] hover:text-white rounded-full px-5 sm:px-6 py-2 font-bebas text-[17px] sm:text-[18px] tracking-[0.8px] uppercase font-medium transition-colors duration-200 shrink-0"
+                          style={{ fontFamily: '"Bebas Neue", Sans-serif' }}
+                        >
+                          LET&apos;S GET ORDERING
+                        </a>
+                      )}
                     </div>
                   </div>
                 </div>
-
-                <div className="p-6 pt-0">
-                  <Link
-                    href={`/${rest.slug}`}
-                    className="w-full py-2.5 bg-slate-100 hover:bg-[#0c64ab] hover:text-white text-slate-800 font-bebas text-base tracking-wider rounded-xl transition-colors flex items-center justify-center gap-1.5 uppercase cursor-pointer"
-                  >
-                    <span>View Venue</span>
-                    <ArrowRight className="w-4 h-4" />
-                  </Link>
-                </div>
               </div>
-            ))}
-          </div>
-
+            </div>
+          ))}
         </div>
       </section>
 
-      <PreFooterContact />
       <Footer />
 
       <BookingModal
@@ -120,4 +271,3 @@ export default function RestaurantsPage() {
     </div>
   );
 }
-
