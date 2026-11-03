@@ -1,29 +1,69 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Star, ChevronLeft, ChevronRight, CheckCircle2, Quote } from "lucide-react";
 
 interface Testimonial {
-  name: string;
+  author: string;
   text: string;
-  rating: number;
 }
 
 const TESTIMONIALS: Testimonial[] = [
   {
-    name: "Mahesh Godbole",
-    rating: 5,
-    text: "This is one of the best hotel in Hinjewadi. I had atleast 20/30 odd parties in their different hotels since 2006. The owner Mr. Shetty is very humble and helpful. In last week I met him after long time but still he was the same, which I really like.\n\nNow coming to grand tamanna, it has awesome restaurant, great rooms and mainly good big party halls. The location is the best just next to Infosys phase2 circle.",
+    author: "Mahesh Godbole",
+    text: "This is one of the best hotel in Hinjewadi. I had atleast 20/30 odd parties in their different hotels since 2006. The owner Mr. Shetty is very humble and helpful. In last week I met him after long time but still he was the same, which I really like.\nNow coming to grand tamanna, it has awesome restaurant, great rooms and mainly good big party halls.\nThe location is the best just next to Infosys phase2 circle.",
   },
   {
-    name: "karthiga meenu",
-    rating: 5,
+    author: "karthiga meenu",
     text: "We celebrated our daughter’s birthday at Grand Tamanna.. had a wonderful experience, ambience, food, arrangements every thing was awesome. Fully satisfied",
   },
   {
-    name: "shweta gajalkar",
-    rating: 5,
+    author: "shweta gajalkar",
     text: "Grand Tammana’s experience was really great. We had 2 functions over there and service was good and food was really taste. All the staff was helpful and polite.",
+  },
+  {
+    author: "Prashant Raizada",
+    text: "Had been using Hotel Grand Tamanna for various purposes and have been satisfied everytime due to services provided with qualities maintained. Other than only being a bit far from city, this gem hidden deep inside Hinjewadi is perfect place for stay and family functions. Did my kid's first birthday recently. From the booking, arrangements, function, food, time flexibility, staff to closure everything has been smooth and everyone has been courteous.\nSpecial thanks to Mr. Sadanand Shetty who led the booking negotiation and arrangements and helped us in ensuring better stay and memorable family function.",
+  },
+  {
+    author: "Khadija Tasneem",
+    text: "The food in the resturant is very tasty & the hospitality of the staff is really very nice & helpful🥰 had a peaceful n wonderful stay after a tiring day of work☺️ thank you Tamana Hotel for a pleasant stay 😊",
+  },
+  {
+    author: "Mohamed Javith",
+    text: "Premier Tamanna Hotel in Pune is a great choice for business trips. Located in Hinjawadi near major IT hubs, it offers clean, comfortable rooms with good Wi-Fi, work desks, and friendly service. The on-site restaurant serves quality food, and the staff is professional and helpful. Ideal for a hassle-free business stay.",
+  },
+  {
+    author: "Vishal Pardeshi",
+    text: "Stayed at Hotel Premier Tamanna and had a great experience!\nThe rooms were clean and comfortable, and the staff was friendly. Breakfast was tasty with good variety.",
+  },
+  {
+    author: "Abhay Ugle",
+    text: "We sincerely appreciate the outstanding food, impeccable service, top-notch amenities and unwavering support by your team during our wedding ceremony. Your dedication made our special day truly memorable and seamless.",
+  },
+  {
+    author: "mahak barjatiya",
+    text: "I truly appreciate the excellent quality of the room and the top-notch service. The breakfast team was incredibly warm, polite, and friendly—they treated us to a generous spread of delicious items.\n\nA special shoutout to Raj Pawar for his outstanding hospitality. As long as he's at the helm, young guests like us are bound to have a delightful and memorable stay.",
+  },
+  {
+    author: "Naveen Shriyan",
+    text: "This is one of the best place to stay. Great room awesome food and great people. Had a very comfortable time here and it’s very comfortable for couples. Eager to come back again. Thanks for the awesome experience\nA special shoutout to Raj Pawar for his outstanding hospitality. As long as he's at the helm, young guests like us are bound to have a delightful and memorable stay.",
+  },
+  {
+    author: "Sweta Banerjee",
+    text: "The food is amazing and we have been visiting this place since the last 10 years. The service and the attendants are always smiling and well behaved. Value for money. 😊",
+  },
+  {
+    author: "ARUN RAVEENDRAN",
+    text: "The food was good. Food was warm.. varieties were available. Staff was friendly and helpful",
+  },
+  {
+    author: "Viraj Tambekar",
+    text: "The hotel is at good location near to all major IT companies. Rooms are cleaned and multiple options in breakfast and the good one. Recommended to stay here..",
+  },
+  {
+    author: "Pusker Mohan",
+    text: "Awesome service....awesome staffs....Awesome food....Really recommendable....\nThe hotel managers Vikram and Akram both are very nice , prompt and very happy with the services they provided....If you are in Hinjewadi, I would like to recommend this hotel.....Very clean and spacious rooms....Very nice staffs.....I stayed for corporate stay for around 20 days and I liked all the services.",
   },
 ];
 
@@ -88,16 +128,39 @@ const GOOGLE_REVIEWS: GoogleReview[] = [
 ];
 
 export default function WhatTheySay() {
-  const [activeTestimonial, setActiveTestimonial] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(true);
+  const [isPaused, setIsPaused] = useState(false);
   const [googleIndex, setGoogleIndex] = useState(0);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Auto rotate testimonials
+  // Auto slide testimonials with 1000ms animation every 5000ms
+  // Clone first item to seamlessly loop
+  const total = TESTIMONIALS.length;
+
   useEffect(() => {
-    const timer = setInterval(() => {
-      setActiveTestimonial((prev) => (prev + 1) % TESTIMONIALS.length);
-    }, 6000);
-    return () => clearInterval(timer);
-  }, []);
+    if (isPaused) return;
+
+    const interval = setInterval(() => {
+      setIsTransitioning(true);
+      setCurrentIndex((prev) => prev + 1);
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [isPaused, total]);
+
+  // Handle seamless loop when reaching cloned item
+  useEffect(() => {
+    if (currentIndex === total) {
+      timeoutRef.current = setTimeout(() => {
+        setIsTransitioning(false);
+        setCurrentIndex(0);
+      }, 1000); // Wait for transition duration
+    }
+    return () => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    };
+  }, [currentIndex, total]);
 
   const prevReview = () => {
     setGoogleIndex((prev) => (prev === 0 ? GOOGLE_REVIEWS.length - 3 : prev - 1));
@@ -107,13 +170,14 @@ export default function WhatTheySay() {
     setGoogleIndex((prev) => (prev >= GOOGLE_REVIEWS.length - 3 ? 0 : prev + 1));
   };
 
-  const currentT = TESTIMONIALS[activeTestimonial];
-
   const visibleGoogleReviews = [
     GOOGLE_REVIEWS[googleIndex % GOOGLE_REVIEWS.length],
     GOOGLE_REVIEWS[(googleIndex + 1) % GOOGLE_REVIEWS.length],
     GOOGLE_REVIEWS[(googleIndex + 2) % GOOGLE_REVIEWS.length],
   ];
+
+  // Extended array with cloned first element for smooth continuous loop
+  const slides = [...TESTIMONIALS, TESTIMONIALS[0]];
 
   return (
     <section className="relative z-10 w-full py-16 sm:py-20 lg:py-24 bg-white overflow-hidden">
@@ -139,48 +203,56 @@ export default function WhatTheySay() {
             </p>
           </div>
 
-          {/* Right Blue Testimonial Card */}
-          <div className="lg:col-span-7">
-            <div className="bg-[#0C64AB] text-white rounded-2xl p-8 sm:p-12 lg:p-[60px] shadow-2xl relative min-h-[360px] flex flex-col justify-between">
-              
-              {/* Watermark Quote Icon */}
-              <div className="flex justify-center mb-4">
-                <Quote className="w-12 h-12 text-[#E2DCDC] rotate-180" fill="#E2DCDC" />
-              </div>
+          {/* Right Blue Testimonial Slider: strictly clipped to avoid spilling */}
+          <div
+            className="lg:col-span-7 overflow-hidden w-full relative"
+            onMouseEnter={() => setIsPaused(true)}
+            onMouseLeave={() => setIsPaused(false)}
+          >
+            {/* Sliding Track */}
+            <div
+              className="flex"
+              style={{
+                transform: `translateX(calc(-${currentIndex} * (100% + 15px)))`,
+                transition: isTransitioning
+                  ? "transform 1000ms cubic-bezier(0.25, 1, 0.5, 1)"
+                  : "none",
+                gap: "15px",
+              }}
+            >
+              {slides.map((item, idx) => (
+                <div
+                  key={`${item.author}-${idx}`}
+                  className="min-w-full w-full shrink-0 bg-[#0C64AB] text-white rounded-2xl p-8 sm:p-12 lg:p-[55px] shadow-2xl flex flex-col justify-between min-h-[360px] sm:min-h-[385px] select-none"
+                >
+                  {/* Watermark Quote Icon */}
+                  <div className="flex justify-center mb-4">
+                    <Quote className="w-12 h-12 text-[#E2DCDC] stroke-[1.5] fill-none" />
+                  </div>
 
-              {/* Review Quote Body */}
-              <div className="transition-opacity duration-500 ease-in-out text-center">
-                <p className="font-poppins text-white text-[15px] sm:text-[17px] lg:text-[18px] leading-[1.8] font-normal max-w-xl mx-auto mb-6 whitespace-pre-line">
-                  {currentT.text}
-                </p>
+                  {/* Review Text Body */}
+                  <div className="text-center my-auto px-2">
+                    <p className="font-poppins text-white text-[15px] sm:text-[17px] lg:text-[18px] leading-[1.8] font-normal max-w-xl mx-auto whitespace-pre-line">
+                      {item.text}
+                    </p>
 
-                {/* 5 Stars */}
-                <div className="flex items-center justify-center gap-1.5 mb-4">
-                  {[...Array(currentT.rating)].map((_, i) => (
-                    <Star key={i} className="w-5 h-5 fill-[#fec42d] text-[#fec42d]" />
-                  ))}
+                    {/* 5 Stars */}
+                    <div className="flex items-center justify-center gap-1.5 my-4">
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} className="w-4 h-4 fill-[#fec42d] text-[#fec42d]" />
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Author Name */}
+                  <div
+                    className="font-poppins font-bold text-sm sm:text-[16px] tracking-wider text-white uppercase text-center mt-2"
+                    style={{ fontFamily: '"Poppins", Sans-serif' }}
+                  >
+                    {item.author}
+                  </div>
                 </div>
-
-                {/* Author Name */}
-                <div className="font-poppins font-semibold text-base sm:text-lg tracking-wide text-white capitalize">
-                  {currentT.name}
-                </div>
-              </div>
-
-              {/* Slider Dots */}
-              <div className="flex justify-center items-center gap-2 mt-6">
-                {TESTIMONIALS.map((_, idx) => (
-                  <button
-                    key={idx}
-                    onClick={() => setActiveTestimonial(idx)}
-                    className={`h-2 rounded-full transition-all duration-300 ${
-                      activeTestimonial === idx ? "w-6 bg-white" : "w-2 bg-white/40"
-                    }`}
-                    aria-label={`Go to slide ${idx + 1}`}
-                  />
-                ))}
-              </div>
-
+              ))}
             </div>
           </div>
 
