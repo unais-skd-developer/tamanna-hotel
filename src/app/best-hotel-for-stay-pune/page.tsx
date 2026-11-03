@@ -6,7 +6,6 @@ import Link from "next/link";
 import TopBar from "@/components/TopBar";
 import Navbar from "@/components/Navbar";
 import PageHeader from "@/components/PageHeader";
-import PreFooterContact from "@/components/PreFooterContact";
 import Footer from "@/components/Footer";
 import BookingModal from "@/components/BookingModal";
 import { BedDouble, Wine, Sparkles, MapPin } from "lucide-react";
@@ -286,7 +285,6 @@ export default function HotelsOverviewPage() {
         </div>
       </section>
 
-      <PreFooterContact />
       <Footer />
 
       <BookingModal
