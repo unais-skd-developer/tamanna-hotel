@@ -2,11 +2,11 @@
 
 import React from "react";
 import Image from "next/image";
-import { Mail, Phone } from "lucide-react";
+import { Mail, PhoneCall } from "lucide-react";
 
 export default function PreFooterContact() {
   return (
-    <section className="relative w-full overflow-hidden mt-12">
+    <section className="relative w-full overflow-hidden">
       {/* Background Room Photo */}
       <div className="absolute inset-0 w-full h-full">
         <Image
@@ -19,34 +19,93 @@ export default function PreFooterContact() {
         />
       </div>
 
-      {/* Overlaid Columns */}
-      <div className="relative z-10 w-full flex flex-col md:flex-row justify-end min-h-[380px]">
-        {/* Left 50% on desktop is transparent, showing the room image */}
-        <div className="hidden lg:block lg:w-1/2" />
-
-        {/* Middle Box: Reach Out (Phone) */}
-        <div className="w-full md:w-1/2 lg:w-1/4 bg-[#0C64ABD9] py-10 px-6 sm:px-8 text-white flex flex-col justify-center backdrop-blur-[2px]">
-          <div className="flex items-center gap-3 mb-6">
-            <span className="text-white">
-              <Phone className="w-6 h-6 text-white" />
-            </span>
+      {/* Overlaid Columns matching live site screenshot */}
+      <div className="relative z-10 w-full flex flex-col md:flex-row min-h-[440px] sm:min-h-[460px]">
+        
+        {/* 1. Left Column (25% on desktop): Mail Us with lighter blue transparent overlay */}
+        <div className="w-full md:w-1/2 lg:w-1/4 bg-[#0C64AB8C] py-10 sm:py-12 px-6 sm:px-8 lg:px-10 text-white flex flex-col justify-center">
+          <div className="flex items-center gap-3.5 mb-7">
+            <Mail className="w-8 h-8 text-white stroke-[1.75]" />
             <h3
-              className="font-jost text-xl sm:text-2xl font-bold uppercase tracking-wider text-white"
+              className="text-2xl sm:text-[26px] font-bold text-white tracking-wide"
               style={{ fontFamily: '"Jost", sans-serif' }}
             >
-              Reach out
+              Mail Us
             </h3>
           </div>
 
-          <div className="space-y-3 font-poppins">
-            <div className="font-semibold text-white text-base font-jost" style={{ fontFamily: '"Jost", sans-serif' }}>
+          <div className="space-y-4 font-poppins text-white text-[14px] sm:text-[14.5px]">
+            <div>
+              <div className="font-normal text-white">
+                Executive/Bizz/Shree inn:
+              </div>
+              <a
+                href="mailto:Info@tamannahotels.com"
+                className="text-white hover:underline font-normal block mt-1"
+              >
+                Info@tamannahotels.com
+              </a>
+            </div>
+
+            <div>
+              <div className="font-normal text-white">
+                Grand Tamanna :
+              </div>
+              <a
+                href="mailto:Grand@tamannahotels.com"
+                className="text-white hover:underline font-normal block mt-1"
+              >
+                Grand@tamannahotels.com
+              </a>
+            </div>
+
+            <div>
+              <div className="font-normal text-white">
+                Premier Tamanna :
+              </div>
+              <a
+                href="mailto:Premier@tamannahotels.com"
+                className="text-white hover:underline font-normal block mt-1"
+              >
+                Premier@tamannahotels.com
+              </a>
+            </div>
+
+            <div>
+              <div className="font-normal text-white">
+                Imperial Tamanna :
+              </div>
+              <a
+                href="mailto:Imperial@tamannahotels.com"
+                className="text-white hover:underline font-normal block mt-1"
+              >
+                Imperial@tamannahotels.com
+              </a>
+            </div>
+          </div>
+        </div>
+
+        {/* 2. Middle Column (25% on desktop): Reach Out with rich blue overlay */}
+        <div className="w-full md:w-1/2 lg:w-1/4 bg-[#0C64ABD9] py-10 sm:py-12 px-6 sm:px-8 lg:px-10 text-white flex flex-col justify-center">
+          <div className="flex items-center gap-3.5 mb-7">
+            <PhoneCall className="w-8 h-8 text-white stroke-[1.75]" />
+            <h3
+              className="text-2xl sm:text-[26px] font-bold text-white tracking-wide"
+              style={{ fontFamily: '"Jost", sans-serif' }}
+            >
+              Reach Out
+            </h3>
+          </div>
+
+          <div className="space-y-2 font-poppins text-white text-[14px] sm:text-[14.5px]">
+            <div className="font-normal text-white">
               Tel:
             </div>
-            <p className="text-white text-sm sm:text-[15px] font-normal leading-relaxed">
+            <p className="text-white font-normal leading-relaxed">
               <a href="tel:02066935000" className="hover:underline">
                 020 66935000
               </a>
-              {" / "}
+              {"/"}
               <a href="tel:7507772159" className="hover:underline">
                 7507772159
               </a>
@@ -54,70 +113,8 @@ export default function PreFooterContact() {
           </div>
         </div>
 
-        {/* Right Box: Mail us (Email) */}
-        <div className="w-full md:w-1/2 lg:w-1/4 bg-[#0C64AB8C] py-10 px-6 sm:px-8 text-white flex flex-col justify-center backdrop-blur-[2px]">
-          <div className="flex items-center gap-3 mb-6">
-            <span className="text-white">
-              <Mail className="w-6 h-6 text-white" />
-            </span>
-            <h3
-              className="font-jost text-xl sm:text-2xl font-bold uppercase tracking-wider text-white"
-              style={{ fontFamily: '"Jost", sans-serif' }}
-            >
-              Mail us
-            </h3>
-          </div>
-
-          <div className="space-y-4 font-poppins text-sm sm:text-[14.5px]">
-            <div>
-              <span className="font-medium text-white block text-xs sm:text-[13px] font-jost" style={{ fontFamily: '"Jost", sans-serif' }}>
-                Executive/Bizz/Shree inn:
-              </span>
-              <a
-                href="mailto:Info@tamannahotels.com"
-                className="text-white hover:underline text-xs sm:text-sm font-normal"
-              >
-                Info@tamannahotels.com
-              </a>
-            </div>
-
-            <div>
-              <span className="font-medium text-white block text-xs sm:text-[13px] font-jost" style={{ fontFamily: '"Jost", sans-serif' }}>
-                Grand Tamanna :
-              </span>
-              <a
-                href="mailto:Grand@tamannahotels.com"
-                className="text-white hover:underline text-xs sm:text-sm font-normal"
-              >
-                Grand@tamannahotels.com
-              </a>
-            </div>
-
-            <div>
-              <span className="font-medium text-white block text-xs sm:text-[13px] font-jost" style={{ fontFamily: '"Jost", sans-serif' }}>
-                Premier Tamanna :
-              </span>
-              <a
-                href="mailto:Premier@tamannahotels.com"
-                className="text-white hover:underline text-xs sm:text-sm font-normal"
-              >
-                Premier@tamannahotels.com
-              </a>
-            </div>
-
-            <div>
-              <span className="font-medium text-white block text-xs sm:text-[13px] font-jost" style={{ fontFamily: '"Jost", sans-serif' }}>
-                Imperial Tamanna :
-              </span>
-              <a
-                href="mailto:Imperial@tamannahotels.com"
-                className="text-white hover:underline text-xs sm:text-sm font-normal"
-              >
-                Imperial@tamannahotels.com
-              </a>
-            </div>
-          </div>
-        </div>
+        {/* 3. Right 50% on desktop: Purely transparent showing the luxurious bedroom image */}
+        <div className="hidden lg:block lg:w-1/2" />
 
       </div>
     </section>
