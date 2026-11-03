@@ -12,16 +12,7 @@ interface NavbarProps {
 export default function Navbar({ onOpenBooking }: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [moreDropdown, setMoreDropdown] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
   const moreRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   // Close dropdown on click outside
   useEffect(() => {
@@ -35,11 +26,7 @@ export default function Navbar({ onOpenBooking }: NavbarProps) {
   }, []);
 
   return (
-    <header
-      className={`sticky top-0 z-40 bg-white transition-all duration-300 ${
-        isScrolled ? "shadow-md py-1" : "shadow-sm py-2"
-      }`}
-    >
+    <header className="relative z-40 w-full bg-white shadow-sm py-2">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 md:h-20">
           
