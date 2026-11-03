@@ -161,10 +161,10 @@ export default function HotelsOverviewPage() {
           {HOTEL_CARDS.map((hotel, idx) => (
             <div
               key={idx}
-              className="w-full flex flex-col lg:flex-row items-stretch min-h-[420px] sm:min-h-[500px] lg:min-h-[690px] xl:min-h-[720px]"
+              className="w-full flex flex-col lg:flex-row items-stretch min-h-[460px] sm:min-h-[540px] lg:min-h-[750px] xl:min-h-[780px]"
             >
               {/* Left Column: Full-Height Exterior Photo */}
-              <div className="w-full lg:w-1/2 relative min-h-[360px] sm:min-h-[460px] lg:min-h-[690px] xl:min-h-[720px] overflow-hidden">
+              <div className="w-full lg:w-1/2 relative min-h-[380px] sm:min-h-[480px] lg:min-h-[750px] xl:min-h-[780px] overflow-hidden">
                 <Image
                   src={hotel.image}
                   alt={`${hotel.nameLight} ${hotel.nameBold}`}
@@ -176,12 +176,12 @@ export default function HotelsOverviewPage() {
               </div>
 
               {/* Right Column: Outer #EDEDF7C9 Frame + Overlapping White Card */}
-              <div className="w-full lg:w-1/2 bg-[#EDEDF7C9] flex items-stretch p-3 sm:p-5 lg:py-6 lg:pr-6 lg:pl-0">
-                <div className="w-full bg-white p-6 sm:p-8 lg:p-9 lg:-ml-5 relative z-10 shadow-sm flex flex-col justify-between">
+              <div className="w-full lg:w-1/2 bg-[#EDEDF7C9] flex items-stretch p-3 sm:p-5 lg:py-7 lg:pr-7 lg:pl-0">
+                <div className="w-full bg-white p-7 sm:p-9 lg:p-10 lg:-ml-5 relative z-10 shadow-sm flex flex-col justify-between">
                   <div>
                     {/* Two-tone Title */}
                     <h2
-                      className="font-bebas text-3xl sm:text-4xl lg:text-[40px] leading-tight tracking-[1px] uppercase mb-3 select-none"
+                      className="font-bebas text-3xl sm:text-4xl lg:text-[42px] leading-tight tracking-[1px] uppercase mb-3.5 select-none"
                       style={{ fontFamily: '"Bebas Neue", Sans-serif' }}
                     >
                       <span style={{ color: "#0C64AB91", fontWeight: 400 }}>
@@ -193,16 +193,16 @@ export default function HotelsOverviewPage() {
                     </h2>
 
                     {/* Description Paragraph */}
-                    <p className="font-poppins text-xs sm:text-[13.5px] leading-relaxed text-slate-600 mb-5">
+                    <p className="font-poppins text-xs sm:text-[14px] leading-relaxed text-slate-600 mb-6">
                       {hotel.description}
                     </p>
 
                     {/* Feature Outline Boxes with Dashed / Dotted Count */}
-                    <div className="space-y-3 mb-5">
+                    <div className="space-y-3.5 mb-6">
                       {hotel.features.map((feat, fIdx) => (
                         <div
                           key={fIdx}
-                          className="border-[1.5px] border-[#183654] px-3.5 py-2.5 sm:px-4 sm:py-3 flex items-center justify-between bg-white"
+                          className="border-[1.5px] border-[#183654] px-4 py-3 sm:px-4.5 sm:py-3.5 flex items-center justify-between bg-white"
                         >
                           <div className="flex items-center gap-2.5 min-w-0">
                             {feat.type === "room" && (
@@ -214,11 +214,11 @@ export default function HotelsOverviewPage() {
                             {feat.type === "venue" && (
                               <Sparkles className="w-4 h-4 text-[#0C64AB] shrink-0" />
                             )}
-                            <span className="font-poppins text-xs sm:text-[13px] font-medium text-slate-800 truncate">
+                            <span className="font-poppins text-xs sm:text-[13.5px] font-medium text-slate-800 truncate">
                               {feat.label}
                             </span>
                           </div>
-                          <span className="font-poppins text-xs sm:text-[13px] font-semibold text-slate-700 shrink-0 ml-3 tracking-wider">
+                          <span className="font-poppins text-xs sm:text-[13.5px] font-semibold text-slate-700 shrink-0 ml-3 tracking-wider">
                             ---- {feat.count}
                           </span>
                         </div>
@@ -226,13 +226,13 @@ export default function HotelsOverviewPage() {
                     </div>
 
                     {/* Address with MapPin */}
-                    <div className="flex items-start gap-2 text-slate-600 font-poppins text-xs sm:text-[12.5px] leading-snug">
+                    <div className="flex items-start gap-2.5 text-slate-600 font-poppins text-xs sm:text-[13px] leading-snug">
                       <MapPin className="w-4 h-4 text-[#0C64AB] shrink-0 mt-0.5" />
                       <span>{hotel.address}</span>
                     </div>
 
                     {/* VIEW MAP Link */}
-                    <div className="mt-2 pl-6">
+                    <div className="mt-2.5 pl-6 sm:pl-7">
                       <a
                         href={hotel.mapUrl}
                         target="_blank"
@@ -247,7 +247,7 @@ export default function HotelsOverviewPage() {
 
                   <div>
                     {/* Divider */}
-                    <div className="border-t border-[#E0DDDD] my-4 sm:my-5" />
+                    <div className="border-t border-[#E0DDDD] my-5 sm:my-6" />
 
                     {/* Action Buttons Row */}
                     <div className="flex items-center justify-between gap-3 pt-1 pb-1">
@@ -271,7 +271,7 @@ export default function HotelsOverviewPage() {
                         href={hotel.bookUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="border-2 border-[#0C64AB] text-[#0C64AB] hover:bg-[#0C64AB] hover:text-white rounded-full px-5 sm:px-7 py-2 font-bebas text-[18px] tracking-[0.8px] uppercase font-medium transition-colors duration-200 shrink-0"
+                        className="border-2 border-[#0C64AB] text-[#0C64AB] hover:bg-[#0C64AB] hover:text-white rounded-full px-6 sm:px-8 py-2.5 font-bebas text-[18px] tracking-[0.8px] uppercase font-medium transition-colors duration-200 shrink-0"
                         style={{ fontFamily: '"Bebas Neue", Sans-serif' }}
                       >
                         BOOK NOW

@@ -153,10 +153,10 @@ export default function RestaurantsPage() {
           {RESTAURANT_CARDS.map((rest, idx) => (
             <div
               key={idx}
-              className="w-full flex flex-col lg:flex-row items-stretch min-h-[380px] sm:min-h-[440px] lg:min-h-[520px]"
+              className="w-full flex flex-col lg:flex-row items-stretch min-h-[440px] sm:min-h-[500px] lg:min-h-[600px] xl:min-h-[620px]"
             >
               {/* Left Column: Full-Height Dining Photo */}
-              <div className="w-full lg:w-1/2 relative min-h-[320px] sm:min-h-[380px] lg:min-h-[520px] overflow-hidden">
+              <div className="w-full lg:w-1/2 relative min-h-[360px] sm:min-h-[440px] lg:min-h-[600px] xl:min-h-[620px] overflow-hidden">
                 <Image
                   src={rest.image}
                   alt={`${rest.nameLight} ${rest.nameBold}`}
@@ -168,8 +168,8 @@ export default function RestaurantsPage() {
               </div>
 
               {/* Right Column: Outer #EDEDF7C9 Frame + Overlapping White Card */}
-              <div className="w-full lg:w-1/2 bg-[#EDEDF7C9] flex items-stretch p-3 sm:p-5 lg:py-6 lg:pr-6 lg:pl-0">
-                <div className="w-full bg-white p-6 sm:p-8 lg:p-9 lg:-ml-5 relative z-10 shadow-sm flex flex-col justify-between">
+              <div className="w-full lg:w-1/2 bg-[#EDEDF7C9] flex items-stretch p-3 sm:p-5 lg:py-7 lg:pr-7 lg:pl-0">
+                <div className="w-full bg-white p-7 sm:p-9 lg:p-10 lg:-ml-5 relative z-10 shadow-sm flex flex-col justify-between">
                   <div>
                     {/* Hotel Tag */}
                     <div className="flex items-center gap-1.5 text-xs text-[#0C64AB] font-medium font-poppins mb-2">
@@ -179,7 +179,7 @@ export default function RestaurantsPage() {
 
                     {/* Two-tone Title */}
                     <h2
-                      className="font-bebas text-2xl sm:text-3xl lg:text-[34px] leading-tight tracking-[1px] uppercase mb-3 select-none"
+                      className="font-bebas text-2xl sm:text-3xl lg:text-[38px] leading-tight tracking-[1px] uppercase mb-3.5 select-none"
                       style={{ fontFamily: '"Bebas Neue", Sans-serif' }}
                     >
                       <span style={{ color: "#0C64AB91", fontWeight: 400 }}>
@@ -191,12 +191,12 @@ export default function RestaurantsPage() {
                     </h2>
 
                     {/* Description Paragraph */}
-                    <p className="font-poppins text-xs sm:text-[13px] leading-relaxed text-slate-600 mb-5">
+                    <p className="font-poppins text-xs sm:text-[14px] leading-relaxed text-slate-600 mb-6">
                       {rest.description}
                     </p>
 
                     {/* Cuisine & Capacity Info Pills */}
-                    <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-xs sm:text-[13px] text-slate-700 font-poppins mb-4">
+                    <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-xs sm:text-[13.5px] text-slate-700 font-poppins mb-5">
                       <div className="flex items-center gap-2">
                         <Utensils className="w-4 h-4 text-[#0C64AB] shrink-0" />
                         <span>{rest.cuisine}</span>
@@ -208,7 +208,7 @@ export default function RestaurantsPage() {
                     </div>
 
                     {/* Address with MapPin */}
-                    <div className="flex items-start gap-2 text-slate-600 font-poppins text-xs sm:text-[12.5px] leading-snug">
+                    <div className="flex items-start gap-2 text-slate-600 font-poppins text-xs sm:text-[13px] leading-snug">
                       <MapPin className="w-4 h-4 text-[#0C64AB] shrink-0 mt-0.5" />
                       <span>{rest.address}</span>
                     </div>
@@ -216,7 +216,7 @@ export default function RestaurantsPage() {
 
                   <div>
                     {/* Divider */}
-                    <div className="border-t border-[#E0DDDD] my-4 sm:my-5" />
+                    <div className="border-t border-[#E0DDDD] my-5 sm:my-6" />
 
                     {/* Action Buttons Row */}
                     <div className="flex items-center justify-between gap-3 pt-1">
