@@ -21,6 +21,8 @@ interface PageHeaderProps {
   align?: "center" | "bottom";
   overlayClassName?: string;
   titleClassName?: string;
+  imageClassName?: string;
+  bgPosition?: string;
 }
 
 export default function PageHeader({
@@ -34,6 +36,8 @@ export default function PageHeader({
   align = "center",
   overlayClassName,
   titleClassName,
+  imageClassName,
+  bgPosition,
 }: PageHeaderProps) {
   return (
     <div className="relative w-full overflow-hidden bg-slate-900 text-white">
@@ -95,7 +99,8 @@ export default function PageHeader({
             alt={title}
             fill
             priority
-            className="object-cover object-center"
+            className={`object-cover ${imageClassName || (bgPosition ? "" : "object-center")}`}
+            style={bgPosition ? { objectPosition: bgPosition } : undefined}
           />
           <div
             className={`absolute inset-0 ${

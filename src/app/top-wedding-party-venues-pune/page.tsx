@@ -193,6 +193,8 @@ export default function WeddingPartyVenuesPage() {
       <PageHeader
         title="WEDDING & PARTY VENUE"
         bgImage="/images/site/Eternity-Banquet5-1-scaled.jpg"
+        bgPosition="bottom center"
+        imageClassName="object-bottom"
         align="bottom"
         showBreadcrumbs={false}
         minHeight="min-h-[55vh] sm:min-h-[65vh] lg:min-h-[70vh]"
