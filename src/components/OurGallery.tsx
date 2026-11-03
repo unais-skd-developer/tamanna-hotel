@@ -128,7 +128,7 @@ export default function OurGallery() {
   };
 
   return (
-    <section id="our-gallery" className="w-full py-16 md:py-24 bg-white">
+    <section id="our-gallery" className="relative z-10 w-full py-16 md:py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header matching Image 5 */}

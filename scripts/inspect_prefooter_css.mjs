@@ -6,3 +6,4 @@ let m;
 while ((m = regex.exec(html)) !== null) {
   console.log(m[0]);
 }
+

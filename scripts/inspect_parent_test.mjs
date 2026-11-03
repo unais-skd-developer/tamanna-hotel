@@ -6,3 +6,4 @@ const idx = html.indexOf('data-id="89e8816"');
 const parentStart = html.lastIndexOf('class="elementor-element', idx - 10);
 console.log('Parent HTML preview:');
 console.log(html.slice(parentStart - 300, parentStart + 800));
+

@@ -11,3 +11,4 @@ while ((m = reviewItemRegex.exec(slice)) !== null) {
   console.log('Text:', m[3].replace(/<[^>]+>/g, '').trim().slice(0, 150));
   console.log('---');
 }
+
