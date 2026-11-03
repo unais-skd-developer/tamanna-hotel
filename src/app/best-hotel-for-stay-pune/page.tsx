@@ -24,10 +24,13 @@ export default function HotelsOverviewPage() {
       <Navbar onOpenBooking={() => setIsBookingModalOpen(true)} />
 
       <PageHeader
-        title="Our Hotels"
-        subtitle="Explore our portfolio of six distinguished hotel destinations across Hinjawadi and Pune."
-        breadcrumbs={[{ label: "Home", href: "/" }]}
-        bgImage="/images/site/Exterior.jpg"
+        title="OUR HOTELS"
+        bgImage="/images/site/Lobby1-5-scaled.jpg"
+        showBreadcrumbs={false}
+        align="bottom"
+        minHeight="h-[60vh] sm:h-[65vh] md:h-[70vh] min-h-[420px]"
+        overlayClassName="bg-black/35"
+        titleClassName="text-5xl sm:text-7xl md:text-8xl lg:text-[95px] font-bebas uppercase tracking-[1px] text-white leading-none drop-shadow-sm select-none"
       />
 
       <section className="py-16 md:py-24 bg-slate-50">
