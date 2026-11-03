@@ -3,58 +3,52 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
 export default function StyleJourney() {
   return (
-    <section id="style-journey" className="w-full py-16 md:py-24 bg-white overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center">
+    <section id="style-journey" className="w-full py-16 md:py-20 bg-white overflow-hidden">
+      <div className="max-w-[1300px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 items-center">
 
-          {/* Left Column: Two Staggered Photos */}
-          <div className="lg:col-span-6 flex justify-center lg:justify-start">
-            <div className="relative w-full max-w-[490px] h-[360px] sm:h-[420px] md:h-[450px]">
-
-              {/* Upper Left Inset Image: Lobby Chandelier */}
-              <div className="absolute top-0 left-0 w-[60%] sm:w-[62%] h-[48%] sm:h-[50%] overflow-hidden shadow-md">
-                <div className="relative w-full h-full">
-                  <Image
-                    src="/images/extracted/style_journey_lobby.jpg"
-                    alt="Tamanna Hotels Reception & Chandelier"
-                    fill
-                    sizes="(max-width: 768px) 60vw, 30vw"
-                    className="object-cover"
-                    priority
-                  />
-                </div>
-              </div>
-
-              {/* Lower Right Overlapping Image: Outdoor Entrance Totem */}
-              <div className="absolute bottom-2 sm:bottom-4 right-2 sm:right-6 w-[43%] sm:w-[45%] h-[72%] sm:h-[75%] overflow-hidden shadow-xl z-10">
-                <div className="relative w-full h-full">
-                  <Image
-                    src="/images/extracted/style_journey_sign.jpg"
-                    alt="Grand Tamanna Hotel Entrance & Totem Board"
-                    fill
-                    sizes="(max-width: 768px) 50vw, 25vw"
-                    className="object-cover object-center"
-                    priority
-                  />
-                </div>
-              </div>
-
+          {/* Left: Two Photos (Tall 500px Reception-Lobby + 380px bottom-aligned Exterior-2) */}
+          <div className="lg:col-span-6 flex items-end justify-center lg:justify-start gap-4 sm:gap-6">
+            
+            {/* Image 1: Tall 500px Reception Lobby */}
+            <div className="relative w-[54%] sm:w-[50%] h-[360px] sm:h-[440px] md:h-[500px] overflow-hidden rounded-sm shadow-md shrink-0">
+              <Image
+                src="/images/site/Reception-Lobby.jpg"
+                alt="Tamanna Hotels Reception Lobby"
+                fill
+                priority
+                className="object-cover"
+                sizes="(max-width: 768px) 50vw, 27vw"
+              />
             </div>
+
+            {/* Image 2: 380px Bottom-aligned Exterior-2 */}
+            <div className="relative w-[44%] sm:w-[42%] h-[280px] sm:h-[330px] md:h-[380px] overflow-hidden rounded-sm shadow-md shrink-0 hidden sm:block">
+              <Image
+                src="/images/site/Exterior-2.jpg"
+                alt="Tamanna Hotels Exterior"
+                fill
+                priority
+                className="object-cover"
+                sizes="(max-width: 768px) 40vw, 23vw"
+              />
+            </div>
+
           </div>
 
           {/* Right Column: Title, Description & READ MORE */}
-          <div className="lg:col-span-6 flex flex-col justify-center">
+          <div className="lg:col-span-6 flex flex-col justify-center lg:pl-6">
 
-            {/* Title with exact CSS matching user inspector screenshot */}
+            {/* Title matching exact CSS from Elementor */}
             <h2
-              className="font-bebas uppercase text-[52px] sm:text-[72px] md:text-[84px] lg:text-[95px] leading-[0.95] lg:leading-[90px] mb-6"
+              className="font-bebas uppercase text-[48px] sm:text-[65px] md:text-[78px] lg:text-[95px] leading-[0.92] tracking-[-2px] lg:tracking-[-3.8px] mb-6 select-none"
               style={{
                 fontFamily: '"Bebas Neue", Sans-serif',
                 color: '#0C64AB91',
-                letterSpacing: '-3.8px',
                 fontWeight: 400,
               }}
             >
@@ -64,7 +58,6 @@ export default function StyleJourney() {
                 style={{
                   color: '#0C64AB',
                   fontWeight: 500,
-                  letterSpacing: '-3.8px',
                 }}
               >
                 OWN JOURNEY
@@ -72,24 +65,28 @@ export default function StyleJourney() {
             </h2>
 
             {/* Description Paragraph */}
-            <p className="text-[#64748b] font-poppins text-[14.5px] sm:text-[15.5px] leading-[1.8] font-normal mb-8">
-              Tamanna Hotels <strong className="font-semibold text-slate-800">holds</strong> the distinction of being the First hotel established in Hinjawadi IT Park and is redefining comfort and modern hospitality in Pune. It has been setting new standards of excellence in the hospitality industry for more than two decades. Located in the heart of Pune’s bustling Hinjawadi IT Park, we offer an unmatched blend of comfort, convenience, and luxury. With Six unique hotel properties, multiple award-winning dining experiences, and state-of-the-art event venues, we take pride in being among the most preferred hotels in Pune for both business and leisure travellers.
+            <p className="text-slate-600 font-poppins text-sm sm:text-base leading-[1.8] font-normal mb-8">
+              Tamanna Hotels{" "}
+              <a
+                href="https://www.google.com/search?kgmid=%2Fg%2F11c1ww66hm&hl=en-IN&q=Grand%20Tamanna%20Hotel"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-slate-800 font-medium hover:text-[#0c64ab] underline decoration-slate-300"
+              >
+                holds
+              </a>{" "}
+              the distinction of being the First hotel established in Hinjawadi IT Park and is redefining comfort and modern hospitality in Pune. It has been setting new standards of excellence in the hospitality industry for more than two decades. Located in the heart of Pune’s bustling Hinjawadi IT Park, we offer an unmatched blend of comfort, convenience, and luxury. With Six unique hotel properties, multiple award-winning dining experiences, and state-of-the-art event venues, we take pride in being among the most preferred hotels in Pune for both business and leisure travellers.
             </p>
 
-            {/* READ MORE → Link */}
+            {/* READ MORE → Button */}
             <div>
               <Link
                 href="/best-hotels-pune"
-                style={{
-                  fontFamily: '"Bebas Neue", Sans-serif',
-                  letterSpacing: '0.8px',
-                }}
-                className="inline-flex items-center gap-2 text-[#0c64ab] hover:text-[#084572] text-[20px] sm:text-[22px] uppercase group transition-colors"
+                className="inline-flex items-center gap-2 text-[#0c64ab] hover:text-[#084572] font-bebas text-[18px] sm:text-[20px] tracking-[0.8px] uppercase group transition-colors"
+                style={{ fontFamily: '"Bebas Neue", Sans-serif' }}
               >
-                <span>READ MORE</span>
-                <span className="text-[20px] transition-transform duration-200 group-hover:translate-x-1.5">
-                  →
-                </span>
+                <span>Read More</span>
+                <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1.5" />
               </Link>
             </div>
 

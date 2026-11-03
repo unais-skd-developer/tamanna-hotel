@@ -8,3 +8,4 @@ if (idx !== -1) {
   fs.writeFileSync('scripts/panel_slider.html', slice);
   console.log('Saved panel_slider.html');
 }
+
