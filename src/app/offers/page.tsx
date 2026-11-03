@@ -5,11 +5,8 @@ import Image from "next/image";
 import TopBar from "@/components/TopBar";
 import Navbar from "@/components/Navbar";
 import PageHeader from "@/components/PageHeader";
-import PreFooterContact from "@/components/PreFooterContact";
 import Footer from "@/components/Footer";
 import BookingModal from "@/components/BookingModal";
-import { OFFERS_DATA } from "@/data/siteData";
-import { Tag, Sparkles, CheckCircle2 } from "lucide-react";
 
 export default function OffersPage() {
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
@@ -19,77 +16,97 @@ export default function OffersPage() {
       <TopBar />
       <Navbar onOpenBooking={() => setIsBookingModalOpen(true)} />
 
+      {/* Hero Header Banner */}
       <PageHeader
-        title="Offers & Promotions"
-        subtitle="Exclusive discounts, special weekend getaway packages, and corporate deals across Tamanna Hotels."
-        breadcrumbs={[{ label: "Home", href: "/" }]}
-        bgImage="/images/site/Exterior.jpg"
+        title="OFFERS & PROMOTIONS"
+        bgImage="/images/site/grand-tamanna.webp"
+        align="bottom"
+        showBreadcrumbs={false}
+        minHeight="min-h-[55vh] sm:min-h-[65vh] lg:min-h-[70vh]"
+        titleClassName="font-bebas text-4xl sm:text-6xl md:text-7xl lg:text-[95px] text-white tracking-[2px] leading-none uppercase drop-shadow-md select-none"
       />
 
-      <section className="py-16 md:py-24 bg-slate-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <span className="text-[#0c64ab] text-xs sm:text-sm font-semibold uppercase tracking-widest block font-jost mb-2">
-              SPECIAL PACKAGES
-            </span>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bebas uppercase tracking-wide text-slate-800">
-              Limited-Time Offers
-            </h2>
-            <p className="text-slate-600 font-poppins text-sm sm:text-base mt-3">
-              Take advantage of exclusive seasonal offers when reserving directly with Tamanna Hotels.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
-            {OFFERS_DATA.map((offer, idx) => (
-              <div
-                key={idx}
-                className="bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-md hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
-              >
-                <div>
-                  <div className="relative h-72 sm:h-80 w-full bg-slate-100">
-                    <Image
-                      src={offer.image}
-                      alt={offer.title}
-                      fill
-                      className="object-contain p-2"
-                    />
-                    <div className="absolute top-4 left-4 bg-amber-500 text-white px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider flex items-center gap-1 shadow-md">
-                      <Tag className="w-3.5 h-3.5" />
-                      <span>{offer.badge}</span>
-                    </div>
-                  </div>
-
-                  <div className="p-6 sm:p-8">
-                    <span className="text-xs uppercase font-semibold text-[#0c64ab] tracking-wider block mb-1">
-                      {offer.hotel}
-                    </span>
-                    <h3 className="text-2xl font-bebas uppercase tracking-wide text-slate-800 mb-2">
-                      {offer.title}
-                    </h3>
-                    <p className="text-slate-600 font-poppins text-sm leading-relaxed">
-                      {offer.description}
-                    </p>
-                  </div>
-                </div>
-
-                <div className="p-6 sm:p-8 pt-0">
-                  <button
-                    onClick={() => setIsBookingModalOpen(true)}
-                    className="w-full py-3 bg-[#0c64ab] hover:bg-[#094c82] active:scale-95 text-white font-bebas text-lg tracking-wider rounded-xl transition-colors cursor-pointer uppercase shadow-md"
-                  >
-                    Claim Offer & Book
-                  </button>
-                </div>
+      {/* Offers 2-Column Creative Posters Grid */}
+      <section className="bg-white py-10 sm:py-14 lg:py-16">
+        <div className="max-w-[1240px] mx-auto px-4 sm:px-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 lg:gap-10 items-start">
+            {/* Left Column */}
+            <div className="flex flex-col gap-6 sm:gap-8 lg:gap-10">
+              {/* Grand Tamanna Dine & Save (10% off) */}
+              <div className="w-full overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
+                <Image
+                  src="/images/site/PHOTO-2024-05-07-18-58-48.jpg"
+                  alt="Grand Tamanna Hotel - Dine & save 10% off on food"
+                  width={1080}
+                  height={1350}
+                  className="w-full h-auto object-cover"
+                  priority
+                />
               </div>
-            ))}
-          </div>
 
+              {/* Executive Tamanna Order Food Online (TAM20, 20% off) */}
+              <div className="w-full overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
+                <Image
+                  src="/images/site/Online-Discount-Coupon-Executive.jpg"
+                  alt="Executive Tamanna Hotel - Order Food Online 20% off with coupon TAM20"
+                  width={1064}
+                  height={616}
+                  className="w-full h-auto object-cover"
+                />
+              </div>
+
+              {/* Grand Tamanna Direct Booking (20% Discount) */}
+              <div className="w-full overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
+                <Image
+                  src="/images/site/WhatsApp-Image-2025-09-11-at-00.21.41-819x1024.jpeg"
+                  alt="Grand Tamanna Hotel - Book directly and grab 20% Discount"
+                  width={819}
+                  height={1024}
+                  className="w-full h-auto object-cover"
+                />
+              </div>
+            </div>
+
+            {/* Right Column */}
+            <div className="flex flex-col gap-6 sm:gap-8 lg:gap-10">
+              {/* Nirvana Lounge Bar (15% Discount) */}
+              <div className="w-full overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
+                <Image
+                  src="/images/site/Nirvana_banner_27_6_2024_page-0001.jpg"
+                  alt="Nirvana Lounge Bar - Special Offer Alert 15% Discount"
+                  width={1350}
+                  height={975}
+                  className="w-full h-auto object-cover"
+                  priority
+                />
+              </div>
+
+              {/* Talk About & Bizz Tamanna (20% off) */}
+              <div className="w-full overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
+                <Image
+                  src="/images/site/Tamanna_standy-5x3_29_aug_2025-1.png"
+                  alt="Bizz Tamanna Hotel & Talk About - Good Food, Great Drinks, Big Savings! 20% off"
+                  width={600}
+                  height={1000}
+                  className="w-full h-auto object-cover"
+                />
+              </div>
+
+              {/* Grand Tamanna Order Food Online (TAM20, 20% off) */}
+              <div className="w-full overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
+                <Image
+                  src="/images/site/Online-Discount-Grand.jpg"
+                  alt="Grand Tamanna Hotel - Order Food Online 20% off with coupon TAM20"
+                  width={961}
+                  height={557}
+                  className="w-full h-auto object-cover"
+                />
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
-      <PreFooterContact />
       <Footer />
 
       <BookingModal
@@ -99,4 +116,3 @@ export default function OffersPage() {
     </div>
   );
 }
-
