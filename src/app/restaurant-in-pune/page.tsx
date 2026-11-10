@@ -216,10 +216,10 @@ export default function RestaurantsPage() {
               key={idx}
               className="w-full flex flex-col lg:flex-row items-stretch"
             >
-              {/* Left Column: Dining Photo stretching naturally with right card */}
+              {/* Left Column: Dining Photo matching live site 500px min-height */}
               <Link
                 href={rest.viewMoreUrl}
-                className="w-full lg:w-1/2 relative min-h-[280px] xs:min-h-[320px] sm:min-h-[380px] lg:min-h-0 overflow-hidden group block cursor-pointer"
+                className="w-full lg:w-1/2 relative min-h-[300px] sm:min-h-[380px] lg:min-h-[500px] overflow-hidden group block cursor-pointer"
               >
                 <Image
                   src={rest.image}
@@ -231,63 +231,63 @@ export default function RestaurantsPage() {
                 />
               </Link>
 
-              {/* Right Column: Outer #EDEDF7C9 Frame + Overlapping White Card (Natural vertical flow matching Image 2) */}
-              <div className="w-full lg:w-1/2 bg-[#EDEDF7C9] flex items-center p-3.5 sm:p-5 lg:py-6 lg:pr-6 lg:pl-0">
-                <div className="w-full bg-white -mt-8 sm:-mt-10 lg:mt-0 lg:-ml-5 relative z-10 shadow-sm p-6 sm:p-8 lg:p-9 flex flex-col">
+              {/* Right Column: Outer #EDEDF7C9 Frame with vertical centering matching live site */}
+              <div className="w-full lg:w-1/2 bg-[#EDEDF7C9] flex flex-col justify-center p-5 lg:py-5 lg:pr-5 lg:pl-0 z-[9]">
+                <div className="w-full bg-white -mt-10 sm:-mt-10 lg:mt-0 lg:-ml-5 relative z-10 p-6 sm:p-7 lg:p-[30px] flex flex-col">
                   {/* Hotel Tag */}
-                  <div className="flex items-center gap-2 text-[12.5px] sm:text-[13px] text-[#0C64AB] font-normal font-poppins mb-3.5 sm:mb-4">
-                    <PinWithBaseIcon className="w-4 h-4 text-[#8bb6da] shrink-0" />
+                  <div className="flex items-center gap-2 text-[15px] sm:text-[16px] text-[#0C64AB] font-normal font-poppins mb-[18px]">
+                    <PinWithBaseIcon className="w-[18px] h-[18px] text-[#8BB6DA] shrink-0" />
                     <span>{rest.hotelTag}</span>
                   </div>
 
-                  {/* Two-tone Title (Stacked into 2 distinct lines matching Image 2 exactly) */}
-                  <Link href={rest.viewMoreUrl} className="block group cursor-pointer mb-5 sm:mb-6">
+                  {/* Two-tone Title (Stacked into 2 distinct lines matching live site) */}
+                  <Link href={rest.viewMoreUrl} className="block group cursor-pointer mb-[16px]">
                     <h2
-                      className="font-bebas text-[36px] xs:text-[40px] sm:text-[44px] lg:text-[46px] leading-[0.95] tracking-tight uppercase select-none group-hover:opacity-90 transition-opacity"
+                      className="font-bebas text-[36px] sm:text-[40px] leading-[1.0] tracking-[1px] uppercase select-none group-hover:opacity-90 transition-opacity"
                       style={{ fontFamily: '"Bebas Neue", Sans-serif' }}
                     >
                       <span className="block text-[#75a7cf] font-normal">
                         {rest.nameLight}
                       </span>
-                      <span className="block text-[#0C64AB] font-normal mt-0.5">
+                      <span className="block text-[#0C64AB] font-medium mt-1">
                         {rest.nameBold}
                       </span>
                     </h2>
                   </Link>
 
                   {/* Description Paragraph */}
-                  <p className="font-poppins text-[13px] sm:text-[13.5px] lg:text-[14px] leading-[1.65] text-[#7a7a7a] mb-6 sm:mb-7 font-normal">
+                  <p className="font-poppins text-[14px] sm:text-[15px] leading-[1.6] text-[#555555] mb-[20px] font-normal">
                     {rest.description}
                   </p>
 
-                  {/* Row 1: Cuisine Type & Capacity (Matching Image 2 exactly) */}
-                  <div className="flex flex-wrap items-center gap-x-8 sm:gap-x-10 gap-y-2 text-[13px] sm:text-[13.5px] font-poppins text-[#0C64AB] mb-4 sm:mb-5">
+                  {/* Row 1: Cuisine Type & Capacity (Matching live site 50px gap & 18px icons) */}
+                  <div className="flex flex-wrap items-center gap-x-[50px] gap-y-2 text-[14px] sm:text-[15px] font-poppins text-[#0C64AB] mb-[15px]">
                     <div className="flex items-center gap-2.5">
-                      <MartiniGlassIcon className="w-4 h-4 text-[#0C64AB] shrink-0" />
+                      <MartiniGlassIcon className="w-[18px] h-[18px] text-[#0C64AB] shrink-0" />
                       <span className="font-normal">{rest.cuisine}</span>
                     </div>
 
                     <div className="flex items-center gap-2.5">
-                      <CapacityUsersIcon className="w-4 h-4 text-[#0C64AB] shrink-0" />
+                      <CapacityUsersIcon className="w-[18px] h-[18px] text-[#0C64AB] shrink-0" />
                       <span className="font-normal">{rest.capacity}</span>
                     </div>
                   </div>
 
-                  {/* Row 2: Address with Pin-on-pedestal Icon (Matching Image 2 exactly) */}
-                  <div className="flex items-start gap-2.5 text-[12.5px] sm:text-[13px] font-poppins text-[#0C64AB] leading-[1.6] mb-6 sm:mb-7">
-                    <PinWithBaseIcon className="w-4 h-4 text-[#0C64AB] shrink-0 mt-0.5" />
+                  {/* Row 2: Address with Pin-on-pedestal Icon */}
+                  <div className="flex items-start gap-2.5 text-[14px] sm:text-[15px] font-poppins text-[#0C64AB] leading-[1.5] mb-[18px]">
+                    <PinWithBaseIcon className="w-[19px] h-[19px] text-[#0C64AB] shrink-0 mt-0.5" />
                     <span className="font-normal">{rest.address}</span>
                   </div>
 
-                  {/* Divider matching Image 2 */}
-                  <div className="border-t border-[#E5E7EB] mb-5 sm:mb-6" />
+                  {/* Divider matching live site #E0DDDD */}
+                  <div className="border-t border-[#E0DDDD] my-[15px]" />
 
-                  {/* Action Buttons Row matching Image 2 exactly: VIEW MORE, VIEW MAP, LET'S GET ORDERING */}
+                  {/* Action Buttons Row matching live site exactly: VIEW MORE, VIEW MAP, LET'S GET ORDERING */}
                   <div className="flex flex-wrap items-center justify-between gap-y-3 gap-x-6">
                     <div className="flex items-center gap-6 sm:gap-8">
                       <Link
                         href={rest.viewMoreUrl}
-                        className="font-bebas text-[19px] sm:text-[21px] text-[#0C64AB] hover:text-[#084572] underline underline-offset-[5px] decoration-[1.5px] tracking-[0.5px] uppercase font-normal transition-colors"
+                        className="font-bebas text-[18px] text-[#0C64AB] hover:text-[#084572] underline underline-offset-[5px] tracking-[0.8px] font-normal transition-colors py-[14px]"
                         style={{ fontFamily: '"Bebas Neue", Sans-serif' }}
                       >
                         VIEW MORE
@@ -298,7 +298,7 @@ export default function RestaurantsPage() {
                           href={rest.mapUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="font-bebas text-[19px] sm:text-[21px] text-[#0C64AB] hover:text-[#084572] underline underline-offset-[5px] decoration-[1.5px] tracking-[0.5px] uppercase font-normal transition-colors"
+                          className="font-bebas text-[18px] text-[#0C64AB] hover:text-[#084572] underline underline-offset-[5px] tracking-[0.8px] font-normal transition-colors py-[14px]"
                           style={{ fontFamily: '"Bebas Neue", Sans-serif' }}
                         >
                           VIEW MAP
@@ -310,7 +310,7 @@ export default function RestaurantsPage() {
                       href={rest.orderUrl || "https://orders.tamannahotels.com/"}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="border-[1.8px] border-[#0C64AB] text-[#0C64AB] hover:bg-[#0C64AB] hover:text-white rounded-full px-7 sm:px-8 py-2 sm:py-2.5 font-bebas text-[17px] sm:text-[19px] tracking-[0.6px] uppercase font-normal transition-colors duration-200 shrink-0 inline-flex items-center justify-center cursor-pointer"
+                      className="border-2 border-[#0C64AB] text-[#0C64AB] hover:bg-[#0C64AB] hover:text-white rounded-[50px] px-[30px] py-[12px] font-bebas text-[18px] tracking-[0.8px] uppercase font-normal transition-colors duration-200 shrink-0 inline-flex items-center justify-center cursor-pointer"
                       style={{ fontFamily: '"Bebas Neue", Sans-serif' }}
                     >
                       LET&apos;S GET ORDERING
