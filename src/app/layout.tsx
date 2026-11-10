@@ -35,7 +35,13 @@ export const metadata: Metadata = {
   description:
     "First hotel established in Hinjawadi IT Park, Pune. Experience luxury hospitality across Grand Tamanna, Premier Tamanna, Bizz Tamanna, Executive Tamanna, Shree Inn, and Imperial Tamanna.",
   icons: {
-    icon: "/images/extracted/logo.png",
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon.png", type: "image/png", sizes: "192x192" },
+    ],
+    apple: [
+      { url: "/apple-icon.png", sizes: "180x180", type: "image/png" },
+    ],
   },
 };
 
