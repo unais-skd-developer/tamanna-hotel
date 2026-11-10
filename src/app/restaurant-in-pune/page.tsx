@@ -216,24 +216,31 @@ export default function RestaurantsPage() {
               key={idx}
               className="w-full flex flex-col lg:flex-row items-stretch"
             >
-              {/* Left Column: Dining Photo matching live site 500px min-height */}
+              {/* Left Column: Dining Photo with fadeInLeft animation and smooth hover zoom */}
               <Link
                 href={rest.viewMoreUrl}
-                className="w-full lg:w-1/2 relative min-h-[300px] sm:min-h-[380px] lg:min-h-[500px] overflow-hidden group block cursor-pointer"
+                data-reveal="left"
+                suppressHydrationWarning
+                className="w-full lg:w-1/2 relative min-h-[300px] sm:min-h-[380px] lg:min-h-[500px] overflow-hidden group block cursor-pointer img-zoom-container"
               >
                 <Image
                   src={rest.image}
                   alt={`${rest.nameLight} ${rest.nameBold}`}
                   fill
                   priority={idx < 2}
-                  className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                  className="object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
                   sizes="(max-width: 1024px) 100vw, 50vw"
                 />
               </Link>
 
               {/* Right Column: Outer #EDEDF7C9 Frame with vertical centering matching live site */}
               <div className="w-full lg:w-1/2 bg-[#EDEDF7C9] flex flex-col justify-center p-5 lg:py-5 lg:pr-5 lg:pl-0 z-[9]">
-                <div className="w-full bg-white -mt-10 sm:-mt-10 lg:mt-0 lg:-ml-5 relative z-10 p-6 sm:p-7 lg:p-[30px] flex flex-col">
+                <div
+                  data-reveal="up"
+                  data-delay="80"
+                  suppressHydrationWarning
+                  className="w-full bg-white -mt-10 sm:-mt-10 lg:mt-0 lg:-ml-5 relative z-10 p-6 sm:p-7 lg:p-[30px] flex flex-col"
+                >
                   {/* Hotel Tag */}
                   <div className="flex items-center gap-2 text-[15px] sm:text-[16px] text-[#0C64AB] font-normal font-poppins mb-[18px]">
                     <PinWithBaseIcon className="w-[18px] h-[18px] text-[#8BB6DA] shrink-0" />

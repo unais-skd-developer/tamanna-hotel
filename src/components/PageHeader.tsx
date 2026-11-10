@@ -113,7 +113,11 @@ export default function PageHeader({
             }`}
           />
 
-          <div className="relative z-10 w-full max-w-5xl mx-auto text-center flex flex-col items-center">
+          <div
+            data-reveal="up"
+            suppressHydrationWarning
+            className="relative z-10 w-full max-w-5xl mx-auto text-center flex flex-col items-center"
+          >
             {/* Breadcrumb */}
             {showBreadcrumbs && (
               <nav className="flex items-center gap-1.5 text-xs sm:text-sm text-slate-300 mb-4 font-jost">

@@ -10,18 +10,21 @@ export default function StyleJourney() {
       <div className="max-w-[1300px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col lg:flex-row items-stretch gap-8 lg:gap-10">
 
-          {/* Left: Two Photos - Stacked vertically on mobile matching Image 1 & 2, staggered side-by-side on desktop */}
-          <div className="w-full lg:w-[50%] flex flex-col lg:flex-row items-center lg:items-stretch gap-6 lg:gap-6">
-            
+          {/* Left: Two Photos - Animated fadeInLeft matching live site */}
+          <div
+            data-reveal="left"
+            suppressHydrationWarning
+            className="w-full lg:w-[50%] flex flex-col lg:flex-row items-center lg:items-stretch gap-6 lg:gap-6"
+          >
             {/* Photo 1: Reception Lobby */}
             <div className="w-full lg:w-[54%] flex flex-col justify-start">
-              <div className="relative w-full h-[500px] lg:h-auto lg:aspect-[256/171] overflow-hidden rounded-none">
+              <div className="relative w-full h-[500px] lg:h-auto lg:aspect-[256/171] overflow-hidden rounded-none group img-zoom-container">
                 <Image
                   src="/images/site/Reception-Lobby.jpg"
                   alt="Tamanna Hotels Reception Lobby"
                   fill
                   priority
-                  className="object-cover object-center"
+                  className="object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
                   sizes="(max-width: 1024px) 100vw, 27vw"
                 />
               </div>
@@ -29,22 +32,26 @@ export default function StyleJourney() {
 
             {/* Photo 2: Portrait Exterior Totem Signboard */}
             <div className="w-full lg:w-[46%] flex flex-col items-center lg:items-start justify-end">
-              <div className="relative w-[78%] sm:w-[68%] lg:w-full h-[320px] sm:h-[360px] md:h-[380px] overflow-hidden rounded-none">
+              <div className="relative w-[78%] sm:w-[68%] lg:w-full h-[320px] sm:h-[360px] md:h-[380px] overflow-hidden rounded-none group img-zoom-container">
                 <Image
                   src="/images/site/Exterior-2.jpg"
                   alt="Tamanna Hotels Grand Entrance Sign"
                   fill
                   loading="lazy"
-                  className="object-cover"
+                  className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                   sizes="(max-width: 1024px) 80vw, 23vw"
                 />
               </div>
             </div>
-
           </div>
 
-          {/* Right Column: Title, Description & READ MORE */}
-          <div className="w-full lg:w-[50%] flex flex-col justify-between lg:pl-6">
+          {/* Right Column: Title, Description & READ MORE - Animated fadeInUp matching live site */}
+          <div
+            data-reveal="up"
+            data-delay="100"
+            suppressHydrationWarning
+            className="w-full lg:w-[50%] flex flex-col justify-between lg:pl-6"
+          >
             <div>
               {/* Title matching exact CSS from Elementor */}
               <h2

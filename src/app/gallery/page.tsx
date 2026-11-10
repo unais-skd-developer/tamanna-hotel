@@ -17,6 +17,8 @@ export default function GalleryPage() {
   const [activeCategory, setActiveCategory] = useState<string>("ALL");
   const [visibleCount, setVisibleCount] = useState<number>(INITIAL_VISIBLE_COUNT);
   const [selectedPhotoIndex, setSelectedPhotoIndex] = useState<number | null>(null);
+  const [loadedBatchStartIndex, setLoadedBatchStartIndex] = useState<number>(0);
+  const [isLoadingMore, setIsLoadingMore] = useState<boolean>(false);
 
   // Filter items based on active category
   const filteredItems =
@@ -30,10 +32,16 @@ export default function GalleryPage() {
   const handleCategoryChange = (category: string) => {
     setActiveCategory(category);
     setVisibleCount(INITIAL_VISIBLE_COUNT);
+    setLoadedBatchStartIndex(0);
   };
 
   const handleLoadMore = () => {
+    setIsLoadingMore(true);
+    setLoadedBatchStartIndex(visibleCount);
     setVisibleCount((prev) => prev + LOAD_MORE_INCREMENT);
+    setTimeout(() => {
+      setIsLoadingMore(false);
+    }, 400);
   };
 
   const openLightbox = (index: number) => {
@@ -116,23 +124,36 @@ export default function GalleryPage() {
 
         {/* 2-Column on Mobile, 3-Column on Desktop Image Grid */}
         <div className="grid grid-cols-2 md:grid-cols-3 gap-2.5 sm:gap-5 md:gap-6 lg:gap-8">
-          {displayedItems.map((item, index) => (
-            <div
-              key={item.id}
-              onClick={() => openLightbox(index)}
-              className="group relative aspect-[4/3] bg-slate-100 overflow-hidden shadow-xs cursor-pointer border border-slate-100"
-            >
-              <Image
-                src={item.thumbnail}
-                alt={item.alt}
-                fill
-                sizes="(max-width: 640px) 50vw, (max-width: 1024px) 50vw, 33vw"
-                className="object-cover transition-transform duration-300 group-hover:scale-105"
-              />
-              {/* Light Black Hover Overlay */}
-              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
-            </div>
-          ))}
+          {displayedItems.map((item, index) => {
+            const isNewlyLoaded = index >= loadedBatchStartIndex;
+            const staggerIndex = isNewlyLoaded ? index - loadedBatchStartIndex : 0;
+            return (
+              <div
+                key={`${item.id}-${activeCategory}`}
+                onClick={() => openLightbox(index)}
+                className={`group relative aspect-[4/3] bg-slate-100 overflow-hidden shadow-xs cursor-pointer border border-slate-100 img-zoom-container ${
+                  isNewlyLoaded ? "animate-gallery-pop" : ""
+                }`}
+                style={
+                  isNewlyLoaded
+                    ? {
+                        animationDelay: `${Math.min(staggerIndex, 12) * 55}ms`,
+                      }
+                    : undefined
+                }
+              >
+                <Image
+                  src={item.thumbnail}
+                  alt={item.alt}
+                  fill
+                  sizes="(max-width: 640px) 50vw, (max-width: 1024px) 50vw, 33vw"
+                  className="object-cover transition-transform duration-500 ease-out group-hover:scale-108"
+                />
+                {/* Light Black Hover Overlay */}
+                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+              </div>
+            );
+          })}
         </div>
 
         {/* LOAD MORE Button */}
@@ -140,9 +161,17 @@ export default function GalleryPage() {
           <div className="flex justify-center mt-12 sm:mt-16">
             <button
               onClick={handleLoadMore}
-              className="bg-[#0C64AB] hover:bg-[#084b80] text-white font-bebas text-[18px] sm:text-[20px] uppercase tracking-[1px] px-8 sm:px-10 py-3 rounded-full transition-all duration-200 cursor-pointer shadow-md active:scale-95"
+              disabled={isLoadingMore}
+              className="bg-[#0C64AB] hover:bg-[#084b80] text-white font-bebas text-[18px] sm:text-[20px] uppercase tracking-[1px] px-8 sm:px-10 py-3 rounded-full transition-all duration-300 cursor-pointer shadow-md hover:shadow-lg active:scale-95 inline-flex items-center gap-2.5 disabled:opacity-85 select-none"
             >
-              LOAD MORE
+              {isLoadingMore ? (
+                <>
+                  <span className="inline-block w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                  <span>LOADING...</span>
+                </>
+              ) : (
+                <span>LOAD MORE</span>
+              )}
             </button>
           </div>
         )}

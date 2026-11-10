@@ -23,8 +23,13 @@ export default function PreFooterContact() {
       {/* Overlaid Columns matching live site screenshot (aligned to top) */}
       <div className="relative z-10 w-full flex flex-col md:flex-row items-stretch min-h-[400px] sm:min-h-[430px]">
         
-        {/* 1. Left Column (25% on desktop): Mail Us with lighter blue transparent overlay (#0C64AB8C) */}
-        <div className="w-full md:w-1/2 lg:w-1/4 bg-[#0C64AB8C] pt-8 sm:pt-11 pb-8 sm:pb-10 px-5 sm:px-8 lg:px-9 text-white flex flex-col justify-start">
+        {/* 1. Left Column (25% on desktop): Mail Us */}
+        <div
+          data-reveal="up"
+          data-delay="0"
+          suppressHydrationWarning
+          className="w-full md:w-1/2 lg:w-1/4 bg-[#0C64AB8C] pt-8 sm:pt-11 pb-8 sm:pb-10 px-5 sm:px-8 lg:px-9 text-white flex flex-col justify-start"
+        >
           <div className="flex items-center gap-3 sm:gap-3.5 mb-4 sm:mb-6">
             <Mail className="w-7 h-7 sm:w-8 sm:h-8 text-white stroke-[1.75] shrink-0" />
             <h3
@@ -86,8 +91,13 @@ export default function PreFooterContact() {
           </div>
         </div>
 
-        {/* 2. Middle Column (25% on desktop): Reach Out with rich blue overlay (#0C64ABD9) */}
-        <div className="w-full md:w-1/2 lg:w-1/4 bg-[#0C64ABD9] pt-8 sm:pt-11 pb-8 sm:pb-10 px-5 sm:px-8 lg:px-9 text-white flex flex-col justify-start">
+        {/* 2. Middle Column (25% on desktop): Reach Out */}
+        <div
+          data-reveal="up"
+          data-delay="120"
+          suppressHydrationWarning
+          className="w-full md:w-1/2 lg:w-1/4 bg-[#0C64ABD9] pt-8 sm:pt-11 pb-8 sm:pb-10 px-5 sm:px-8 lg:px-9 text-white flex flex-col justify-start"
+        >
           <div className="flex items-center gap-3 sm:gap-3.5 mb-4 sm:mb-6">
             <PhoneCall className="w-7 h-7 sm:w-8 sm:h-8 text-white stroke-[1.75] shrink-0" />
             <h3

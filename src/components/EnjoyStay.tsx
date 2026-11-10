@@ -21,8 +21,12 @@ export default function EnjoyStay({ onOpenBooking }: EnjoyStayProps) {
       {/* Dark overlay: 50% opacity black as on the live site */}
       <div className="absolute inset-0 bg-black/50 pointer-events-none" />
 
-      {/* Content Container */}
-      <div className="relative z-10 max-w-5xl mx-auto text-center flex flex-col items-center">
+      {/* Content Container - Animated fadeInUp matching live site */}
+      <div
+        data-reveal="up"
+        suppressHydrationWarning
+        className="relative z-10 max-w-5xl mx-auto text-center flex flex-col items-center"
+      >
         
         {/* Top Subtitle */}
         <p

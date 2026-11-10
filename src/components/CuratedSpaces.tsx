@@ -131,8 +131,12 @@ export default function CuratedSpaces({ onSelectHotel }: CuratedSpacesProps) {
     >
       <div className="relative w-full mx-auto z-10">
         
-        {/* Section Header matching authentic live site */}
-        <div className="text-center max-w-5xl mx-auto mb-10 sm:mb-14 px-4 sm:px-6">
+        {/* Section Header matching authentic live site with fadeInUp animation */}
+        <div
+          data-reveal="up"
+          suppressHydrationWarning
+          className="text-center max-w-5xl mx-auto mb-10 sm:mb-14 px-4 sm:px-6"
+        >
           <h2
             className="font-bebas uppercase mb-6 text-center select-none text-[65px] md:text-[95px] leading-[54px] md:leading-[90px]"
             style={{ fontFamily: '"Bebas Neue", Sans-serif' }}

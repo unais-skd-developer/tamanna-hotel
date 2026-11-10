@@ -122,7 +122,7 @@ export default function OurGallery() {
       <div className="max-w-[1300px] mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Two-Tone Title matching Reference Image 1 exactly */}
-        <div className="text-center mb-8 sm:mb-10">
+        <div data-reveal="up" className="text-center mb-8 sm:mb-10">
           <h2
             className="font-bebas text-5xl sm:text-6xl md:text-7xl lg:text-[88px] uppercase tracking-[-1.5px] sm:tracking-[-2.5px] md:tracking-[-3px] leading-none select-none"
             style={{ fontFamily: '"Bebas Neue", Sans-serif' }}
@@ -132,14 +132,12 @@ export default function OurGallery() {
           </h2>
         </div>
 
-        {/* Filter Tabs matching exact pattern from Reference Image:
-            Row 1: ALL & GRAND TAMANNA
-            Row 2: PREMIER TAMANNA & BIZZ TAMANNA
-            Row 3: EXECUTIVE TAMANNA & SHREE INN BY TAMANNA
-            Row 4: IMPERIAL TAMANNA
-            (On tablet/desktop: sm:contents flows them in a clean single row)
-        */}
-        <div className="flex flex-col sm:flex-row sm:flex-wrap items-center justify-center gap-y-3 sm:gap-y-2 gap-x-6 sm:gap-x-3 md:gap-x-4 mb-8 sm:mb-10 max-w-full sm:max-w-4xl mx-auto px-2">
+        {/* Filter Tabs matching exact pattern from Reference Image */}
+        <div
+          data-reveal="up"
+          data-delay="100"
+          className="flex flex-col sm:flex-row sm:flex-wrap items-center justify-center gap-y-3 sm:gap-y-2 gap-x-6 sm:gap-x-3 md:gap-x-4 mb-8 sm:mb-10 max-w-full sm:max-w-4xl mx-auto px-2"
+        >
           
           {/* Row 1: ALL & GRAND TAMANNA */}
           <div className="flex items-center justify-center gap-6 sm:gap-3 md:gap-4 sm:contents">
@@ -227,25 +225,26 @@ export default function OurGallery() {
 
         </div>
 
-        {/* Gallery Grid: 1 Column on mobile matching Image 1, 2 on sm, 3 on lg */}
+        {/* Gallery Grid: Animated cards with pop-out and smooth hover zoom matching live site */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-6 md:gap-7 max-w-md sm:max-w-none mx-auto">
           {filteredItems.map((item, index) => (
             <div
-              key={item.id}
+              key={`${item.id}-${activeTab}`}
               onClick={() => openLightbox(index)}
-              className="group relative h-[380px] xs:h-[420px] sm:h-[300px] md:h-[320px] lg:h-[340px] rounded-none overflow-hidden bg-slate-100 shadow-sm transition-all duration-300 cursor-pointer"
+              className="group relative h-[380px] xs:h-[420px] sm:h-[300px] md:h-[320px] lg:h-[340px] rounded-none overflow-hidden bg-slate-100 shadow-sm transition-all duration-500 cursor-pointer img-zoom-container animate-gallery-pop"
+              style={{ animationDelay: `${(index % 6) * 60}ms` }}
             >
               <Image
                 src={item.image}
                 alt={item.title}
                 fill
                 loading="lazy"
-                className="object-cover rounded-none"
+                className="object-cover rounded-none group-hover:scale-108 transition-transform duration-700 ease-out"
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
               />
 
-              {/* Light Black Hover Overlay matching Image 2 */}
-              <div className="absolute inset-0 bg-black/45 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+              {/* Light Black Hover Overlay matching live site */}
+              <div className="absolute inset-0 bg-black/45 opacity-0 group-hover:opacity-100 transition-opacity duration-400 pointer-events-none" />
             </div>
           ))}
         </div>

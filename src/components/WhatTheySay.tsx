@@ -193,8 +193,12 @@ export default function WhatTheySay() {
         {/* Top Part: WHAT THEY SAY ABOUT US - 40% Left, 60% Right */}
         <div className="flex flex-col lg:flex-row items-center gap-5 lg:gap-8 mb-16 md:mb-20">
           
-          {/* Left Text: 40% width */}
-          <div className="w-full lg:w-[40%] flex flex-col justify-center space-y-4 pr-0 lg:pr-4">
+          {/* Left Text: 40% width with fadeInLeft animation */}
+          <div
+            data-reveal="left"
+            suppressHydrationWarning
+            className="w-full lg:w-[40%] flex flex-col justify-center space-y-4 pr-0 lg:pr-4"
+          >
             <h2
               className="font-bebas text-[50px] sm:text-[65px] lg:text-[95px] leading-[0.95] tracking-[-2px] sm:tracking-[-3.8px] text-[#1c6fae] uppercase"
               style={{ fontFamily: '"Bebas Neue", Sans-serif' }}
@@ -210,8 +214,11 @@ export default function WhatTheySay() {
             </p>
           </div>
 
-          {/* Right Blue Testimonial Slider: 60% width */}
+          {/* Right Blue Testimonial Slider: 60% width with fadeInRight animation */}
           <div
+            data-reveal="right"
+            data-delay="100"
+            suppressHydrationWarning
             className="w-full lg:w-[60%] overflow-hidden relative shadow-[0_15px_35px_-5px_rgba(0,0,0,0.18)]"
             onMouseEnter={() => setIsPaused(true)}
             onMouseLeave={() => setIsPaused(false)}

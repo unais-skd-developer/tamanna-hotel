@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Bebas_Neue, Jost, Poppins } from "next/font/google";
+import ScrollAnimationProvider from "@/components/ScrollAnimationProvider";
 import "./globals.css";
 
 export const viewport: Viewport = {
@@ -56,6 +57,7 @@ export default function RootLayout({
       className={`${bebasNeue.variable} ${jost.variable} ${poppins.variable} scroll-smooth`}
     >
       <body className="min-h-screen bg-white text-slate-800 font-sans antialiased selection:bg-[#1068a8] selection:text-white">
+        <ScrollAnimationProvider />
         {children}
       </body>
     </html>
