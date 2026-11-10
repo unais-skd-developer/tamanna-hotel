@@ -1,37 +1,25 @@
 "use client";
 
-import React, { useRef } from "react";
+import React from "react";
+import BannerVideo from "./BannerVideo";
 
 export default function HeroVideo() {
-  const iframeRef = useRef<HTMLIFrameElement>(null);
-
-  // YouTube Video ID: xdLrGdl_zqs
-  // Continuous silent autoplay loop with no controls, no branding, full bleed cover
-  const videoSrc =
-    "https://www.youtube.com/embed/xdLrGdl_zqs?autoplay=1&mute=1&controls=0&loop=1&playlist=xdLrGdl_zqs&playsinline=1&rel=0&modestbranding=1&disablekb=1&fs=0&iv_load_policy=3";
-
   return (
-    <section className="relative w-full overflow-hidden bg-black pointer-events-none select-none">
-      {/* Full-width container matching live site min-height (570px) */}
-      <div className="relative w-full h-[400px] sm:h-[480px] md:h-[570px] lg:h-[620px] overflow-hidden">
-        
-        {/* Full-bleed YouTube background iframe with zero black bars on any aspect ratio */}
-        <iframe
-          ref={iframeRef}
-          src={videoSrc}
-          title="Tamanna Hotels Overview"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none border-0"
-          style={{
-            width: "max(120vw, 215vh)",
-            height: "max(67.5vw, 120vh)",
-            minWidth: "120%",
-            minHeight: "120%",
-          }}
-        />
+    <section className="relative w-full bg-white select-none px-4 sm:px-[20px] py-0">
+      {/* Primary Accessible Heading for SEO & Screen Readers */}
+      <h1 className="sr-only">
+        Tamanna Hotels | Best Hotels &amp; Banquets in Hinjawadi Pune
+      </h1>
 
-        {/* Transparent overlay preventing clicks or hover popups */}
-        <div className="absolute inset-0 bg-transparent pointer-events-none" />
+      {/* Video Container with exact 20px white side margins matching live site .elementor-element-ed5f106 */}
+      <div className="relative w-full h-[220px] sm:h-[320px] md:h-[460px] lg:h-[570px] overflow-hidden bg-black rounded-none">
+        <BannerVideo
+          videoId="xdLrGdl_zqs"
+          title="Tamanna Hotels Hinjawadi Pune Overview"
+          fallbackImage="/images/site/Exterior-1.jpg"
+          priority
+          className="w-full h-full"
+        />
       </div>
     </section>
   );

@@ -83,59 +83,58 @@ interface GoogleReview {
 const GOOGLE_REVIEWS: GoogleReview[] = [
   {
     id: "r1",
+    name: "Himani",
+    avatar: "/images/site/avatar_himani.jpg",
+    isLocalGuide: false,
+    time: "3 weeks ago",
+    rating: 5,
+    text: "A well maintained hotel on the main road easy approach. Medical stores, restaurants and market don't seem to be nearby.",
+  },
+  {
+    id: "r2",
     name: "Kalyan Kulkarni",
     avatar: "/images/site/avatar_kalyan.jpg",
     isLocalGuide: true,
-    time: "2 weeks ago",
+    time: "3 weeks ago",
     rating: 5,
     text: "Nice hotel in Hinjewadi ph2.",
   },
   {
-    id: "r2",
+    id: "r3",
     name: "Chinar Goyal",
     avatar: "/images/site/avatar_chinar.jpg",
     isLocalGuide: true,
-    time: "2 weeks ago",
+    time: "3 weeks ago",
     rating: 5,
     text: "Food was good",
   },
   {
-    id: "r3",
+    id: "r4",
     name: "MANSI TYAGI",
     initial: "M",
     avatarBg: "bg-[#5c6bc0]",
     isLocalGuide: false,
-    time: "2 weeks ago",
+    time: "3 weeks ago",
     rating: 5,
     text: "Everything is very good...servicing staff everything is worth coming",
   },
   {
-    id: "r4",
+    id: "r5",
     name: "khanindra das",
     avatar: "/images/site/avatar_khanindra.jpg",
     isLocalGuide: false,
-    time: "2 weeks ago",
+    time: "3 weeks ago",
     rating: 5,
     text: "The service of breakfast is very encouraging and excellent. The service men are very very proactive and responsive all through. I wish all the best. Particularly, Mr Chandan , captain’s response, service and actions to the inmates are very very encouraging. My special thanks to him and wish him successful life in future .",
   },
   {
-    id: "r5",
+    id: "r6",
     name: "Chandrashekhar ...",
     avatar: "/images/site/avatar_chandrashekhar.jpg",
     isLocalGuide: false,
-    time: "2 weeks ago",
+    time: "3 weeks ago",
     rating: 5,
     text: "All services are good",
-  },
-  {
-    id: "r6",
-    name: "Himani",
-    initial: "H",
-    avatarBg: "bg-[#7b1fa2]",
-    isLocalGuide: false,
-    time: "2 weeks ago",
-    rating: 5,
-    text: "A well maintained hotel on the main road easy approach. Medical stores, restaurants and market don't seem to be nearby.",
   },
 ];
 
@@ -172,11 +171,11 @@ export default function WhatTheySay() {
   }, [currentIndex, total]);
 
   const prevReview = () => {
-    setGoogleIndex((prev) => (prev === 0 ? GOOGLE_REVIEWS.length - 3 : prev - 1));
+    setGoogleIndex((prev) => (prev === 0 ? GOOGLE_REVIEWS.length - 1 : prev - 1));
   };
 
   const nextReview = () => {
-    setGoogleIndex((prev) => (prev >= GOOGLE_REVIEWS.length - 3 ? 0 : prev + 1));
+    setGoogleIndex((prev) => (prev >= GOOGLE_REVIEWS.length - 1 ? 0 : prev + 1));
   };
 
   const visibleGoogleReviews = [
@@ -197,7 +196,7 @@ export default function WhatTheySay() {
           {/* Left Text: 40% width */}
           <div className="w-full lg:w-[40%] flex flex-col justify-center space-y-4 pr-0 lg:pr-4">
             <h2
-              className="font-bebas text-[50px] sm:text-[65px] lg:text-[95px] leading-[0.95] tracking-[-2px] sm:tracking-[-3.8px] text-[#0C64AB91] uppercase"
+              className="font-bebas text-[50px] sm:text-[65px] lg:text-[95px] leading-[0.95] tracking-[-2px] sm:tracking-[-3.8px] text-[#1c6fae] uppercase"
               style={{ fontFamily: '"Bebas Neue", Sans-serif' }}
             >
               What They<br />
@@ -231,30 +230,30 @@ export default function WhatTheySay() {
               {slides.map((item, idx) => (
                 <div
                   key={`${item.author}-${idx}`}
-                  className="min-w-full w-full shrink-0 bg-[#0C64AB] text-white pt-[70px] pb-[70px] px-6 sm:px-10 lg:px-[50px] flex flex-col justify-between min-h-[480px] sm:min-h-[490px] select-none text-center"
+                  className="min-w-full w-full shrink-0 bg-[#0C64AB] text-white pt-10 pb-10 sm:pt-14 sm:pb-14 lg:pt-[70px] lg:pb-[70px] px-4 sm:px-8 lg:px-[50px] flex flex-col justify-between min-h-[380px] sm:min-h-[440px] md:min-h-[490px] select-none text-center"
                 >
                   {/* Watermark Quote Icon */}
-                  <div className="flex justify-center mb-6">
-                    <Quote className="w-12 h-12 text-[#E2DCDC] stroke-[1.5] fill-none" />
+                  <div className="flex justify-center mb-4 sm:mb-6">
+                    <Quote className="w-10 h-10 sm:w-12 sm:h-12 text-[#E2DCDC] stroke-[1.5] fill-none" />
                   </div>
 
                   {/* Review Text Body */}
-                  <div className="my-auto px-2">
-                    <p className="font-poppins text-white text-[16px] sm:text-[18px] leading-[1.8] font-normal max-w-[540px] mx-auto whitespace-pre-line">
+                  <div className="my-auto px-1 sm:px-2">
+                    <p className="font-poppins text-white text-[14.5px] sm:text-[16px] md:text-[18px] leading-[1.7] sm:leading-[1.8] font-normal max-w-[540px] mx-auto whitespace-pre-line">
                       {item.text}
                     </p>
 
                     {/* 5 Stars */}
-                    <div className="flex items-center justify-center gap-1.5 mt-6 mb-2">
+                    <div className="flex items-center justify-center gap-1 sm:gap-1.5 mt-4 sm:mt-6 mb-2">
                       {[...Array(5)].map((_, i) => (
-                        <Star key={i} className="w-4 h-4 fill-[#fec42d] text-[#fec42d]" />
+                        <Star key={i} className="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-[#fec42d] text-[#fec42d]" />
                       ))}
                     </div>
                   </div>
 
                   {/* Author Name */}
                   <div
-                    className="font-poppins font-bold text-base sm:text-[16px] tracking-wider text-white uppercase text-center mt-6"
+                    className="font-poppins font-bold text-sm sm:text-[16px] tracking-wider text-white uppercase text-center mt-4 sm:mt-6"
                     style={{ fontFamily: '"Poppins", Sans-serif' }}
                   >
                     {item.author}
@@ -313,13 +312,13 @@ export default function WhatTheySay() {
             </a>
           </div>
 
-          {/* Carousel Container */}
-          <div className="w-full flex-1 relative">
+          {/* Carousel Container matching Image 5 */}
+          <div className="w-full flex-1 relative max-w-[360px] sm:max-w-[420px] md:max-w-none mx-auto">
             
             {/* Left Nav Arrow Button */}
             <button
               onClick={prevReview}
-              className="absolute -left-4 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white shadow-md border border-slate-200 text-slate-600 hover:text-black flex items-center justify-center z-20 cursor-pointer transition-all"
+              className="absolute -left-3 sm:-left-4 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white shadow-md border border-slate-200 text-slate-600 hover:text-black flex items-center justify-center z-20 cursor-pointer transition-all"
               aria-label="Previous Reviews"
             >
               <ChevronLeft className="w-4 h-4" />
@@ -328,18 +327,20 @@ export default function WhatTheySay() {
             {/* Right Nav Arrow Button */}
             <button
               onClick={nextReview}
-              className="absolute -right-4 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white shadow-md border border-slate-200 text-slate-600 hover:text-black flex items-center justify-center z-20 cursor-pointer transition-all"
+              className="absolute -right-3 sm:-right-4 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white shadow-md border border-slate-200 text-slate-600 hover:text-black flex items-center justify-center z-20 cursor-pointer transition-all"
               aria-label="Next Reviews"
             >
               <ChevronRight className="w-4 h-4" />
             </button>
 
-            {/* 3 Review Cards */}
+            {/* Review Cards: 1 on mobile, 3 on desktop */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 px-2">
-              {visibleGoogleReviews.map((rev) => (
+              {visibleGoogleReviews.map((rev, idx) => (
                 <div
                   key={rev.id}
-                  className="bg-[#f6f6f6] border border-[#f6f6f6] rounded-[12px] p-5 flex flex-col justify-between min-h-[175px] transition-all"
+                  className={`bg-[#f8f9fa] border border-[#f0f0f0] rounded-[12px] p-5 flex-col justify-between min-h-[165px] transition-all shadow-xs ${
+                    idx > 0 ? "hidden md:flex" : "flex"
+                  }`}
                 >
                   <div>
                     {/* Header: Avatar, Name, Date, Google Icon */}
@@ -379,7 +380,7 @@ export default function WhatTheySay() {
                           <div className="text-[13.5px] font-bold text-[#202124] leading-tight">
                             {rev.name}
                           </div>
-                          <div className="text-[11.5px] text-[#70757a] mt-0.5">
+                          <div className="text-[11.5px] text-[#5f6368] mt-0.5">
                             {rev.time}
                           </div>
                         </div>

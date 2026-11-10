@@ -13,6 +13,7 @@ export default function PreFooterContact() {
           src="/images/site/Premier-Room-6-scaled.jpg"
           alt="Tamanna Luxury Premier Room"
           fill
+          loading="lazy"
           className="object-cover object-center"
           priority={false}
           sizes="100vw"
@@ -23,11 +24,11 @@ export default function PreFooterContact() {
       <div className="relative z-10 w-full flex flex-col md:flex-row items-stretch min-h-[400px] sm:min-h-[430px]">
         
         {/* 1. Left Column (25% on desktop): Mail Us with lighter blue transparent overlay (#0C64AB8C) */}
-        <div className="w-full md:w-1/2 lg:w-1/4 bg-[#0C64AB8C] pt-10 sm:pt-11 pb-10 px-6 sm:px-8 lg:px-9 text-white flex flex-col justify-start">
-          <div className="flex items-center gap-3.5 mb-6">
-            <Mail className="w-8 h-8 text-white stroke-[1.75] shrink-0" />
+        <div className="w-full md:w-1/2 lg:w-1/4 bg-[#0C64AB8C] pt-8 sm:pt-11 pb-8 sm:pb-10 px-5 sm:px-8 lg:px-9 text-white flex flex-col justify-start">
+          <div className="flex items-center gap-3 sm:gap-3.5 mb-4 sm:mb-6">
+            <Mail className="w-7 h-7 sm:w-8 sm:h-8 text-white stroke-[1.75] shrink-0" />
             <h3
-              className="text-2xl sm:text-[27px] font-medium text-white tracking-wide capitalize"
+              className="text-xl sm:text-2xl md:text-[27px] font-medium text-white tracking-wide capitalize"
               style={{ fontFamily: '"Poppins", Sans-serif' }}
             >
               Mail Us
@@ -86,11 +87,11 @@ export default function PreFooterContact() {
         </div>
 
         {/* 2. Middle Column (25% on desktop): Reach Out with rich blue overlay (#0C64ABD9) */}
-        <div className="w-full md:w-1/2 lg:w-1/4 bg-[#0C64ABD9] pt-10 sm:pt-11 pb-10 px-6 sm:px-8 lg:px-9 text-white flex flex-col justify-start">
-          <div className="flex items-center gap-3.5 mb-6">
-            <PhoneCall className="w-8 h-8 text-white stroke-[1.75] shrink-0" />
+        <div className="w-full md:w-1/2 lg:w-1/4 bg-[#0C64ABD9] pt-8 sm:pt-11 pb-8 sm:pb-10 px-5 sm:px-8 lg:px-9 text-white flex flex-col justify-start">
+          <div className="flex items-center gap-3 sm:gap-3.5 mb-4 sm:mb-6">
+            <PhoneCall className="w-7 h-7 sm:w-8 sm:h-8 text-white stroke-[1.75] shrink-0" />
             <h3
-              className="text-2xl sm:text-[27px] font-medium text-white tracking-wide capitalize"
+              className="text-xl sm:text-2xl md:text-[27px] font-medium text-white tracking-wide capitalize"
               style={{ fontFamily: '"Poppins", Sans-serif' }}
             >
               Reach Out

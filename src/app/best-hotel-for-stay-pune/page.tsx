@@ -34,7 +34,7 @@ const HOTEL_CARDS: HotelCardData[] = [
     nameBold: "TAMANNA",
     image: "/images/site/Grand-Tamanna-Exterior-1-scaled.png",
     description:
-      "Grand Tamanna Hotel blends luxury, fine dining, and event spaces with exceptional personalized hospitality experiences.",
+      "Grand Tamanna Hotel Blends Luxury, Fine Dining, And Event Spaces With Exceptional Personalized Hospitality Experiences.",
     features: [
       { type: "room", label: "Premium Room & Suite Room", count: "47" },
       { type: "dine", label: "Restaurants and bars", count: "02" },
@@ -52,7 +52,7 @@ const HOTEL_CARDS: HotelCardData[] = [
     nameBold: "TAMANNA",
     image: "/images/site/2023-06-30.webp",
     description:
-      "Premier Tamanna Hotel offers modern comfort, multi-cuisine dining, and elegant event spaces for unforgettable stays.",
+      "Premier Tamanna Hotel Offers Modern Comfort, Multi-Cuisine Dining, And Elegant Event Spaces For Unforgettable Stays.",
     features: [
       { type: "room", label: "Premium Room & Suite Room", count: "51" },
       { type: "dine", label: "Restaurants and bars", count: "01" },
@@ -70,7 +70,7 @@ const HOTEL_CARDS: HotelCardData[] = [
     nameBold: "TAMANNA",
     image: "/images/site/bt.webp",
     description:
-      "Bizz Tamanna Hotel delivers business-class stays, vibrant dining, and functional spaces tailored for corporate travelers.",
+      "Bizz Tamanna Hotel Delivers Business-Class Stays, Vibrant Dining, And Functional Spaces Tailored For Corporate Travelers.",
     features: [
       { type: "room", label: "Executive Room & Apartment Room", count: "33" },
       { type: "dine", label: "Restaurants and bars", count: "01" },
@@ -150,9 +150,9 @@ export default function HotelsOverviewPage() {
         bgImage="/images/site/Lobby1-5-scaled.jpg"
         showBreadcrumbs={false}
         align="bottom"
-        minHeight="h-[60vh] sm:h-[65vh] md:h-[70vh] min-h-[420px]"
+        minHeight="h-[70vh] sm:h-[70vh] md:h-[70vh] min-h-[560px]"
         overlayClassName="bg-black/35"
-        titleClassName="text-5xl sm:text-7xl md:text-8xl lg:text-[95px] font-bebas uppercase tracking-[1px] text-white leading-none drop-shadow-sm select-none"
+        titleClassName="text-[82px] xs:text-[95px] md:text-[95px] lg:text-[95px] font-bebas uppercase tracking-[1px] text-white leading-none drop-shadow-sm select-none whitespace-nowrap"
       />
 
       {/* Hotels Listing Section matching live Elementor cards */}
@@ -161,27 +161,27 @@ export default function HotelsOverviewPage() {
           {HOTEL_CARDS.map((hotel, idx) => (
             <div
               key={idx}
-              className="w-full flex flex-col lg:flex-row items-stretch min-h-[460px] sm:min-h-[540px] lg:min-h-[750px] xl:min-h-[780px]"
+              className="w-full flex flex-col lg:flex-row items-stretch"
             >
               {/* Left Column: Full-Height Exterior Photo */}
-              <div className="w-full lg:w-1/2 relative min-h-[380px] sm:min-h-[480px] lg:min-h-[750px] xl:min-h-[780px] overflow-hidden">
+              <div className="w-full lg:w-1/2 relative min-h-[340px] xs:min-h-[380px] sm:min-h-[460px] lg:min-h-[750px] xl:min-h-[780px] overflow-hidden">
                 <Image
                   src={hotel.image}
                   alt={`${hotel.nameLight} ${hotel.nameBold}`}
                   fill
                   priority={idx < 2}
-                  className="object-cover"
+                  className="object-cover object-top sm:object-center"
                   sizes="(max-width: 1024px) 100vw, 50vw"
                 />
               </div>
 
               {/* Right Column: Outer #EDEDF7C9 Frame + Overlapping White Card */}
-              <div className="w-full lg:w-1/2 bg-[#EDEDF7C9] flex items-stretch p-3 sm:p-5 lg:py-7 lg:pr-7 lg:pl-0">
-                <div className="w-full bg-white p-7 sm:p-9 lg:p-10 lg:-ml-5 relative z-10 shadow-sm flex flex-col justify-between">
+              <div className="w-full lg:w-1/2 bg-[#EDEDF7C9] flex items-stretch p-3.5 sm:p-5 lg:py-7 lg:pr-7 lg:pl-0">
+                <div className="w-full bg-white -mt-10 sm:-mt-12 lg:mt-0 lg:-ml-5 relative z-10 shadow-sm flex flex-col justify-between p-6 sm:p-8 lg:p-10">
                   <div>
                     {/* Two-tone Title */}
                     <h2
-                      className="font-bebas text-3xl sm:text-4xl lg:text-[42px] leading-tight tracking-[1px] uppercase mb-3.5 select-none"
+                      className="font-bebas text-[34px] xs:text-[38px] sm:text-4xl lg:text-[42px] leading-tight tracking-[1px] uppercase mb-3.5 select-none"
                       style={{ fontFamily: '"Bebas Neue", Sans-serif' }}
                     >
                       <span style={{ color: "#0C64AB91", fontWeight: 400 }}>
@@ -193,7 +193,7 @@ export default function HotelsOverviewPage() {
                     </h2>
 
                     {/* Description Paragraph */}
-                    <p className="font-poppins text-xs sm:text-[14px] leading-relaxed text-slate-600 mb-6">
+                    <p className="font-poppins text-[14.5px] xs:text-[15px] leading-[26px] text-[#666666] mb-6">
                       {hotel.description}
                     </p>
 
@@ -237,7 +237,7 @@ export default function HotelsOverviewPage() {
                         href={hotel.mapUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="font-bebas text-[18px] text-[#0C64AB] hover:text-[#084572] underline tracking-[0.8px] uppercase font-medium inline-block"
+                        className="font-bebas text-[15px] sm:text-[18px] text-[#0C64AB] hover:text-[#084572] underline tracking-[0.8px] uppercase font-medium inline-block"
                         style={{ fontFamily: '"Bebas Neue", Sans-serif' }}
                       >
                         VIEW MAP
@@ -247,31 +247,33 @@ export default function HotelsOverviewPage() {
 
                   <div>
                     {/* Divider */}
-                    <div className="border-t border-[#E0DDDD] my-5 sm:my-6" />
+                    <div className="border-t border-[#E0DDDD] my-4 sm:my-6" />
 
                     {/* Action Buttons Row */}
-                    <div className="flex items-center justify-between gap-3 pt-1 pb-1">
-                      <Link
-                        href={hotel.hotelUrl}
-                        className="font-bebas text-[18px] text-[#0C64AB] hover:text-[#084572] underline tracking-[0.8px] uppercase font-medium"
-                        style={{ fontFamily: '"Bebas Neue", Sans-serif' }}
-                      >
-                        VIEW HOTEL
-                      </Link>
+                    <div className="flex flex-wrap items-center justify-between gap-y-3 gap-x-4 pt-1 pb-1">
+                      <div className="flex items-center gap-4 xs:gap-6 sm:gap-5">
+                        <Link
+                          href={hotel.hotelUrl}
+                          className="font-bebas text-[15px] sm:text-[18px] text-[#0C64AB] hover:text-[#084572] underline tracking-[0.8px] uppercase font-medium"
+                          style={{ fontFamily: '"Bebas Neue", Sans-serif' }}
+                        >
+                          VIEW HOTEL
+                        </Link>
 
-                      <Link
-                        href="/gallery"
-                        className="font-bebas text-[18px] text-[#0C64AB] hover:text-[#084572] underline tracking-[0.8px] uppercase font-medium"
-                        style={{ fontFamily: '"Bebas Neue", Sans-serif' }}
-                      >
-                        VIEW GALLERY
-                      </Link>
+                        <Link
+                          href="/gallery"
+                          className="font-bebas text-[15px] sm:text-[18px] text-[#0C64AB] hover:text-[#084572] underline tracking-[0.8px] uppercase font-medium"
+                          style={{ fontFamily: '"Bebas Neue", Sans-serif' }}
+                        >
+                          VIEW GALLERY
+                        </Link>
+                      </div>
 
                       <a
                         href={hotel.bookUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="border-2 border-[#0C64AB] text-[#0C64AB] hover:bg-[#0C64AB] hover:text-white rounded-full px-6 sm:px-8 py-2.5 font-bebas text-[18px] tracking-[0.8px] uppercase font-medium transition-colors duration-200 shrink-0"
+                        className="border-2 border-[#0C64AB] text-[#0C64AB] hover:bg-[#0C64AB] hover:text-white rounded-full px-5 sm:px-8 py-2 sm:py-2.5 font-bebas text-[15px] sm:text-[18px] tracking-[0.8px] uppercase font-medium transition-colors duration-200 shrink-0"
                         style={{ fontFamily: '"Bebas Neue", Sans-serif' }}
                       >
                         BOOK NOW

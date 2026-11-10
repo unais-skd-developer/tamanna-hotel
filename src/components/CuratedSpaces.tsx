@@ -1,17 +1,16 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useRef, useSyncExternalStore } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
 import type { Swiper as SwiperType } from "swiper";
-import { EffectCoverflow, Navigation, Pagination, Autoplay } from "swiper/modules";
+import { EffectCoverflow, Navigation, Autoplay } from "swiper/modules";
 
 // Swiper core & module styles
 import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/navigation";
-import "swiper/css/pagination";
 
 export interface HotelProperty {
   id: string;
@@ -104,7 +103,7 @@ export const HOTELS_DATA: HotelProperty[] = [
     slug: "top-cake-shop-hinjawadi-pune",
     name: "Daily Baker",
     tagline: "Freshly Baked Confections, Pastries & Custom Cakes",
-    image: "/images/site/upscalemedia-transformed-3.png",
+    image: "/images/site/64.jpg",
     location: "Hinjawadi Phase 1 & Phase 2, Pune",
     rating: 4.9,
     description: "Artisanal bakery and cake shop offering fresh bakes, pastries, designer cakes, and confections daily.",
@@ -118,64 +117,44 @@ interface CuratedSpacesProps {
 }
 
 export default function CuratedSpaces({ onSelectHotel }: CuratedSpacesProps) {
-  const [mounted, setMounted] = useState(false);
+  const mounted = useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false
+  );
   const swiperRef = useRef<SwiperType | null>(null);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   return (
     <section
       id="curated-spaces"
-      className="relative w-full py-20 md:py-28 bg-[#001232] text-white overflow-hidden select-none"
+      className="relative w-full py-[70px] bg-[#001232] bg-[url('/images/site/curated-bg.jpg')] bg-cover bg-center bg-no-repeat text-white overflow-hidden select-none"
     >
-      {/* Concentric Ripple Background Pattern matching the authentic live site */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden">
-        <svg
-          className="w-[1800px] h-[1800px] shrink-0 opacity-20"
-          viewBox="0 0 1000 1000"
-        >
-          {[70, 140, 210, 280, 350, 420, 490, 560, 630, 700, 770, 840, 910, 980].map((r) => (
-            <circle
-              key={r}
-              cx="500"
-              cy="500"
-              r={r}
-              fill="none"
-              stroke="#2563eb"
-              strokeWidth="1.2"
-            />
-          ))}
-        </svg>
-      </div>
-
       <div className="relative w-full mx-auto z-10">
         
-        {/* Section Header matching Image 2 exactly */}
-        <div className="text-center max-w-5xl mx-auto mb-10 sm:mb-14 px-4">
+        {/* Section Header matching authentic live site */}
+        <div className="text-center max-w-5xl mx-auto mb-10 sm:mb-14 px-4 sm:px-6">
           <h2
-            className="font-bebas uppercase leading-[0.92] mb-6 text-center select-none"
+            className="font-bebas uppercase mb-6 text-center select-none text-[65px] md:text-[95px] leading-[54px] md:leading-[90px]"
             style={{ fontFamily: '"Bebas Neue", Sans-serif' }}
           >
-            <span className="block text-[#FFFFFFD1] font-normal text-4xl sm:text-6xl md:text-7xl lg:text-[90px] xl:text-[95px] tracking-[-1.5px] sm:tracking-[-2.5px] md:tracking-[-3.8px]">
-              CURATED HOTEL SPACES
+            <span className="text-[#FFFFFFD1] font-normal tracking-[-1.5px] md:tracking-[-3.8px]">
+              CURATED HOTEL <span className="block md:inline">SPACES</span>
             </span>
-            <span className="block text-[#0C64AB] font-normal text-4xl sm:text-6xl md:text-7xl lg:text-[90px] xl:text-[95px] tracking-[-1.5px] sm:tracking-[-2.5px] md:tracking-[-3.8px] mt-1 sm:mt-2">
-              FOR UNFORGETTABLE GETAWAYS
+            <span className="text-[#0C64AB] font-normal md:font-medium tracking-[-2.2px] md:tracking-[-3.8px] block">
+              FOR UNFORGETTABLE <span className="block md:inline">GETAWAYS</span>
             </span>
           </h2>
           
           <p
-            className="font-poppins text-sm sm:text-[15px] md:text-[16px] leading-relaxed text-[#F5EBEB] max-w-[850px] mx-auto font-normal"
+            className="font-poppins text-[16px] leading-[28px] text-[#F5EBEB] max-w-[850px] mx-auto font-normal px-2 sm:px-4"
             style={{ fontFamily: '"Poppins", Sans-serif' }}
           >
-            Our portfolio includes Grand Tamanna, Premier Tamanna, Bizz Tamanna, Executive Tamanna, Shree Inn by Tamanna and Imperial Tamanna Hotel each thoughtfully designed to suit different travel needs. Whether you&apos;re visiting for a corporate assignment, a family celebration, or a weekend getaway, Tamanna Hotels ensures every stay is memorable.
+            Our portfolio includes Grand Tamanna, Premier Tamanna, Bizz Tamanna, Executive Tamanna, Shree Inn by Tamanna and Imperial Tamanna Hotel each thoughtfully designed to suit different travel needs. Whether you&rsquo;re visiting for a corporate assignment, a family celebration, or a weekend getaway, Tamanna Hotels ensures every stay is memorable.
           </p>
         </div>
 
-        {/* 3D Swiper Coverflow Slider */}
-        <div className="relative w-full overflow-hidden py-4">
+        {/* 3D Swiper Coverflow Slider strictly matching Image 4 */}
+        <div className="relative w-full max-w-[1260px] mx-auto overflow-hidden px-2 sm:px-6 py-4">
           
           {mounted ? (
             <div className="relative w-full">
@@ -187,35 +166,29 @@ export default function CuratedSpaces({ onSelectHotel }: CuratedSpacesProps) {
                 grabCursor={true}
                 centeredSlides={true}
                 slidesPerView="auto"
-                initialSlide={1} // Starts centered on Premier Tamanna
+                initialSlide={0}
                 loop={true}
-                speed={600}
+                speed={500}
                 slideToClickedSlide={true}
                 autoplay={{
-                  delay: 4500,
+                  delay: 5000,
                   disableOnInteraction: false,
                   pauseOnMouseEnter: true,
                 }}
                 coverflowEffect={{
-                  rotate: 45,
+                  rotate: 25,
                   stretch: 0,
                   depth: 100,
                   modifier: 1,
                   slideShadows: true,
                 }}
-                pagination={{
-                  clickable: true,
-                  el: ".curated-swiper-pagination",
-                  bulletClass: "curated-bullet",
-                  bulletActiveClass: "curated-bullet-active",
-                }}
-                modules={[EffectCoverflow, Navigation, Pagination, Autoplay]}
-                className="w-full !overflow-visible py-6"
+                modules={[EffectCoverflow, Navigation, Autoplay]}
+                className="w-full !overflow-visible py-4"
               >
                 {HOTELS_DATA.map((hotel) => (
                   <SwiperSlide
                     key={hotel.id}
-                    className="!w-[280px] sm:!w-[360px] md:!w-[420px] lg:!w-[440px] !h-[350px] sm:!h-[410px] md:!h-[460px] relative rounded-none overflow-hidden shadow-2xl cursor-pointer group"
+                    className="!w-[330px] xs:!w-[350px] sm:!w-[390px] md:!w-[420px] lg:!w-[450px] !h-[380px] xs:!h-[410px] sm:!h-[440px] md:!h-[460px] lg:!h-[490px] relative rounded-none overflow-hidden shadow-2xl cursor-pointer group"
                     onClick={() => {
                       if (onSelectHotel) onSelectHotel(hotel);
                     }}
@@ -226,16 +199,16 @@ export default function CuratedSpaces({ onSelectHotel }: CuratedSpacesProps) {
                         alt={hotel.name}
                         fill
                         className="object-cover"
-                        sizes="(max-width: 640px) 280px, (max-width: 1024px) 380px, 440px"
+                        sizes="(max-width: 640px) 300px, (max-width: 1024px) 420px, 450px"
                       />
 
                       {/* Smooth dark gradient at bottom for maximum legibility */}
-                      <div className="absolute inset-x-0 bottom-0 h-44 bg-gradient-to-t from-black/90 via-black/40 to-transparent z-10 pointer-events-none" />
+                      <div className="absolute inset-x-0 bottom-0 h-44 bg-gradient-to-t from-black/85 via-black/35 to-transparent z-10 pointer-events-none" />
 
                       {/* Slide Caption: Hotel Name & View More pill button */}
                       <div className="absolute bottom-6 sm:bottom-8 inset-x-0 flex flex-col items-center text-center px-4 z-20">
                         <h3
-                          className="text-xl sm:text-2xl md:text-[30px] lg:text-[32px] font-bold text-white capitalize mb-3 drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] tracking-tight font-poppins"
+                          className="text-2xl sm:text-3xl md:text-[34px] lg:text-[35px] font-bold text-white capitalize mb-3 drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] tracking-normal font-poppins"
                           style={{ fontFamily: '"Poppins", Sans-serif' }}
                         >
                           {hotel.name}
@@ -244,6 +217,7 @@ export default function CuratedSpaces({ onSelectHotel }: CuratedSpacesProps) {
                         <Link
                           href={`/${hotel.slug}`}
                           onClick={(e) => e.stopPropagation()}
+                          aria-label={`View details for ${hotel.name}`}
                           className="inline-flex items-center justify-center bg-white hover:bg-[#0C64AB] text-[#0C64AB] hover:text-white font-medium text-xs sm:text-sm px-6 sm:px-7 py-2 sm:py-2.5 rounded-[50px] shadow-lg transition-all duration-300 font-poppins cursor-pointer"
                           style={{ fontFamily: '"Poppins", Sans-serif' }}
                         >
@@ -255,24 +229,24 @@ export default function CuratedSpaces({ onSelectHotel }: CuratedSpacesProps) {
                 ))}
               </Swiper>
 
-              {/* Navigation Arrows positioned on the adjacent angled cards (Images 3, 4, 5) */}
+              {/* Navigation Arrows positioned on the card matching Image 4 */}
               <button
                 type="button"
                 onClick={(e) => {
                   e.stopPropagation();
                   swiperRef.current?.slidePrev();
                 }}
-                className="absolute top-1/2 -translate-y-1/2 left-2 sm:left-[calc(50%-220px)] md:left-[calc(50%-250px)] lg:left-[calc(50%-270px)] z-30 p-2 text-white hover:scale-125 transition-transform cursor-pointer"
+                className="absolute top-1/2 -translate-y-1/2 left-2 xs:left-4 sm:left-6 md:left-14 lg:left-24 z-30 p-1.5 xs:p-2 text-white hover:scale-125 transition-transform cursor-pointer"
                 aria-label="Previous slide"
               >
                 <svg
-                  className="w-8 h-8 sm:w-10 sm:h-10 text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)]"
+                  className="w-7 h-7 sm:w-10 sm:h-10 text-white drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
-                  strokeWidth={2.4}
+                  strokeWidth={2.5}
                 >
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
                 </svg>
               </button>
 
@@ -282,29 +256,26 @@ export default function CuratedSpaces({ onSelectHotel }: CuratedSpacesProps) {
                   e.stopPropagation();
                   swiperRef.current?.slideNext();
                 }}
-                className="absolute top-1/2 -translate-y-1/2 right-2 sm:right-[calc(50%-220px)] md:right-[calc(50%-250px)] lg:right-[calc(50%-270px)] z-30 p-2 text-white hover:scale-125 transition-transform cursor-pointer"
+                className="absolute top-1/2 -translate-y-1/2 right-2 xs:right-4 sm:right-6 md:right-14 lg:right-24 z-30 p-1.5 xs:p-2 text-white hover:scale-125 transition-transform cursor-pointer"
                 aria-label="Next slide"
               >
                 <svg
-                  className="w-8 h-8 sm:w-10 sm:h-10 text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)]"
+                  className="w-7 h-7 sm:w-10 sm:h-10 text-white drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
-                  strokeWidth={2.4}
+                  strokeWidth={2.5}
                 >
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
                 </svg>
               </button>
             </div>
           ) : (
             // SSR Placeholder to prevent layout shift
-            <div className="relative w-full h-[400px] flex items-center justify-center">
-              <div className="w-[360px] md:w-[440px] h-[440px] bg-slate-800 animate-pulse rounded-none" />
+            <div className="relative w-full h-[490px] flex items-center justify-center">
+              <div className="w-[450px] h-[490px] bg-slate-800 animate-pulse rounded-none" />
             </div>
           )}
-
-          {/* Dynamic Bullets Pagination */}
-          <div className="curated-swiper-pagination flex justify-center items-center gap-2 mt-8 z-20" />
 
         </div>
 
@@ -312,27 +283,9 @@ export default function CuratedSpaces({ onSelectHotel }: CuratedSpacesProps) {
 
       {/* Scoped CSS for Swiper 3D coverflow styling matching the live site */}
       <style jsx global>{`
-        .curated-bullet {
-          display: inline-block;
-          width: 8px;
-          height: 8px;
-          border-radius: 9999px;
-          background-color: rgba(255, 255, 255, 0.35);
-          margin: 0 4px;
-          cursor: pointer;
-          transition: all 0.3s ease;
-        }
-        .curated-bullet-active {
-          width: 30px;
-          background-color: #38bdf8;
-          border-radius: 9999px;
-        }
         .swiper-slide-shadow-left,
         .swiper-slide-shadow-right {
-          background-image: linear-gradient(to right, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0)) !important;
-        }
-        .swiper-slide-shadow-right {
-          background-image: linear-gradient(to left, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0)) !important;
+          background: rgba(0, 0, 0, 0.42) !important;
         }
       `}</style>
     </section>

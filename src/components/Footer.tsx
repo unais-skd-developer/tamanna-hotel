@@ -5,80 +5,174 @@ import Image from "next/image";
 import Link from "next/link";
 import { Phone, Mail, Smartphone, Globe } from "lucide-react";
 
-export default function Footer() {
+interface FooterProps {
+  logoSrc?: string;
+  isDailyBaker?: boolean;
+  activeLink?: string;
+  customPhone?: string;
+  customEmail?: string;
+  customTagline?: string;
+  customRoomBookingPhone?: string;
+  customBanquetBookingPhone?: string;
+  logoContainerClassName?: string;
+}
+
+export default function Footer({
+  logoSrc,
+  isDailyBaker,
+  activeLink,
+  customPhone,
+  customEmail,
+  customTagline,
+  customRoomBookingPhone,
+  customBanquetBookingPhone,
+  logoContainerClassName,
+}: FooterProps = {}) {
+  const isBadgeLogo = logoSrc?.includes("63.png") || logoSrc?.includes("62.png");
+  const isEternityLogo = logoSrc?.includes("6-3-1.png");
+  const isDailyBakerLogo = isDailyBaker || logoSrc?.includes("DAILY-BAKER") || logoSrc?.includes("7-3-2.png");
   return (
     <footer
       id="footer"
-      className="w-full bg-white text-black font-poppins pt-20 sm:pt-28 lg:pt-32 pb-8 flex flex-col justify-between min-h-[85vh]"
+      className="w-full bg-white text-black font-poppins mb-10 pt-14 sm:pt-16 md:pt-20 pb-8 border-t border-slate-100"
     >
-      <div className="max-w-[1300px] w-full mb-10 mx-auto px-4 sm:px-6 lg:px-8 flex-1 flex flex-col justify-between">
+      <div className="max-w-[1300px] w-full mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Top Section: Logo (Left) + REACH OUT (Middle) + QUICK LINKS (Right) */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-14 pb-16 lg:pb-24 items-start">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-14 pb-12 lg:pb-16 items-start">
 
           {/* Column 1: Logo & Tagline (4 cols) */}
-          <div className="md:col-span-4 flex flex-col items-start space-y-5">
+          <div className="md:col-span-4 flex flex-col items-start space-y-3">
             <Link href="/" className="inline-block">
-              <div className="relative w-52 sm:w-60 md:w-64 h-20 sm:h-24">
-                <Image
-                  src="/images/site/logo.png"
-                  alt="Tamanna Hotels Logo"
-                  width={240}
-                  height={90}
-                  priority
-                  className="object-contain object-left scale-120"
-                />
-              </div>
+              {isDailyBakerLogo ? (
+                <div
+                  className={
+                    logoContainerClassName ||
+                    "relative w-56 sm:w-64 md:w-[270px] h-36 sm:h-44 md:h-[175px] flex items-center mb-1"
+                  }
+                >
+                  <Image
+                    src={logoSrc || "/images/site/DAILY-BAKER.png"}
+                    alt="Daily Baker Logo"
+                    fill
+                    loading="lazy"
+                    className="object-contain object-left"
+                  />
+                </div>
+              ) : isBadgeLogo ? (
+                <div
+                  className={
+                    logoContainerClassName ||
+                    "relative w-[220px] sm:w-[250px] md:w-[266px] h-[220px] sm:h-[250px] md:h-[266px] flex items-center mb-1"
+                  }
+                >
+                  <Image
+                    src={logoSrc || "/images/site/63.png"}
+                    alt="Venue Logo"
+                    fill
+                    loading="lazy"
+                    className="object-contain object-left"
+                  />
+                </div>
+              ) : isEternityLogo ? (
+                <div
+                  className={
+                    logoContainerClassName ||
+                    "relative w-72 sm:w-80 md:w-[340px] h-28 sm:h-36 md:h-40 flex items-center mb-3"
+                  }
+                >
+                  <Image
+                    src={logoSrc || "/images/site/6-3-1.png"}
+                    alt="Eternity Banquet Hall Logo"
+                    fill
+                    loading="lazy"
+                    className="object-contain object-left"
+                  />
+                </div>
+              ) : logoSrc ? (
+                <div
+                  className={
+                    logoContainerClassName ||
+                    "relative w-[220px] sm:w-[250px] md:w-[280px] lg:w-[290px] h-[133px] sm:h-[151px] md:h-[169px] lg:h-[175px] flex items-center"
+                  }
+                >
+                  <Image
+                    src={logoSrc}
+                    alt="Tamanna Hotel Logo"
+                    fill
+                    loading="lazy"
+                    className="object-contain object-left"
+                  />
+                </div>
+              ) : (
+                <div className="relative w-[220px] sm:w-[250px] md:w-[280px] lg:w-[290px] h-[133px] sm:h-[151px] md:h-[169px] lg:h-[175px] flex items-center">
+                  <Image
+                    src="/images/site/logo.png"
+                    alt="Tamanna Hotels Logo"
+                    fill
+                    loading="lazy"
+                    className="object-contain object-left"
+                  />
+                </div>
+              )}
             </Link>
-            <p className="text-[13.5px] sm:text-[14px] text-black leading-relaxed max-w-[380px] font-normal pt-13">
-              Tamanna Hotel Offers Premium Stays, Modern Comforts, Elegant Dining, And Personalized Service For Every Guest.
+            <p className="text-[14px] sm:text-[14.5px] text-black leading-[1.65] max-w-[340px] font-normal pt-3 font-poppins">
+              {customTagline || "Tamanna Hotel Offers Premium Stays, Modern Comforts, Elegant Dining, And Personalized Service For Every Guest."}
             </p>
           </div>
 
           {/* Column 2: REACH OUT (4 cols) */}
-          <div className="md:col-span-4 flex flex-col items-start space-y-3 pt-1">
+          <div className="md:col-span-4 flex flex-col items-start space-y-4 pt-1">
             <div className="w-full">
               <h3
-                className="font-bebas text-[32px] sm:text-[36px] md:text-[38px] lg:text-[40px] uppercase text-[#0C64AB] tracking-[0.5px] leading-tight"
+                className="font-bebas text-[34px] sm:text-[38px] md:text-[40px] uppercase text-[#0C64AB] tracking-normal leading-none"
                 style={{ fontFamily: '"Bebas Neue", Sans-serif' }}
               >
                 REACH OUT
               </h3>
-              <div className="w-16 sm:w-20 h-[2px] bg-[#0C54A5] mt-1.5 mb-5" />
+              <div className="w-24 sm:w-28 h-[2px] bg-[#0C64AB] mt-2 mb-6" />
             </div>
 
-            <div className="space-y-4 text-[14px] sm:text-[14.5px] text-black font-normal w-full">
+            <div className="space-y-4 text-[15px] sm:text-[16px] text-black font-normal w-full font-poppins">
               {/* Telephone */}
               <div className="flex items-start gap-3">
                 <div className="mt-1 text-[#0C64AB] shrink-0">
-                  <Phone className="w-4 h-4 text-[#0C64AB]" />
+                  <Phone className="w-[18px] h-[18px] text-[#0C64AB]" />
                 </div>
                 <div className="leading-relaxed">
-                  <div>02066751900 / 02066935000 /</div>
-                  <div>02066539888 / 7507772159</div>
+                  {customPhone ? (
+                    <div>{customPhone}</div>
+                  ) : isDailyBaker ? (
+                    <div>02066751900</div>
+                  ) : (
+                    <>
+                      <div>02066751900 / 02066935000 /</div>
+                      <div>02066539888 / 7507772159</div>
+                    </>
+                  )}
                 </div>
               </div>
 
               {/* Email */}
               <div className="flex items-center gap-3">
                 <div className="text-[#0C64AB] shrink-0">
-                  <Mail className="w-4 h-4 text-[#0C64AB]" />
+                  <Mail className="w-[18px] h-[18px] text-[#0C64AB]" />
                 </div>
                 <a
-                  href="mailto:Info@tamannahotels.com"
+                  href={`mailto:${customEmail || "info@tamannahotels.com"}`}
                   className="text-black hover:text-[#0C64AB] transition-colors"
                 >
-                  Info@tamannahotels.com
+                  {customEmail || "info@tamannahotels.com"}
                 </a>
               </div>
 
               {/* Order Food Online */}
               <div className="flex items-start gap-3 pt-0.5">
                 <div className="mt-1 text-[#0C64AB] shrink-0">
-                  <Smartphone className="w-4 h-4 text-[#0C64AB]" />
+                  <Smartphone className="w-[18px] h-[18px] text-[#0C64AB]" />
                 </div>
                 <div className="leading-relaxed">
-                  <span className="font-medium text-black block mb-0.5">Order Food Online :</span>
+                  <span className="font-normal text-black block mb-0.5">Order Food Online :</span>
                   <div>
                     <a href="https://orders.tamannahotels.com" target="_blank" rel="noopener noreferrer" className="hover:text-[#0C64AB] transition-colors">
                       Orders.tamannahotels.com /
@@ -101,71 +195,141 @@ export default function Footer() {
           </div>
 
           {/* Column 3: QUICK LINKS (4 cols) */}
-          <div className="md:col-span-4 flex flex-col items-start space-y-3 pt-1">
+          <div className="md:col-span-4 flex flex-col items-start space-y-4 pt-1">
             <div className="w-full">
               <h3
-                className="font-bebas text-[32px] sm:text-[36px] md:text-[38px] lg:text-[40px] uppercase text-[#0C64AB] tracking-[0.5px] leading-tight"
+                className="font-bebas text-[34px] sm:text-[38px] md:text-[40px] uppercase text-[#0C64AB] tracking-normal leading-none"
                 style={{ fontFamily: '"Bebas Neue", Sans-serif' }}
               >
                 QUICK LINKS
               </h3>
-              <div className="w-14 sm:w-16 h-[2px] bg-[#0C54A5] mt-1.5 mb-5" />
+              <div className="w-14 sm:w-16 h-[2px] bg-[#0C64AB] mt-2 mb-6" />
             </div>
 
-            <div className="grid grid-cols-2 gap-x-6 sm:gap-x-10 text-[14.5px] text-black w-full">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-y-3.5 md:gap-y-0 gap-x-4 sm:gap-x-8 md:gap-x-10 text-[14.5px] sm:text-[15px] md:text-[16px] text-black w-full font-poppins">
               {/* Left Sub-Column */}
-              <div className="space-y-3.5">
+              <div className="space-y-3 sm:space-y-3.5">
                 <div>
-                  <Link href="/" className="text-[#0C64AB] font-medium hover:underline">
+                  <Link
+                    href="/"
+                    className={
+                      activeLink === "Home" || !activeLink
+                        ? "text-[#0C64AB] hover:underline"
+                        : "text-black hover:text-[#0C64AB] transition-colors"
+                    }
+                  >
                     Home
                   </Link>
                 </div>
                 <div>
-                  <Link href="/best-hotels-pune" className="text-black hover:text-[#0C64AB] transition-colors">
+                  <Link
+                    href="/best-hotels-pune"
+                    className={
+                      activeLink === "About Us"
+                        ? "text-[#0C64AB] hover:underline"
+                        : "text-black hover:text-[#0C64AB] transition-colors"
+                    }
+                  >
                     About Us
                   </Link>
                 </div>
                 <div>
-                  <Link href="/bizz-tamanna-hotel-hinjawadi-pune" className="text-black hover:text-[#0C64AB] transition-colors">
+                  <Link
+                    href="/bizz-tamanna-hotel-hinjawadi-pune"
+                    className={
+                      activeLink === "Bizz Tamanna"
+                        ? "text-[#0C64AB] hover:underline"
+                        : "text-black hover:text-[#0C64AB] transition-colors"
+                    }
+                  >
                     Bizz Tamanna
                   </Link>
                 </div>
                 <div>
-                  <Link href="/hotels-hinjawadi-pune" className="text-black hover:text-[#0C64AB] transition-colors">
+                  <Link
+                    href="/hotels-hinjawadi-pune"
+                    className={
+                      activeLink === "Grand Tamanna"
+                        ? "text-[#0C64AB] hover:underline"
+                        : "text-black hover:text-[#0C64AB] transition-colors"
+                    }
+                  >
                     Grand Tamanna
                   </Link>
                 </div>
                 <div>
-                  <Link href="/premier-tamanna-hotel-hinjawadi-pune" className="text-black hover:text-[#0C64AB] transition-colors">
+                  <Link
+                    href="/premier-tamanna-hotel-hinjawadi-pune"
+                    className={
+                      activeLink === "Premier Tamanna"
+                        ? "text-[#0C64AB] hover:underline"
+                        : "text-black hover:text-[#0C64AB] transition-colors"
+                    }
+                  >
                     Premier Tamanna
                   </Link>
                 </div>
               </div>
 
               {/* Right Sub-Column */}
-              <div className="space-y-3.5">
+              <div className="space-y-3 sm:space-y-3.5">
                 <div>
-                  <Link href="/executive-tamanna-hotel-hinjawadi-pune" className="text-black hover:text-[#0C64AB] transition-colors">
+                  <Link
+                    href="/executive-tamanna-hotel-hinjawadi-pune"
+                    className={
+                      activeLink === "Executive Tamanna"
+                        ? "text-[#0C64AB] hover:underline"
+                        : "text-black hover:text-[#0C64AB] transition-colors"
+                    }
+                  >
                     Executive Tamanna
                   </Link>
                 </div>
                 <div>
-                  <Link href="/shree-inn-by-tamanna-hotel-hinjawadi-pune" className="text-black hover:text-[#0C64AB] transition-colors">
+                  <Link
+                    href="/shree-inn-by-tamanna-hotel-hinjawadi-pune"
+                    className={
+                      activeLink === "Shree Inn By Tamanna"
+                        ? "text-[#0C64AB] hover:underline"
+                        : "text-black hover:text-[#0C64AB] transition-colors"
+                    }
+                  >
                     Shree Inn By Tamanna
                   </Link>
                 </div>
                 <div>
-                  <Link href="/best-hotels-chikhali-pune" className="text-black hover:text-[#0C64AB] transition-colors">
+                  <Link
+                    href="/best-hotels-chikhali-pune"
+                    className={
+                      activeLink === "Imperial Tamanna"
+                        ? "text-[#0C64AB] hover:underline"
+                        : "text-black hover:text-[#0C64AB] transition-colors"
+                    }
+                  >
                     Imperial Tamanna
                   </Link>
                 </div>
                 <div>
-                  <Link href="/top-cake-shop-hinjawadi-pune" className="text-black hover:text-[#0C64AB] transition-colors">
+                  <Link
+                    href="/top-cake-shop-hinjawadi-pune"
+                    className={
+                      isDailyBaker || activeLink === "Daily Baker"
+                        ? "text-[#0C64AB] hover:underline"
+                        : "text-black hover:text-[#0C64AB] transition-colors"
+                    }
+                  >
                     Daily Baker
                   </Link>
                 </div>
                 <div>
-                  <Link href="/hotel-near-pune" className="text-black hover:text-[#0C64AB] transition-colors">
+                  <Link
+                    href="/hotel-near-pune"
+                    className={
+                      activeLink === "Contact Us"
+                        ? "text-[#0C64AB] hover:underline"
+                        : "text-black hover:text-[#0C64AB] transition-colors"
+                    }
+                  >
                     Contact Us
                   </Link>
                 </div>
@@ -177,31 +341,31 @@ export default function Footer() {
         </div>
 
         {/* Middle Section: Direct Booking Lines */}
-        <div className="border-t border-[#d1d5db] border-b border-[#0C64AB] py-7 sm:py-9">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-[14px] sm:text-[14.5px] text-black">
+        <div className="border-t border-gray-200 border-b border-gray-200 py-5 sm:py-7 my-2">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6 text-[14px] sm:text-[15px] md:text-[16px] text-black font-poppins">
 
             {/* Box 1: Hotel Rooms */}
             <div className="flex items-start gap-2.5">
               <Phone className="w-4 h-4 text-[#0C64AB] mt-1 shrink-0" />
-              <div>
+              <div className="leading-relaxed">
                 <span className="text-black font-normal block">Bookings Of Hotel Rooms:</span>
-                <span className="text-black font-normal">02066935000/ 02066539888/ 02066751900</span>
+                <span className="text-black font-normal">{customRoomBookingPhone || "02066935000/ 02066539888/ 02066751900"}</span>
               </div>
             </div>
 
             {/* Box 2: Banquet Halls & Restaurants */}
             <div className="flex items-start gap-2.5">
               <Phone className="w-4 h-4 text-[#0C64AB] mt-1 shrink-0" />
-              <div>
+              <div className="leading-relaxed">
                 <span className="text-black font-normal block">Bookings Of Banquet Halls & Restaurants:</span>
-                <span className="text-black font-normal">7507772159/02066935000/ 02069525400</span>
+                <span className="text-black font-normal">{customBanquetBookingPhone || "7507772159/ 02066935000/ 02069525400"}</span>
               </div>
             </div>
 
             {/* Box 3: Website */}
             <div className="flex items-start gap-2.5">
               <Globe className="w-4 h-4 text-[#0C64AB] mt-1 shrink-0" />
-              <div>
+              <div className="leading-relaxed">
                 <span className="text-black font-normal block">Visit our Website:</span>
                 <a
                   href="https://www.tamannahotels.com"
@@ -218,7 +382,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom Section: Copyright in Blue & Circle Social Icons */}
-        <div className="py-7 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="py-6 flex flex-col sm:flex-row items-center justify-between gap-4 font-poppins">
           <div className="text-[14px] sm:text-[15px] text-[#0C64AB] font-normal">
             Copyright © 2026 Tamanna Hotels | Powered By Shree Krishna Digital Marketing
           </div>

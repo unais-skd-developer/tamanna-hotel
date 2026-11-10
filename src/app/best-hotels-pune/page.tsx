@@ -6,84 +6,122 @@ import Link from "next/link";
 import TopBar from "@/components/TopBar";
 import Navbar from "@/components/Navbar";
 import PageHeader from "@/components/PageHeader";
-import PreFooterContact from "@/components/PreFooterContact";
 import Footer from "@/components/Footer";
 import BookingModal from "@/components/BookingModal";
-import { AWARDS_DATA } from "@/data/siteData";
-import { Award, CheckCircle2, Trophy, Clock, Building2, Users } from "lucide-react";
+import { Award, Trophy, Medal, ShieldCheck, Globe, Star } from "lucide-react";
+
+interface AwardItem {
+  icon: React.ElementType;
+  year: string;
+  category: string;
+  title: string;
+}
+
+const AWARDS: AwardItem[] = [
+  {
+    icon: Medal,
+    year: "2015",
+    category: "Service Excellence",
+    title: "Best Canteen Award 2015 From Infosys Pune Dc",
+  },
+  {
+    icon: Trophy,
+    year: "2017",
+    category: "Business Excellence",
+    title: "Winner Of India's Top 100 SME In 2017",
+  },
+  {
+    icon: Award,
+    year: "2019",
+    category: "Hospitality",
+    title: "India MICE Award 2019 To Tamanna Hotels As Best Meetings Hotel (Western India)",
+  },
+  {
+    icon: Globe,
+    year: "2010",
+    category: "Tourism",
+    title: "All India Business And Community Award For Tourism Excellence 2010",
+  },
+  {
+    icon: ShieldCheck,
+    year: "2010",
+    category: "Industry Recognition",
+    title: "Appreciation Award From Federation Of Hotels And Restaurants Associations Of India",
+  },
+  {
+    icon: Trophy,
+    year: "2012",
+    category: "Leadership",
+    title: "Featured As LEADERS OF TOMORROW AWARD 2012 By English Business TV Channel ET NOW Of Times Group",
+  },
+];
 
 export default function AboutUsPage() {
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
 
   return (
     <div className="min-h-screen flex flex-col bg-white">
+      {/* Top Bar */}
       <TopBar />
+
+      {/* Navbar */}
       <Navbar onOpenBooking={() => setIsBookingModalOpen(true)} />
 
-      {/* Page Header */}
+      {/* Hero Banner with Lobby Background and Bottom-Anchored ABOUT US */}
       <PageHeader
-        title="About Us"
-        subtitle="Every Moment, A Delight — Setting benchmarks in Indian hospitality for over two decades."
-        breadcrumbs={[{ label: "Home", href: "/" }]}
-        bgImage="/images/site/Exterior.jpg"
+        title="ABOUT US"
+        bgImage="/images/site/Lobby2-2-scaled.jpg"
+        align="bottom"
+        showBreadcrumbs={false}
+        minHeight="h-[60vh] sm:h-[65vh] md:h-[70vh] min-h-[460px]"
+        overlayClassName="bg-black/35"
+        titleClassName="font-bebas text-[65px] sm:text-7xl md:text-8xl lg:text-[95px] text-white tracking-[1px] leading-none uppercase drop-shadow-md select-none text-center"
       />
 
-      {/* Section 1: About Tamanna Story */}
-      <section className="py-16 md:py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+      {/* Section 1: EVERY MOMENT, A DELIGHT */}
+      <section className="py-12 sm:py-16 md:py-20 bg-[#EDEDF7]">
+        <div className="max-w-[1300px] mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-start">
             
-            {/* Left Image Collage */}
-            <div className="lg:col-span-6 relative">
-              <div className="relative h-[380px] sm:h-[460px] rounded-2xl overflow-hidden shadow-2xl border-4 border-white">
-                <Image
-                  src="/images/extracted/style_journey_lobby.jpg"
-                  alt="Tamanna Hotels Lobby"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              <div className="absolute -bottom-6 -right-4 sm:-bottom-8 sm:-right-6 w-48 sm:w-60 h-36 sm:h-44 rounded-xl overflow-hidden shadow-2xl border-4 border-white hidden sm:block">
-                <Image
-                  src="/images/extracted/style_journey_sign.jpg"
-                  alt="Tamanna Entrance"
-                  fill
-                  className="object-cover"
-                />
-              </div>
+            {/* Left Column (40% width): Massive Heading, Right-aligned on desktop, Left on mobile */}
+            <div className="lg:col-span-5 pt-1 lg:text-right text-left">
+              <h2
+                className="font-bebas text-[82px] xs:text-[95px] sm:text-8xl md:text-9xl lg:text-[146px] uppercase leading-[0.88] tracking-[-2px] lg:tracking-[-3.8px] text-[#0C64AB91]"
+                style={{ fontFamily: '"Bebas Neue", Sans-serif' }}
+              >
+                <span>EVERY</span>
+                <br />
+                <span>MOMENT,</span>
+                <br />
+                <span className="text-[#0C64AB] font-medium">A DELIGHT</span>
+              </h2>
             </div>
 
-            {/* Right Story Text */}
-            <div className="lg:col-span-6 space-y-6">
-              <span className="text-[#0c64ab] text-xs sm:text-sm font-semibold uppercase tracking-widest block font-jost">
-                ABOUT TAMANNA
-              </span>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bebas uppercase tracking-wide text-slate-800 leading-tight">
-                Two Decades of Excellence in <span className="text-[#0c64ab]">Pune&apos;s IT Hub</span>
-              </h2>
-
-              <p className="text-slate-600 font-poppins text-sm sm:text-base leading-relaxed">
-                Tamanna Hotels has grown to become one of the best hotels in Pune, offering exceptional hospitality in the heart of Hinjawadi IT Park. We were the first hotel established in Hinjawadi, redefining comfort and modern hospitality in Pune.
+            {/* Right Column (60% width): Text & Lounge Image */}
+            <div className="lg:col-span-7 space-y-6 sm:space-y-7">
+              <p
+                className="text-[#7A7A7A] font-poppins text-[15px] sm:text-[16px] leading-[26px] capitalize"
+                style={{ fontFamily: '"Poppins", Sans-serif' }}
+              >
+                <Link
+                  href="https://www.google.com/search?kgmid=%2Fg%2F11c1ww66hm&hl=en-IN&q=Grand%20Tamanna%20Hotel"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[#0C64AB] font-medium hover:underline capitalize"
+                >
+                  Tamanna Hotels
+                </Link>{" "}
+                Has Grown To Become One Of The Best Hotels In Pune, Offering Exceptional Hospitality In The Heart Of Hinjawadi IT Park. We Were The First Hotel In Hinjawadi, Redefining Comfort And Modern Hospitality. With Over Two Decades Of Experience, We Take Pride In Delivering Quality Service, Modern Amenities, And A Home-Like Atmosphere To Guests From Around The World.
               </p>
 
-              <p className="text-slate-600 font-poppins text-sm sm:text-base leading-relaxed">
-                Our journey began with a vision to create a hotel brand that reflects Indian warmth, professionalism, and comfort. Value for money is our USP, and improving quality continuously is our ethos. Today, we manage 6 unique properties, multiple fine restaurants, and ten state-of-the-art event venues.
-              </p>
-
-              {/* Stat Counters */}
-              <div className="grid grid-cols-3 gap-4 pt-4 border-t border-slate-200">
-                <div>
-                  <span className="block text-3xl sm:text-4xl font-bebas text-[#0c64ab]">20+</span>
-                  <span className="text-xs sm:text-sm text-slate-500 font-jost">Years Experience</span>
-                </div>
-                <div>
-                  <span className="block text-3xl sm:text-4xl font-bebas text-[#0c64ab]">6</span>
-                  <span className="text-xs sm:text-sm text-slate-500 font-jost">Properties</span>
-                </div>
-                <div>
-                  <span className="block text-3xl sm:text-4xl font-bebas text-[#0c64ab]">10+</span>
-                  <span className="text-xs sm:text-sm text-slate-500 font-jost">Banquet Halls</span>
-                </div>
+              {/* Lounge Image - Flat edges matching exact reference */}
+              <div className="relative w-full aspect-[1024/601] rounded-none overflow-hidden shadow-sm">
+                <Image
+                  src="/images/site/Bizz-Tamanna-Reception-1-1024x601.jpg"
+                  alt="Tamanna Hotels Reception & Lounge"
+                  fill
+                  className="object-cover"
+                />
               </div>
             </div>
 
@@ -91,77 +129,148 @@ export default function AboutUsPage() {
         </div>
       </section>
 
-      {/* Section 2: Awards & Recognitions */}
-      <section className="py-16 md:py-24 bg-slate-50 border-t border-slate-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <span className="text-[#0c64ab] text-xs sm:text-sm font-semibold uppercase tracking-widest block font-jost mb-2">
-              HONORS & ACCOLADES
-            </span>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bebas uppercase tracking-wide text-slate-800">
-              Awards & Recognitions
+      {/* Section 2: ABOUT TAMANNA */}
+      <section className="py-12 sm:py-16 md:py-20 bg-white">
+        <div className="max-w-[1300px] mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center">
+            
+            {/* Left Side: 2 Images (Totem Banner + Pool) - Stacked on mobile, 2-cols on desktop */}
+            <div className="lg:col-span-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 items-end">
+                {/* Tall Totem Banner Image */}
+                <div className="relative w-full h-[360px] xs:h-[380px] sm:h-[420px] md:h-[480px] rounded-none overflow-hidden shadow-xs">
+                  <Image
+                    src="/images/site/Exterior-3-scaled.jpg"
+                    alt="Grand Tamanna Hotel Exterior"
+                    fill
+                    className="object-cover object-center"
+                  />
+                </div>
+                {/* Night Swimming Pool Image - Aligned to bottom on desktop, stacked below on mobile */}
+                <div className="relative w-full h-[200px] xs:h-[220px] sm:h-[240px] md:h-[275px] rounded-none overflow-hidden shadow-xs">
+                  <Image
+                    src="/images/site/pool2.webp"
+                    alt="Tamanna Hotels Swimming Pool"
+                    fill
+                    className="object-cover object-center"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Right Side: Heading, Paragraph & Enquire Button */}
+            <div className="lg:col-span-6 space-y-4 sm:space-y-6 pt-2 sm:pt-0">
+              <h2
+                className="font-bebas text-[52px] xs:text-[58px] sm:text-[65px] md:text-7xl lg:text-[95px] uppercase tracking-[-1.5px] sm:tracking-[-2px] lg:tracking-[-3.8px] leading-none text-[#0C64AB91]"
+                style={{ fontFamily: '"Bebas Neue", Sans-serif' }}
+              >
+                <span>ABOUT </span>
+                <span className="text-[#0C64AB] font-medium">TAMANNA</span>
+              </h2>
+
+              <p
+                className="text-[#7A7A7A] font-poppins text-[13.5px] sm:text-[15px] sm:text-[16px] leading-[24px] sm:leading-[26px] capitalize"
+                style={{ fontFamily: '"Poppins", Sans-serif' }}
+              >
+                Our Journey Began With A Vision To Create A Hotel Brand That Reflects Indian Warmth, Professionalism, And Comfort. Value For Money Is Our USP And Improving Quality Of Life Is Our Mission. Today, Tamanna Hotels Operates Six Distinguished Properties-Grand Tamanna, Premier Tamanna, Bizz Tamanna, Executive Tamanna, Shree Inn By Tamanna And Imperial Tamanna Hotel. Each Hotel Caters To Different Segments Of Travelers, From Business Executives And Families To Long-Stay Guests And Event Organizers. What Sets Us Apart Is Our Commitment To Customer Satisfaction. We Provide More Than 159 Well-Furnished Rooms, Including Suites And Serviced Apartments, Supported By High-Speed Internet, 24/7 Service, And Elegant Interiors. Our In-House Facilities Include Multi-Cuisine Restaurants, A South Indian Café, Event Venues, Fitness Centers, Business Lounges, And More.
+              </p>
+
+              <div className="pt-2">
+                <Link
+                  href="/contact-us"
+                  className="inline-flex items-center gap-1.5 font-bebas text-[18px] sm:text-[20px] tracking-[1px] text-[#0C64AB] hover:text-[#084572] transition-colors uppercase font-medium group cursor-pointer"
+                  style={{ fontFamily: '"Bebas Neue", Sans-serif' }}
+                >
+                  <span className="group-hover:underline">ENQUIRE NOW</span>
+                  <span className="text-[19px] transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5">↗</span>
+                </Link>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* Section 3: AWARDS & RECOGNITIONS */}
+      <section className="py-12 sm:py-16 md:py-20 bg-[#EDEDF7]">
+        <div className="max-w-[1300px] mx-auto px-4 sm:px-6 lg:px-8">
+          
+          {/* Centered Heading & Subtitle */}
+          <div className="text-center max-w-[900px] mx-auto mb-10 sm:mb-14">
+            <h2
+              className="font-bebas text-[65px] md:text-8xl lg:text-[95px] uppercase tracking-[-1.5px] sm:tracking-[-2px] lg:tracking-[-3.8px] leading-[1.05] text-[#0C64AB91] mb-4"
+              style={{ fontFamily: '"Bebas Neue", Sans-serif' }}
+            >
+              <span>AWARDS & </span>
+              <br className="sm:hidden" />
+              <span className="text-[#0C64AB] font-medium">RECOGNITIONS</span>
             </h2>
-            <p className="text-slate-600 text-sm sm:text-base font-poppins mt-3">
-              Recognized nationally for corporate hospitality, MICE excellence, and culinary standards.
+            <p
+              className="text-[#7A7A7A] font-poppins text-xs sm:text-[14.5px] sm:text-[15px] leading-relaxed capitalize max-w-[800px] mx-auto"
+              style={{ fontFamily: '"Poppins", Sans-serif' }}
+            >
+              Our Efforts Have Been Recognized With Several Awards, Including India&apos;s Top 100 SME Award, The India MICE Award For Best Meetings Hotel, And Multiple Community Accolades For Tourism Excellence. These Recognitions Reinforce Our Place Among The Best Hotels In Pune.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {AWARDS_DATA.map((award, idx) => (
-              <div
-                key={idx}
-                className="bg-white p-7 sm:p-8 rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 border border-slate-200 flex flex-col justify-between"
-              >
-                <div>
-                  <div className="flex items-center justify-between mb-4">
-                    <span className="px-3.5 py-1 bg-sky-100 text-[#0c64ab] font-bold text-xs rounded-full font-jost">
-                      {award.year}
-                    </span>
-                    <Trophy className="w-5 h-5 text-amber-500" />
+          {/* 6 Award Cards Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7">
+            {AWARDS.map((award, idx) => {
+              const IconComp = award.icon;
+              return (
+                <div
+                  key={idx}
+                  className="bg-white rounded-[10px] p-6 sm:p-[30px] border border-slate-200/80 shadow-[0px_2px_8px_rgba(0,0,0,0.06)] transition-all duration-300 flex flex-col justify-between"
+                >
+                  <div>
+                    {/* Top Row: Circular Icon on Left, Year & Category on Right */}
+                    <div className="flex items-start justify-between mb-4">
+                      <div className="w-[52px] h-[52px] rounded-full bg-[#0C64AB] text-white flex items-center justify-center shrink-0">
+                        <IconComp className="w-[26px] h-[26px] text-white" />
+                      </div>
+                      <div className="text-right">
+                        <span
+                          className="block font-bebas text-[28px] text-[#1A1B1A] leading-none"
+                          style={{ fontFamily: '"Bebas Neue", Sans-serif' }}
+                        >
+                          {award.year}
+                        </span>
+                        <span
+                          className="block font-poppins text-xs sm:text-[14px] text-[#7A7A7A] capitalize leading-none mt-1"
+                          style={{ fontFamily: '"Poppins", Sans-serif' }}
+                        >
+                          {award.category}
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Award Title */}
+                    <h3
+                      className="font-poppins text-[15px] sm:text-[17px] text-[#1A1B1A] capitalize leading-[1.35em] font-normal"
+                      style={{ fontFamily: '"Poppins", Sans-serif' }}
+                    >
+                      {award.title}
+                    </h3>
                   </div>
 
-                  <h3 className="text-xl sm:text-2xl font-bebas uppercase tracking-wide text-slate-800 mb-1">
-                    {award.title}
-                  </h3>
-                  <span className="text-xs uppercase tracking-wider text-[#0c64ab] font-semibold block mb-3">
-                    {award.subtitle}
-                  </span>
-                  <p className="text-slate-600 font-poppins text-xs sm:text-sm leading-relaxed">
-                    {award.description}
-                  </p>
+                  {/* 5 Gold Stars */}
+                  <div className="flex items-center gap-[4px] text-[#FFD200] mt-5 pt-1">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className="w-[16px] h-[16px] fill-[#FFD200] text-[#FFD200]" />
+                    ))}
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
+
         </div>
       </section>
 
-      {/* Section 3: Event & Banquet Philosophy */}
-      <section className="py-16 bg-[#07193f] text-white">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 text-center space-y-5">
-          <span className="text-sky-400 text-xs sm:text-sm font-semibold uppercase tracking-widest block font-jost">
-            HOSPITALITY WITH PURPOSE
-          </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bebas uppercase tracking-wide text-white">
-            Hosting Celebrations That Echo For A Lifetime
-          </h2>
-          <p className="text-slate-300 font-poppins text-sm sm:text-base leading-relaxed max-w-3xl mx-auto">
-            Tamanna Hotels is known for its vibrant events and banquet offerings. With ten banquet halls, rooftop venues, boardrooms, and conference spaces, we specialize in corporate summits, product launches, dream weddings, and private family galas.
-          </p>
-          <div className="pt-4">
-            <Link
-              href="/top-wedding-party-venues-pune"
-              className="inline-flex items-center gap-2 px-8 py-3.5 bg-[#0c64ab] hover:bg-sky-600 text-white font-bebas text-lg tracking-wider rounded-full transition-colors uppercase shadow-xl"
-            >
-              Explore Our Venues
-            </Link>
-          </div>
-        </div>
-      </section>
+      {/* Footer with About Us highlighted */}
+      <Footer activeLink="About Us" />
 
-      <PreFooterContact />
-      <Footer />
-
+      {/* Booking Modal */}
       <BookingModal
         isOpen={isBookingModalOpen}
         onClose={() => setIsBookingModalOpen(false)}
@@ -169,4 +278,3 @@ export default function AboutUsPage() {
     </div>
   );
 }
-

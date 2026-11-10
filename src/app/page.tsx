@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import dynamic from "next/dynamic";
 import TopBar from "@/components/TopBar";
 import Navbar from "@/components/Navbar";
 import HeroVideo from "@/components/HeroVideo";
@@ -11,8 +12,14 @@ import EnjoyStay from "@/components/EnjoyStay";
 import WhatTheySay from "@/components/WhatTheySay";
 import PreFooterContact from "@/components/PreFooterContact";
 import Footer from "@/components/Footer";
-import HotelDetailModal from "@/components/HotelDetailModal";
-import BookingModal from "@/components/BookingModal";
+
+// Lazy load interactive modals so they are completely omitted from initial page bundle
+const HotelDetailModal = dynamic(() => import("@/components/HotelDetailModal"), {
+  ssr: false,
+});
+const BookingModal = dynamic(() => import("@/components/BookingModal"), {
+  ssr: false,
+});
 
 export default function Home() {
   const [isBookingOpen, setIsBookingOpen] = useState(false);
@@ -60,21 +67,25 @@ export default function Home() {
       {/* 11. Official Footer */}
       <Footer />
 
-      {/* Interactive Modals */}
-      <HotelDetailModal
-        hotel={activeHotelDetail}
-        onClose={() => setActiveHotelDetail(null)}
-        onBookHotel={(hotelName) => {
-          setActiveHotelDetail(null);
-          handleOpenBooking({ hotel: hotelName });
-        }}
-      />
+      {/* Interactive Modals loaded on-demand */}
+      {activeHotelDetail && (
+        <HotelDetailModal
+          hotel={activeHotelDetail}
+          onClose={() => setActiveHotelDetail(null)}
+          onBookHotel={(hotelName) => {
+            setActiveHotelDetail(null);
+            handleOpenBooking({ hotel: hotelName });
+          }}
+        />
+      )}
 
-      <BookingModal
-        isOpen={isBookingOpen}
-        onClose={() => setIsBookingOpen(false)}
-        initialHotel={selectedHotelForBooking}
-      />
+      {isBookingOpen && (
+        <BookingModal
+          isOpen={isBookingOpen}
+          onClose={() => setIsBookingOpen(false)}
+          initialHotel={selectedHotelForBooking}
+        />
+      )}
     </main>
   );
 }

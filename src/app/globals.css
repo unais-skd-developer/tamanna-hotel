@@ -1,8 +1,11 @@
 @import "tailwindcss";
 
 @theme {
+  --font-jost: "Jost", var(--font-jost), sans-serif;
+  --font-bebas: "Bebas Neue", var(--font-bebas), sans-serif;
   --font-heading: "Bebas Neue", var(--font-bebas), sans-serif;
   --font-nav: "Jost", var(--font-jost), sans-serif;
+  --font-poppins: "Poppins", var(--font-poppins), sans-serif;
   --font-sans: "Poppins", var(--font-poppins), sans-serif;
   --color-brand-blue: #00609c;
   --color-brand-accent: #1068a8;
@@ -49,4 +52,41 @@ body {
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #0b4f7e;
+}
+
+/* Banner Background Video: Zoomed out, edge-to-edge, responsive cover without artificial magnification */
+.banner-video-container {
+  container-type: size;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: #000000;
+}
+
+.banner-video-frame {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 0 !important;
+  pointer-events: none !important;
+  user-select: none !important;
+  /* Baseline fit */
+  width: 100%;
+  height: 100%;
+}
+
+@container (min-aspect-ratio: 16/9) {
+  .banner-video-frame {
+    width: 100cqw;
+    height: 56.25cqw;
+  }
+}
+
+@container (max-aspect-ratio: 16/9) {
+  .banner-video-frame {
+    width: 177.78cqh;
+    height: 100cqh;
+  }
 }

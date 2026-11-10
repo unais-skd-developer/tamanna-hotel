@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import { X, ChevronLeft, ChevronRight, ZoomIn } from "lucide-react";
+import { X, ChevronLeft, ChevronRight } from "lucide-react";
 
 interface GalleryItem {
   id: string;
@@ -88,16 +88,6 @@ const GALLERY_ITEMS: GalleryItem[] = [
   },
 ];
 
-const CATEGORIES = [
-  "ALL",
-  "GRAND TAMANNA",
-  "PREMIER TAMANNA",
-  "BIZZ TAMANNA",
-  "EXECUTIVE TAMANNA",
-  "SHREE INN BY TAMANNA",
-  "IMPERIAL TAMANNA",
-];
-
 export default function OurGallery() {
   const [activeTab, setActiveTab] = useState("ALL");
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
@@ -137,65 +127,125 @@ export default function OurGallery() {
             className="font-bebas text-5xl sm:text-6xl md:text-7xl lg:text-[88px] uppercase tracking-[-1.5px] sm:tracking-[-2.5px] md:tracking-[-3px] leading-none select-none"
             style={{ fontFamily: '"Bebas Neue", Sans-serif' }}
           >
-            <span className="text-[#0C64AB91] font-normal">OUR </span>
+            <span className="text-[#1c6fae] font-normal">OUR </span>
             <span className="text-[#0C64AB] font-medium">GALLERY</span>
           </h2>
         </div>
 
-        {/* Filter Tabs with sharp rectangular active tab matching Image 1 */}
-        <div className="flex items-center justify-start sm:justify-center overflow-x-auto no-scrollbar gap-1 sm:gap-2 pb-3 mb-8 sm:mb-10">
-          {CATEGORIES.map((cat) => {
-            const isActive = activeTab === cat;
-            return (
-              <button
-                key={cat}
-                onClick={() => setActiveTab(cat)}
-                className={`text-[12px] sm:text-[13px] md:text-[13.5px] font-medium uppercase tracking-wider px-4 sm:px-5 py-2 sm:py-2.5 transition-all duration-200 whitespace-nowrap cursor-pointer rounded-none font-poppins ${
-                  isActive
-                    ? "bg-[#0C64AB] text-white shadow-sm"
-                    : "text-[#444444] hover:text-[#0C64AB] hover:bg-sky-50"
-                }`}
-                style={{ fontFamily: '"Outfit", "Poppins", Sans-serif' }}
-              >
-                {cat}
-              </button>
-            );
-          })}
+        {/* Filter Tabs matching exact pattern from Reference Image:
+            Row 1: ALL & GRAND TAMANNA
+            Row 2: PREMIER TAMANNA & BIZZ TAMANNA
+            Row 3: EXECUTIVE TAMANNA & SHREE INN BY TAMANNA
+            Row 4: IMPERIAL TAMANNA
+            (On tablet/desktop: sm:contents flows them in a clean single row)
+        */}
+        <div className="flex flex-col sm:flex-row sm:flex-wrap items-center justify-center gap-y-3 sm:gap-y-2 gap-x-6 sm:gap-x-3 md:gap-x-4 mb-8 sm:mb-10 max-w-full sm:max-w-4xl mx-auto px-2">
+          
+          {/* Row 1: ALL & GRAND TAMANNA */}
+          <div className="flex items-center justify-center gap-6 sm:gap-3 md:gap-4 sm:contents">
+            {["ALL", "GRAND TAMANNA"].map((cat) => {
+              const isActive = activeTab === cat;
+              return (
+                <button
+                  key={cat}
+                  onClick={() => setActiveTab(cat)}
+                  className={`text-[12.5px] sm:text-[13px] md:text-[13.5px] font-medium uppercase tracking-wider px-4 sm:px-5 py-2 sm:py-2.5 transition-all duration-200 whitespace-nowrap cursor-pointer rounded-none font-poppins select-none ${
+                    isActive
+                      ? "bg-[#0C64AB] text-white shadow-sm"
+                      : "text-[#333333] hover:text-[#0C64AB]"
+                  }`}
+                  style={{ fontFamily: '"Poppins", Sans-serif' }}
+                >
+                  {cat}
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Row 2: PREMIER TAMANNA & BIZZ TAMANNA */}
+          <div className="flex items-center justify-center gap-6 sm:gap-3 md:gap-4 sm:contents">
+            {["PREMIER TAMANNA", "BIZZ TAMANNA"].map((cat) => {
+              const isActive = activeTab === cat;
+              return (
+                <button
+                  key={cat}
+                  onClick={() => setActiveTab(cat)}
+                  className={`text-[12.5px] sm:text-[13px] md:text-[13.5px] font-medium uppercase tracking-wider px-4 sm:px-5 py-2 sm:py-2.5 transition-all duration-200 whitespace-nowrap cursor-pointer rounded-none font-poppins select-none ${
+                    isActive
+                      ? "bg-[#0C64AB] text-white shadow-sm"
+                      : "text-[#333333] hover:text-[#0C64AB]"
+                  }`}
+                  style={{ fontFamily: '"Poppins", Sans-serif' }}
+                >
+                  {cat}
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Row 3: EXECUTIVE TAMANNA & SHREE INN BY TAMANNA */}
+          <div className="flex items-center justify-center gap-5 sm:gap-3 md:gap-4 sm:contents">
+            {["EXECUTIVE TAMANNA", "SHREE INN BY TAMANNA"].map((cat) => {
+              const isActive = activeTab === cat;
+              return (
+                <button
+                  key={cat}
+                  onClick={() => setActiveTab(cat)}
+                  className={`text-[12.5px] sm:text-[13px] md:text-[13.5px] font-medium uppercase tracking-wider px-4 sm:px-5 py-2 sm:py-2.5 transition-all duration-200 whitespace-nowrap cursor-pointer rounded-none font-poppins select-none ${
+                    isActive
+                      ? "bg-[#0C64AB] text-white shadow-sm"
+                      : "text-[#333333] hover:text-[#0C64AB]"
+                  }`}
+                  style={{ fontFamily: '"Poppins", Sans-serif' }}
+                >
+                  {cat}
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Row 4: IMPERIAL TAMANNA */}
+          <div className="flex items-center justify-center sm:contents">
+            {["IMPERIAL TAMANNA"].map((cat) => {
+              const isActive = activeTab === cat;
+              return (
+                <button
+                  key={cat}
+                  onClick={() => setActiveTab(cat)}
+                  className={`text-[12.5px] sm:text-[13px] md:text-[13.5px] font-medium uppercase tracking-wider px-4 sm:px-5 py-2 sm:py-2.5 transition-all duration-200 whitespace-nowrap cursor-pointer rounded-none font-poppins select-none ${
+                    isActive
+                      ? "bg-[#0C64AB] text-white shadow-sm"
+                      : "text-[#333333] hover:text-[#0C64AB]"
+                  }`}
+                  style={{ fontFamily: '"Poppins", Sans-serif' }}
+                >
+                  {cat}
+                </button>
+              );
+            })}
+          </div>
+
         </div>
 
-        {/* Gallery 3-Column Grid with fixed tall card height matching Image 1 */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 md:gap-7">
+        {/* Gallery Grid: 1 Column on mobile matching Image 1, 2 on sm, 3 on lg */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-6 md:gap-7 max-w-md sm:max-w-none mx-auto">
           {filteredItems.map((item, index) => (
             <div
               key={item.id}
               onClick={() => openLightbox(index)}
-              className="group relative h-[270px] sm:h-[300px] md:h-[320px] lg:h-[340px] rounded-none overflow-hidden bg-slate-100 shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer"
+              className="group relative h-[380px] xs:h-[420px] sm:h-[300px] md:h-[320px] lg:h-[340px] rounded-none overflow-hidden bg-slate-100 shadow-sm transition-all duration-300 cursor-pointer"
             >
               <Image
                 src={item.image}
                 alt={item.title}
                 fill
-                className="object-cover transition-transform duration-500 group-hover:scale-108 rounded-none"
+                loading="lazy"
+                className="object-cover rounded-none"
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
               />
 
-              {/* Hover Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-5 text-white">
-                <span className="text-[11px] font-semibold text-sky-300 uppercase tracking-wider mb-1 font-poppins">
-                  {item.categoryLabel}
-                </span>
-                <h4 className="text-lg font-bold font-condensed leading-snug drop-shadow-sm mb-1">
-                  {item.title}
-                </h4>
-                <p className="text-xs text-slate-200 line-clamp-2 font-poppins">
-                  {item.description}
-                </p>
-
-                <div className="mt-3 flex items-center gap-1.5 text-xs text-sky-200 font-medium font-poppins">
-                  <ZoomIn className="w-4 h-4" />
-                  <span>Click to view full photo</span>
-                </div>
-              </div>
+              {/* Light Black Hover Overlay matching Image 2 */}
+              <div className="absolute inset-0 bg-black/45 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
             </div>
           ))}
         </div>

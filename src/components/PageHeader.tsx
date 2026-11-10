@@ -43,14 +43,18 @@ export default function PageHeader({
     <div className="relative w-full overflow-hidden bg-slate-900 text-white">
       {/* If YouTube video provided, render video iframe like hotel pages */}
       {heroVideoId ? (
-        <div className="relative w-full h-[50vh] sm:h-[60vh] md:h-[68vh] min-h-[360px] max-h-[640px] overflow-hidden">
+        <div className="relative w-full h-[50vh] sm:h-[60vh] md:h-[68vh] min-h-[360px] max-h-[640px] overflow-hidden banner-video-container">
           <iframe
-            src={`https://www.youtube.com/embed/${heroVideoId}?autoplay=1&mute=1&controls=0&loop=1&playlist=${heroVideoId}&enablejsapi=1&playsinline=1&rel=0&modestbranding=1`}
+            src={`https://www.youtube-nocookie.com/embed/${heroVideoId}?autoplay=1&mute=1&controls=0&loop=1&playlist=${heroVideoId}&playsinline=1&rel=0&modestbranding=1&disablekb=1&fs=0&iv_load_policy=3`}
             title={title}
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            className="absolute top-1/2 left-1/2 w-[180%] h-[180%] sm:w-[150%] sm:h-[150%] md:w-[130%] md:h-[130%] -translate-x-1/2 -translate-y-1/2 pointer-events-none object-cover border-0"
+            tabIndex={-1}
+            aria-hidden="true"
+            className="banner-video-frame pointer-events-none border-0"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/30" />
+          {/* Interaction shield */}
+          <div className="absolute inset-0 z-10 pointer-events-auto bg-transparent select-none cursor-default" />
+          <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/80 via-black/40 to-black/30 pointer-events-none" />
 
           <div className="absolute inset-0 flex flex-col justify-end max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-10 sm:pb-14 z-10">
             {/* Breadcrumb */}
@@ -90,7 +94,7 @@ export default function PageHeader({
         <div
           className={`relative w-full px-4 sm:px-6 lg:px-8 flex ${
             align === "bottom"
-              ? "flex-col justify-end items-center pb-12 sm:pb-16 md:pb-20 pt-28"
+              ? "flex-col justify-end items-center pb-1.5 sm:pb-3 md:pb-6 pt-16"
               : "items-center justify-center py-16 sm:py-20 md:py-28"
           } ${minHeight || "min-h-[300px] md:min-h-[380px]"}`}
         >
@@ -109,7 +113,7 @@ export default function PageHeader({
             }`}
           />
 
-          <div className="relative z-10 max-w-5xl mx-auto text-center flex flex-col items-center">
+          <div className="relative z-10 w-full max-w-5xl mx-auto text-center flex flex-col items-center">
             {/* Breadcrumb */}
             {showBreadcrumbs && (
               <nav className="flex items-center gap-1.5 text-xs sm:text-sm text-slate-300 mb-4 font-jost">

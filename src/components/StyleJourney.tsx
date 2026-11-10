@@ -3,7 +3,6 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
 
 export default function StyleJourney() {
   return (
@@ -11,33 +10,33 @@ export default function StyleJourney() {
       <div className="max-w-[1300px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col lg:flex-row items-stretch gap-8 lg:gap-10">
 
-          {/* Left: Two Asymmetrically Staggered Photos matching exact Elementor live layout */}
-          <div className="w-full lg:w-[50%] flex items-stretch gap-4 sm:gap-6">
+          {/* Left: Two Photos - Stacked vertically on mobile matching Image 1 & 2, staggered side-by-side on desktop */}
+          <div className="w-full lg:w-[50%] flex flex-col lg:flex-row items-center lg:items-stretch gap-6 lg:gap-6">
             
-            {/* Column 1 (27% of total / 54% of left container): Top-aligned landscape Reception Lobby */}
-            <div className="w-[54%] flex flex-col justify-start">
-              <div className="relative w-full aspect-[256/171] overflow-hidden rounded-none">
+            {/* Photo 1: Reception Lobby */}
+            <div className="w-full lg:w-[54%] flex flex-col justify-start">
+              <div className="relative w-full h-[500px] lg:h-auto lg:aspect-[256/171] overflow-hidden rounded-none">
                 <Image
                   src="/images/site/Reception-Lobby.jpg"
                   alt="Tamanna Hotels Reception Lobby"
                   fill
                   priority
-                  className="object-cover"
-                  sizes="(max-width: 1024px) 50vw, 27vw"
+                  className="object-cover object-center"
+                  sizes="(max-width: 1024px) 100vw, 27vw"
                 />
               </div>
             </div>
 
-            {/* Column 2 (23% of total / 46% of left container): Bottom-aligned portrait Exterior Totem Signboard */}
-            <div className="w-[46%] flex flex-col justify-end">
-              <div className="relative w-full h-[280px] sm:h-[330px] md:h-[380px] overflow-hidden rounded-none">
+            {/* Photo 2: Portrait Exterior Totem Signboard */}
+            <div className="w-full lg:w-[46%] flex flex-col items-center lg:items-start justify-end">
+              <div className="relative w-[78%] sm:w-[68%] lg:w-full h-[320px] sm:h-[360px] md:h-[380px] overflow-hidden rounded-none">
                 <Image
                   src="/images/site/Exterior-2.jpg"
                   alt="Tamanna Hotels Grand Entrance Sign"
                   fill
-                  priority
+                  loading="lazy"
                   className="object-cover"
-                  sizes="(max-width: 1024px) 50vw, 23vw"
+                  sizes="(max-width: 1024px) 80vw, 23vw"
                 />
               </div>
             </div>
@@ -52,7 +51,7 @@ export default function StyleJourney() {
                 className="font-bebas uppercase text-[48px] sm:text-[65px] md:text-[78px] lg:text-[95px] leading-[0.92] tracking-[-2px] lg:tracking-[-3.8px] mb-6 select-none"
                 style={{
                   fontFamily: '"Bebas Neue", Sans-serif',
-                  color: '#0C64AB91',
+                  color: '#1c6fae',
                   fontWeight: 400,
                 }}
               >
@@ -75,6 +74,7 @@ export default function StyleJourney() {
                   href="https://www.google.com/search?kgmid=%2Fg%2F11c1ww66hm&hl=en-IN&q=Grand%20Tamanna%20Hotel"
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label="Tamanna Hotels Google Profile"
                   className="text-slate-800 font-medium hover:text-[#0c64ab] underline decoration-slate-300"
                 >
                   holds
@@ -87,11 +87,12 @@ export default function StyleJourney() {
             <div>
               <Link
                 href="/best-hotels-pune"
+                aria-label="Read more about Tamanna Hotels"
                 className="inline-flex items-center gap-2 text-[#0c64ab] hover:text-[#084572] font-bebas text-[18px] sm:text-[20px] tracking-[0.8px] uppercase group transition-colors"
                 style={{ fontFamily: '"Bebas Neue", Sans-serif' }}
               >
-                <span>Read More</span>
-                <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1.5" />
+                <span>READ MORE</span>
+                <span className="text-[18px] font-normal transition-transform duration-200 group-hover:translate-x-1">→</span>
               </Link>
             </div>
 

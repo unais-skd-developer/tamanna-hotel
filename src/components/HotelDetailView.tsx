@@ -298,12 +298,12 @@ export default function HotelDetailView({ hotel }: HotelDetailViewProps) {
                         {venue.description}
                       </p>
                     </div>
-                    <button
-                      onClick={() => setIsBookingModalOpen(true)}
-                      className="w-full py-2.5 bg-sky-600 hover:bg-sky-500 text-white font-bebas text-base tracking-wider rounded-lg transition-colors cursor-pointer uppercase"
+                    <Link
+                      href="/contact-us"
+                      className="w-full py-2.5 bg-sky-600 hover:bg-sky-500 text-white font-bebas text-base tracking-wider rounded-lg transition-colors cursor-pointer uppercase inline-flex items-center justify-center text-center"
                     >
                       Enquire Venue
-                    </button>
+                    </Link>
                   </div>
                 </div>
               ))}
@@ -371,9 +371,7 @@ export default function HotelDetailView({ hotel }: HotelDetailViewProps) {
                     fill
                     className="object-cover group-hover:scale-110 transition-transform duration-500"
                   />
-                  <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                    <Maximize2 className="w-6 h-6 text-white" />
-                  </div>
+                  <div className="absolute inset-0 bg-black/45 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
                 </div>
               ))}
             </div>

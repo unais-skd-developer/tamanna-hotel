@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { X, Calendar, User, Phone, Mail, Hotel, CheckCircle, Sparkles, BedDouble } from "lucide-react";
 
 interface BookingModalProps {
@@ -14,7 +14,15 @@ export default function BookingModal({
   onClose,
   initialHotel,
 }: BookingModalProps) {
-  const [hotel, setHotel] = useState("Grand Tamanna Hotel");
+  const [hotel, setHotel] = useState(initialHotel || "Grand Tamanna Hotel");
+  const [prevInitialHotel, setPrevInitialHotel] = useState(initialHotel);
+  if (initialHotel !== prevInitialHotel) {
+    setPrevInitialHotel(initialHotel);
+    if (initialHotel) {
+      setHotel(initialHotel);
+    }
+  }
+
   const [roomType, setRoomType] = useState("Executive Deluxe AC");
   const [checkIn, setCheckIn] = useState("");
   const [checkOut, setCheckOut] = useState("");
@@ -25,12 +33,6 @@ export default function BookingModal({
   const [email, setEmail] = useState("");
   const [specialRequest, setSpecialRequest] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
-
-  useEffect(() => {
-    if (initialHotel) {
-      setHotel(initialHotel);
-    }
-  }, [initialHotel]);
 
   if (!isOpen) return null;
 

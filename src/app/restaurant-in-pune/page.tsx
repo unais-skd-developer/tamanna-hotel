@@ -36,7 +36,7 @@ const RESTAURANT_CARDS: RestaurantCardData[] = [
     capacity: "Capacity 110 Persons",
     address:
       "PLOT NO.16, Hinjawadi Phase II, Hinjawadi Rajiv Gandhi Infotech Park, Hinjawadi, Pune, Pimpri-Chinchwad, Maharashtra 411057",
-    viewMoreUrl: "/hotels-hinjawadi-pune",
+    viewMoreUrl: "/best-restaurants-bars-hinjawadi-pune",
     mapUrl: "https://maps.app.goo.gl/mRwbrjBT4jWd1MCQ6?g_st=ipc",
     orderUrl: "https://grand.tamannahotels.com/",
   },
@@ -51,7 +51,7 @@ const RESTAURANT_CARDS: RestaurantCardData[] = [
     capacity: "Capacity 150 Persons",
     address:
       "PLOT NO.16, Hinjawadi Phase II, Hinjawadi Rajiv Gandhi Infotech Park, Hinjawadi, Pune, Pimpri-Chinchwad, Maharashtra 411057",
-    viewMoreUrl: "/hotels-hinjawadi-pune",
+    viewMoreUrl: "/best-lounge-bar-hinjawadi-pune",
     mapUrl: "https://maps.app.goo.gl/YvfSNQCSkzSiKDwQ6?g_st=ipc",
   },
   {
@@ -65,7 +65,7 @@ const RESTAURANT_CARDS: RestaurantCardData[] = [
     capacity: "Capacity 100 Persons",
     address:
       "3, S.No.21 Plot No.2, Phase 1, Hinjawadi Rajiv Gandhi Infotech Park, Hinjawadi, Pune, Pimpri-Chinchwad, Maharashtra 411057",
-    viewMoreUrl: "/premier-tamanna-hotel-hinjawadi-pune",
+    viewMoreUrl: "/best-multi-cuisine-restaurant-hinjawadi-pune",
     orderUrl: "https://orders.tamannahotels.com/",
   },
   {
@@ -79,7 +79,7 @@ const RESTAURANT_CARDS: RestaurantCardData[] = [
     capacity: "Capacity 110 Persons",
     address:
       "Plot No.10 Opp. Infosys, Phase 1, Hinjawadi Rajiv Gandhi Infotech Park, Hinjawadi, Pune, Maharashtra 411057",
-    viewMoreUrl: "/bizz-tamanna-hotel-hinjawadi-pune",
+    viewMoreUrl: "/best-restaurants-hinjawadi-pune",
   },
   {
     hotelTag: "Executive Tamanna Hotel",
@@ -92,7 +92,7 @@ const RESTAURANT_CARDS: RestaurantCardData[] = [
     capacity: "Capacity 110 Persons",
     address:
       "Plot No. 7, Executive Tamanna Hotel, Phase 1, Hinjawadi Rajiv Gandhi Infotech Park, Hinjawadi, Pune, Pimpri-Chinchwad, Maharashtra 411057",
-    viewMoreUrl: "/executive-tamanna-hotel-hinjawadi-pune",
+    viewMoreUrl: "/top-multi-cuisine-restaurant-bar-hinjawadi-pune",
     mapUrl:
       "https://www.google.com/maps/place/Tamanna+Multi+Cuisine+Restaurant+%26+Bar/@18.5857524,73.7324007,17z",
     orderUrl: "https://orders.tamannahotels.com/",
@@ -108,7 +108,7 @@ const RESTAURANT_CARDS: RestaurantCardData[] = [
     capacity: "Capacity 50 Persons",
     address:
       "Plot No. 7, Executive Tamanna Hotel, Phase 1, Hinjawadi Rajiv Gandhi Infotech Park, Hinjawadi, Pune, Pimpri-Chinchwad, Maharashtra 411057",
-    viewMoreUrl: "/executive-tamanna-hotel-hinjawadi-pune",
+    viewMoreUrl: "/top-restaurant-hinjawadi-pune",
     mapUrl:
       "https://www.google.com/maps/place/Tamanna+Cafeteria/@18.5857518,73.7324152,17z",
   },
@@ -123,7 +123,7 @@ const RESTAURANT_CARDS: RestaurantCardData[] = [
     capacity: "Capacity 80 Persons",
     address:
       "Diagonal Business Centre, Plot No - 1, Sector 16, Ayush Garden, Raje Shivaji Nagar, Chikhali, Pimpri-Chinchwad, Maharashtra 411019",
-    viewMoreUrl: "/best-hotels-chikhali-pune",
+    viewMoreUrl: "/multi-cuisine-restaurant-chinchwad-pune",
     mapUrl: "https://maps.app.goo.gl/eCeapCu1RaU9EtbU6",
   },
 ];
@@ -153,42 +153,47 @@ export default function RestaurantsPage() {
           {RESTAURANT_CARDS.map((rest, idx) => (
             <div
               key={idx}
-              className="w-full flex flex-col lg:flex-row items-stretch min-h-[440px] sm:min-h-[500px] lg:min-h-[600px] xl:min-h-[620px]"
+              className="w-full flex flex-col lg:flex-row items-stretch"
             >
               {/* Left Column: Full-Height Dining Photo */}
-              <div className="w-full lg:w-1/2 relative min-h-[360px] sm:min-h-[440px] lg:min-h-[600px] xl:min-h-[620px] overflow-hidden">
+              <Link
+                href={rest.viewMoreUrl}
+                className="w-full lg:w-1/2 relative min-h-[300px] xs:min-h-[340px] sm:min-h-[440px] lg:min-h-[600px] xl:min-h-[620px] overflow-hidden group block cursor-pointer"
+              >
                 <Image
                   src={rest.image}
                   alt={`${rest.nameLight} ${rest.nameBold}`}
                   fill
                   priority={idx < 2}
-                  className="object-cover"
+                  className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
                   sizes="(max-width: 1024px) 100vw, 50vw"
                 />
-              </div>
+              </Link>
 
               {/* Right Column: Outer #EDEDF7C9 Frame + Overlapping White Card */}
-              <div className="w-full lg:w-1/2 bg-[#EDEDF7C9] flex items-stretch p-3 sm:p-5 lg:py-7 lg:pr-7 lg:pl-0">
-                <div className="w-full bg-white p-7 sm:p-9 lg:p-10 lg:-ml-5 relative z-10 shadow-sm flex flex-col justify-between">
+              <div className="w-full lg:w-1/2 bg-[#EDEDF7C9] flex items-stretch p-3.5 sm:p-5 lg:py-7 lg:pr-7 lg:pl-0">
+                <div className="w-full bg-white -mt-10 sm:-mt-12 lg:mt-0 lg:-ml-5 relative z-10 shadow-sm flex flex-col justify-between p-6 sm:p-8 lg:p-10">
                   <div>
                     {/* Hotel Tag */}
-                    <div className="flex items-center gap-1.5 text-xs text-[#0C64AB] font-medium font-poppins mb-2">
-                      <Building2 className="w-3.5 h-3.5 text-[#0C64AB]" />
+                    <div className="flex items-center gap-1.5 text-xs sm:text-[13px] text-[#0C64AB] font-medium font-poppins mb-2">
+                      <MapPin className="w-3.5 h-3.5 text-[#0C64AB] shrink-0" />
                       <span>{rest.hotelTag}</span>
                     </div>
 
                     {/* Two-tone Title */}
-                    <h2
-                      className="font-bebas text-2xl sm:text-3xl lg:text-[38px] leading-tight tracking-[1px] uppercase mb-3.5 select-none"
-                      style={{ fontFamily: '"Bebas Neue", Sans-serif' }}
-                    >
-                      <span style={{ color: "#0C64AB91", fontWeight: 400 }}>
-                        {rest.nameLight}{" "}
-                      </span>
-                      <span style={{ color: "#0C64AB", fontWeight: 500 }}>
-                        {rest.nameBold}
-                      </span>
-                    </h2>
+                    <Link href={rest.viewMoreUrl} className="block group cursor-pointer">
+                      <h2
+                        className="font-bebas text-[34px] xs:text-[38px] sm:text-4xl lg:text-[42px] leading-[0.95] tracking-[1px] uppercase mb-3.5 select-none group-hover:opacity-85 transition-opacity"
+                        style={{ fontFamily: '"Bebas Neue", Sans-serif' }}
+                      >
+                        <span style={{ color: "#0C64AB91", fontWeight: 400 }}>
+                          {rest.nameLight}{" "}
+                        </span>
+                        <span style={{ color: "#0C64AB", fontWeight: 500 }}>
+                          {rest.nameBold}
+                        </span>
+                      </h2>
+                    </Link>
 
                     {/* Description Paragraph */}
                     <p className="font-poppins text-xs sm:text-[14px] leading-relaxed text-slate-600 mb-6">
@@ -216,14 +221,14 @@ export default function RestaurantsPage() {
 
                   <div>
                     {/* Divider */}
-                    <div className="border-t border-[#E0DDDD] my-5 sm:my-6" />
+                    <div className="border-t border-[#E0DDDD] my-4 sm:my-6" />
 
                     {/* Action Buttons Row */}
-                    <div className="flex items-center justify-between gap-3 pt-1">
-                      <div className="flex items-center gap-6">
+                    <div className="flex flex-wrap items-center justify-between gap-y-3 gap-x-4 pt-1">
+                      <div className="flex items-center justify-between w-full sm:w-auto gap-4 xs:gap-8 sm:gap-6">
                         <Link
                           href={rest.viewMoreUrl}
-                          className="font-bebas text-[18px] text-[#0C64AB] hover:text-[#084572] underline tracking-[0.8px] uppercase font-medium"
+                          className="font-bebas text-[15px] sm:text-[18px] text-[#0C64AB] hover:text-[#084572] underline tracking-[0.8px] uppercase font-medium"
                           style={{ fontFamily: '"Bebas Neue", Sans-serif' }}
                         >
                           VIEW MORE
@@ -234,7 +239,7 @@ export default function RestaurantsPage() {
                             href={rest.mapUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="font-bebas text-[18px] text-[#0C64AB] hover:text-[#084572] underline tracking-[0.8px] uppercase font-medium"
+                            className="font-bebas text-[15px] sm:text-[18px] text-[#0C64AB] hover:text-[#084572] underline tracking-[0.8px] uppercase font-medium"
                             style={{ fontFamily: '"Bebas Neue", Sans-serif' }}
                           >
                             VIEW MAP
@@ -247,10 +252,10 @@ export default function RestaurantsPage() {
                           href={rest.orderUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="border-2 border-[#0C64AB] text-[#0C64AB] hover:bg-[#0C64AB] hover:text-white rounded-full px-5 sm:px-6 py-2 font-bebas text-[17px] sm:text-[18px] tracking-[0.8px] uppercase font-medium transition-colors duration-200 shrink-0"
+                          className="border-2 border-[#0C64AB] text-[#0C64AB] hover:bg-[#0C64AB] hover:text-white rounded-full px-5 sm:px-6 py-2 font-bebas text-[15px] sm:text-[18px] tracking-[0.8px] uppercase font-medium transition-colors duration-200 shrink-0"
                           style={{ fontFamily: '"Bebas Neue", Sans-serif' }}
                         >
-                          LET&apos;S GET ORDERING
+                          ORDER FOOD ONLINE
                         </a>
                       )}
                     </div>

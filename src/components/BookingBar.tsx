@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Calendar, ChevronDown, ChevronRight } from "lucide-react";
 
 interface BookingBarProps {
@@ -8,26 +8,28 @@ interface BookingBarProps {
   className?: string;
 }
 
+const getInitialDates = () => {
+  const today = new Date();
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+
+  const formatDate = (d: Date) => {
+    const day = String(d.getDate()).padStart(2, "0");
+    const month = String(d.getMonth() + 1).padStart(2, "0");
+    const year = d.getFullYear();
+    return `${year}-${month}-${day}`;
+  };
+
+  return {
+    checkIn: formatDate(today),
+    checkOut: formatDate(tomorrow),
+  };
+};
+
 export default function BookingBar({ initialProperty = "", className = "" }: BookingBarProps) {
   const [selectedProperty, setSelectedProperty] = useState(initialProperty);
-  const [checkIn, setCheckIn] = useState("");
-  const [checkOut, setCheckOut] = useState("");
-
-  useEffect(() => {
-    const today = new Date();
-    const tomorrow = new Date();
-    tomorrow.setDate(tomorrow.getDate() + 1);
-
-    const formatDate = (d: Date) => {
-      const day = String(d.getDate()).padStart(2, "0");
-      const month = String(d.getMonth() + 1).padStart(2, "0");
-      const year = d.getFullYear();
-      return `${year}-${month}-${day}`;
-    };
-
-    setCheckIn(formatDate(today));
-    setCheckOut(formatDate(tomorrow));
-  }, []);
+  const [checkIn, setCheckIn] = useState(() => getInitialDates().checkIn);
+  const [checkOut, setCheckOut] = useState(() => getInitialDates().checkOut);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
