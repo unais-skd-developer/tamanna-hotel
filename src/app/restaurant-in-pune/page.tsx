@@ -8,7 +8,62 @@ import Navbar from "@/components/Navbar";
 import PageHeader from "@/components/PageHeader";
 import Footer from "@/components/Footer";
 import BookingModal from "@/components/BookingModal";
-import { Users } from "lucide-react";
+
+// Exact SVG icons matching reference design
+function PinWithBaseIcon({ className = "w-4 h-4 text-[#0C64AB]" }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.6"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M12 2a5 5 0 0 0-5 5c0 3.6 5 9.2 5 9.2s5-5.6 5-9.2a5 5 0 0 0-5-5z" />
+      <circle cx="12" cy="7" r="1.8" />
+      <ellipse cx="12" cy="19.5" rx="6.5" ry="2.2" />
+    </svg>
+  );
+}
+
+function MartiniGlassIcon({ className = "w-4 h-4 text-[#0C64AB]" }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.6"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M3.5 3.5h17L12 13.5 3.5 3.5Z" />
+      <path d="M12 13.5V21" />
+      <path d="M7.5 21h9" />
+    </svg>
+  );
+}
+
+function CapacityUsersIcon({ className = "w-4 h-4 text-[#0C64AB]" }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.6"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+      <circle cx="9" cy="7" r="3.5" />
+      <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+      <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+    </svg>
+  );
+}
 
 interface RestaurantCardData {
   hotelTag: string;
@@ -161,10 +216,10 @@ export default function RestaurantsPage() {
               key={idx}
               className="w-full flex flex-col lg:flex-row items-stretch"
             >
-              {/* Left Column: Full-Height Dining Photo */}
+              {/* Left Column: Dining Photo stretching naturally with right card */}
               <Link
                 href={rest.viewMoreUrl}
-                className="w-full lg:w-1/2 relative min-h-[300px] xs:min-h-[340px] sm:min-h-[440px] lg:min-h-[600px] xl:min-h-[620px] overflow-hidden group block cursor-pointer"
+                className="w-full lg:w-1/2 relative min-h-[280px] xs:min-h-[320px] sm:min-h-[380px] lg:min-h-0 overflow-hidden group block cursor-pointer"
               >
                 <Image
                   src={rest.image}
@@ -176,134 +231,90 @@ export default function RestaurantsPage() {
                 />
               </Link>
 
-              {/* Right Column: Outer #EDEDF7C9 Frame + Overlapping White Card */}
-              <div className="w-full lg:w-1/2 bg-[#EDEDF7C9] flex items-stretch p-3.5 sm:p-5 lg:py-7 lg:pr-7 lg:pl-0">
-                <div className="w-full bg-white -mt-10 sm:-mt-12 lg:mt-0 lg:-ml-5 relative z-10 shadow-sm flex flex-col justify-between p-6 sm:p-8 lg:p-10">
-                  <div>
-                    {/* Hotel Tag */}
-                    <div className="flex items-center gap-2 text-xs sm:text-[13px] text-[#0C64AB] font-normal font-poppins mb-3">
-                      <svg
-                        className="w-3.5 h-3.5 text-[#0C64AB] shrink-0"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7z" />
-                        <circle cx="12" cy="9" r="2.5" />
-                      </svg>
-                      <span>{rest.hotelTag}</span>
+              {/* Right Column: Outer #EDEDF7C9 Frame + Overlapping White Card (Natural vertical flow matching Image 2) */}
+              <div className="w-full lg:w-1/2 bg-[#EDEDF7C9] flex items-center p-3.5 sm:p-5 lg:py-6 lg:pr-6 lg:pl-0">
+                <div className="w-full bg-white -mt-8 sm:-mt-10 lg:mt-0 lg:-ml-5 relative z-10 shadow-sm p-6 sm:p-8 lg:p-9 flex flex-col">
+                  {/* Hotel Tag */}
+                  <div className="flex items-center gap-2 text-[12.5px] sm:text-[13px] text-[#0C64AB] font-normal font-poppins mb-3.5 sm:mb-4">
+                    <PinWithBaseIcon className="w-4 h-4 text-[#8bb6da] shrink-0" />
+                    <span>{rest.hotelTag}</span>
+                  </div>
+
+                  {/* Two-tone Title (Stacked into 2 distinct lines matching Image 2 exactly) */}
+                  <Link href={rest.viewMoreUrl} className="block group cursor-pointer mb-5 sm:mb-6">
+                    <h2
+                      className="font-bebas text-[36px] xs:text-[40px] sm:text-[44px] lg:text-[46px] leading-[0.95] tracking-tight uppercase select-none group-hover:opacity-90 transition-opacity"
+                      style={{ fontFamily: '"Bebas Neue", Sans-serif' }}
+                    >
+                      <span className="block text-[#75a7cf] font-normal">
+                        {rest.nameLight}
+                      </span>
+                      <span className="block text-[#0C64AB] font-normal mt-0.5">
+                        {rest.nameBold}
+                      </span>
+                    </h2>
+                  </Link>
+
+                  {/* Description Paragraph */}
+                  <p className="font-poppins text-[13px] sm:text-[13.5px] lg:text-[14px] leading-[1.65] text-[#7a7a7a] mb-6 sm:mb-7 font-normal">
+                    {rest.description}
+                  </p>
+
+                  {/* Row 1: Cuisine Type & Capacity (Matching Image 2 exactly) */}
+                  <div className="flex flex-wrap items-center gap-x-8 sm:gap-x-10 gap-y-2 text-[13px] sm:text-[13.5px] font-poppins text-[#0C64AB] mb-4 sm:mb-5">
+                    <div className="flex items-center gap-2.5">
+                      <MartiniGlassIcon className="w-4 h-4 text-[#0C64AB] shrink-0" />
+                      <span className="font-normal">{rest.cuisine}</span>
                     </div>
 
-                    {/* Two-tone Title (Stacked into 2 distinct lines matching Image 1) */}
-                    <Link href={rest.viewMoreUrl} className="block group cursor-pointer mb-4">
-                      <h2
-                        className="font-bebas text-[34px] xs:text-[38px] sm:text-[42px] lg:text-[45px] leading-[0.92] tracking-normal uppercase select-none group-hover:opacity-90 transition-opacity"
-                        style={{ fontFamily: '"Bebas Neue", Sans-serif' }}
-                      >
-                        <span className="block text-[#1c6fae] font-normal tracking-[-0.5px]">
-                          {rest.nameLight}
-                        </span>
-                        <span className="block text-[#0C64AB] font-medium tracking-[-0.5px]">
-                          {rest.nameBold}
-                        </span>
-                      </h2>
-                    </Link>
-
-                    {/* Description Paragraph */}
-                    <p className="font-poppins text-xs sm:text-[13.5px] lg:text-[14px] leading-relaxed text-[#555555] mb-6 font-normal">
-                      {rest.description}
-                    </p>
-
-                    {/* Row 1: Cuisine Type & Capacity (Matching Image 2 exactly) */}
-                    <div className="flex flex-wrap items-center gap-x-8 sm:gap-x-12 gap-y-2 text-[13px] sm:text-[14px] font-poppins text-[#0C64AB] mb-4">
-                      <div className="flex items-center gap-2">
-                        {/* Cocktail / Martini Glass Icon */}
-                        <svg
-                          className="w-4 h-4 text-[#0C64AB] shrink-0"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="1.8"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        >
-                          <path d="M8 22h8" />
-                          <path d="M12 15v7" />
-                          <path d="m19 3-7 8-7-8Z" />
-                        </svg>
-                        <span className="font-normal">{rest.cuisine}</span>
-                      </div>
-
-                      <div className="flex items-center gap-2">
-                        {/* Capacity Users Icon */}
-                        <Users className="w-4 h-4 text-[#0C64AB] shrink-0 stroke-[1.8]" />
-                        <span className="font-normal">{rest.capacity}</span>
-                      </div>
-                    </div>
-
-                    {/* Row 2: Address with Circular Locator Target Icon (Matching Image 2 exactly) */}
-                    <div className="flex items-start gap-2.5 text-[12.5px] sm:text-[13px] font-poppins text-[#0C64AB] leading-[1.55] mb-5">
-                      <svg
-                        className="w-4 h-4 text-[#0C64AB] shrink-0 mt-0.5"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="1.8"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <circle cx="12" cy="12" r="9" />
-                        <circle cx="12" cy="12" r="3" />
-                        <path d="M12 2v2" />
-                        <path d="M12 20v2" />
-                        <path d="M2 12h2" />
-                        <path d="M20 12h2" />
-                      </svg>
-                      <span className="font-normal">{rest.address}</span>
+                    <div className="flex items-center gap-2.5">
+                      <CapacityUsersIcon className="w-4 h-4 text-[#0C64AB] shrink-0" />
+                      <span className="font-normal">{rest.capacity}</span>
                     </div>
                   </div>
 
-                  <div>
-                    {/* Divider matching Image 2 */}
-                    <div className="border-t border-[#E5E7EB] my-5 sm:my-6" />
+                  {/* Row 2: Address with Pin-on-pedestal Icon (Matching Image 2 exactly) */}
+                  <div className="flex items-start gap-2.5 text-[12.5px] sm:text-[13px] font-poppins text-[#0C64AB] leading-[1.6] mb-6 sm:mb-7">
+                    <PinWithBaseIcon className="w-4 h-4 text-[#0C64AB] shrink-0 mt-0.5" />
+                    <span className="font-normal">{rest.address}</span>
+                  </div>
 
-                    {/* Action Buttons Row matching Image 2 exactly: VIEW MORE, VIEW MAP, LET'S GET ORDERING */}
-                    <div className="flex flex-wrap items-center justify-between gap-y-3 gap-x-6 pt-1">
-                      <div className="flex items-center gap-6 sm:gap-10">
-                        <Link
-                          href={rest.viewMoreUrl}
-                          className="font-bebas text-[18px] sm:text-[20px] text-[#0C64AB] hover:text-[#084572] underline underline-offset-4 tracking-[0.5px] uppercase font-normal transition-colors"
-                          style={{ fontFamily: '"Bebas Neue", Sans-serif' }}
-                        >
-                          VIEW MORE
-                        </Link>
+                  {/* Divider matching Image 2 */}
+                  <div className="border-t border-[#E5E7EB] mb-5 sm:mb-6" />
 
-                        {rest.mapUrl && (
-                          <a
-                            href={rest.mapUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="font-bebas text-[18px] sm:text-[20px] text-[#0C64AB] hover:text-[#084572] underline underline-offset-4 tracking-[0.5px] uppercase font-normal transition-colors"
-                            style={{ fontFamily: '"Bebas Neue", Sans-serif' }}
-                          >
-                            VIEW MAP
-                          </a>
-                        )}
-                      </div>
-
-                      <a
-                        href={rest.orderUrl || "https://orders.tamannahotels.com/"}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="border-2 border-[#0C64AB] text-[#0C64AB] hover:bg-[#0C64AB] hover:text-white rounded-full px-6 sm:px-7 py-2 font-bebas text-[17px] sm:text-[19px] tracking-[0.6px] uppercase font-normal transition-colors duration-200 shrink-0 inline-flex items-center justify-center cursor-pointer"
+                  {/* Action Buttons Row matching Image 2 exactly: VIEW MORE, VIEW MAP, LET'S GET ORDERING */}
+                  <div className="flex flex-wrap items-center justify-between gap-y-3 gap-x-6">
+                    <div className="flex items-center gap-6 sm:gap-8">
+                      <Link
+                        href={rest.viewMoreUrl}
+                        className="font-bebas text-[19px] sm:text-[21px] text-[#0C64AB] hover:text-[#084572] underline underline-offset-[5px] decoration-[1.5px] tracking-[0.5px] uppercase font-normal transition-colors"
                         style={{ fontFamily: '"Bebas Neue", Sans-serif' }}
                       >
-                        LET&apos;S GET ORDERING
-                      </a>
+                        VIEW MORE
+                      </Link>
+
+                      {rest.mapUrl && (
+                        <a
+                          href={rest.mapUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="font-bebas text-[19px] sm:text-[21px] text-[#0C64AB] hover:text-[#084572] underline underline-offset-[5px] decoration-[1.5px] tracking-[0.5px] uppercase font-normal transition-colors"
+                          style={{ fontFamily: '"Bebas Neue", Sans-serif' }}
+                        >
+                          VIEW MAP
+                        </a>
+                      )}
                     </div>
+
+                    <a
+                      href={rest.orderUrl || "https://orders.tamannahotels.com/"}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="border-[1.8px] border-[#0C64AB] text-[#0C64AB] hover:bg-[#0C64AB] hover:text-white rounded-full px-7 sm:px-8 py-2 sm:py-2.5 font-bebas text-[17px] sm:text-[19px] tracking-[0.6px] uppercase font-normal transition-colors duration-200 shrink-0 inline-flex items-center justify-center cursor-pointer"
+                      style={{ fontFamily: '"Bebas Neue", Sans-serif' }}
+                    >
+                      LET&apos;S GET ORDERING
+                    </a>
                   </div>
                 </div>
               </div>
