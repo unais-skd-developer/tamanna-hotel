@@ -40,6 +40,5 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# raw image backups
+# raw large image backups
 public/images/site/_raw/
-
